@@ -3,12 +3,11 @@
 ## A note-taking program
 
 For my project, I propose to design a note-taking program.
-It's features will include:
+It will feature:
 
-- Two-dimensional graphing
-- Standard calculator operations
-- Parsing multiple operations at once
-- Operation log
+- Note-taking and saving under a title
+- Categories (such as chem, physics etc) under which the notes are saved
+- The ability to delete any unneeded notes if so desired.
 
 As the program is a note-taking program, it is obviously
 targeted towards fellow students, though it can be used
