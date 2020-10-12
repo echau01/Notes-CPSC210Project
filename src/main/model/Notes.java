@@ -32,10 +32,23 @@ public class Notes {
         return s.equals(title);
     }
 
+    // REQUIRES: body must have an entry at the given index
     // EFFECTS: returns the specified entry in body, with index / line number as its first character
-    public String getEntryWithLineNumber(String entry) {
-        String lineNumber = Integer.toString(body.indexOf(entry));
-        return "Line " + lineNumber + ": " + entry;
+    public String getEntryWithLineNumber(int i) {
+        String lineNumber = Integer.toString(i + 1);
+        return "Line " + lineNumber + ": " + body.get(i);
+    }
+
+    // EFFECTS: prints out all entries in body, with their corresponding line numbers
+    public void printAllLines() {
+        for (int i = 0; i < body.size(); i++) {
+            System.out.println(getEntryWithLineNumber(i));
+        }
+    }
+
+    // EFFECTS: returns true if i is less than the body size (is in the index of the body)
+    public boolean withinIndex(int i) {
+        return i < body.size();
     }
 
     // EFFECTS: gets title of note

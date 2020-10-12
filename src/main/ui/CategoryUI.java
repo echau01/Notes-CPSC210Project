@@ -7,11 +7,14 @@ public class CategoryUI extends UI {
 
     Category cty;
 
+    // MODIFIES: this
+    // EFFECTS: constructs the category ui
     public CategoryUI(Category c) {
         cty = c;
         init();
     }
 
+    // EFFECTS: prints out the category ui
     @Override
     public void consoleUI() {
         if (cty.getLength() == 0) {
@@ -21,21 +24,26 @@ public class CategoryUI extends UI {
             System.out.println("All notes under category: " + cty.getName());
             cty.printNoteNames();
             System.out.println("Enter the name of the notes you wish to access. Otherwise, please refer to commands."
-                    + "\n COMMANDS: \n\tR = Rename this category \n\tC = Create notes \n\tD = Delete notes"
-                    + "\n\tX = Exit category");
+                    + "\n COMMANDS: \n\tR = Rename This Category \n\tC = Create Notes \n\tD = Delete Notes"
+                    + "\n\tX = Exit Category");
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: processes user input
     @Override
     public void processCommands() {
         super.processCommands();
 
-        if (cmd.equals("C")) {
+        Notes noteFromKeyInput = cty.returnNoteWithName(cmd);
+        if (cmd.equals("c")) {
             makeNotes();
-        } else if (cmd.equals("D")) {
+        } else if (cmd.equals("d")) {
             deleteNotes();
-        } else if (cmd.equals("R")) {
+        } else if (cmd.equals("r")) {
             renameCategory();
+        } else if (noteFromKeyInput.getTitle() != "") {
+            new NotesUI(noteFromKeyInput);
         }
     }
 
@@ -46,6 +54,8 @@ public class CategoryUI extends UI {
         System.out.println("Enter the title of the notes.");
 
         cmd = keyInput.next();
+        cmd += keyInput.nextLine();
+
         Notes n = new Notes(cmd);
         cty.addNotes(n);
     }
@@ -58,6 +68,8 @@ public class CategoryUI extends UI {
         cty.printNoteNames();
 
         cmd = keyInput.next();
+        cmd += keyInput.nextLine();
+
         cty.removeNotes(cmd);
     }
 
@@ -65,7 +77,10 @@ public class CategoryUI extends UI {
     // EFFECTS: renames category to the string given by key input
     private void renameCategory() {
         System.out.println("Rename this category to:");
+
         cmd = keyInput.next();
+        cmd += keyInput.nextLine();
+
         cty.rename(cmd);
     }
 }

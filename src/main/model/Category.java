@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Category {
@@ -29,6 +28,18 @@ public class Category {
                 break;
             }
         }
+    }
+
+    // REQUIRES: name is in lower case
+    // EFFECTS: returns the category with the given name, returns a placeholder if there is no such category
+    public Notes returnNoteWithName(String s) {
+        for (Notes n: allNotes) {
+            String noteName = n.getTitle().toLowerCase();
+            if (s.equals(noteName)) {
+                return n;
+            }
+        }
+        return new Notes("");
     }
 
     // EFFECTS: returns the category name

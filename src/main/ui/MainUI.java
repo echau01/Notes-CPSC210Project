@@ -15,7 +15,6 @@ public class MainUI extends UI {
         init();
     }
 
-
     // EFFECTS: prints out the terminal ui
     @Override
     public void consoleUI() {
@@ -26,25 +25,24 @@ public class MainUI extends UI {
             System.out.println("Your note categories are: ");
             printCategoryNames();
             System.out.println("Enter the name of the category you wish to access. Otherwise, please refer to commands."
-                    + "\n COMMANDS: \n\tD = Delete category \n\tC = Make category \n\tR = Rename category"
-                    + "\n\tX = Terminate program");
+                    + "\n COMMANDS: \n\tD = Delete Category \n\tC = Make Category"
+                    + "\n\tX = Terminate Program");
         }
     }
 
-    // I took some inspiration from the Teller app here when designing key inputs.
     // MODIFIES: this
     // EFFECTS: processes user input
     @Override
     public void processCommands() {
         super.processCommands();
-        Category categoryNamedCmd = getCategoryByName(cmd);
+        Category categoryFromKeyInput = getCategoryByName(cmd);
 
-        if (cmd.equals("C")) {
+        if (cmd.equals("c")) {
             makeCategory();
-        } else if (cmd.equals("D")) {
+        } else if (cmd.equals("d")) {
             deleteCategory();
-        } else if (cmd.equals(categoryNamedCmd.getName().toUpperCase())) {
-            new CategoryUI(categoryNamedCmd);
+        } else if (categoryFromKeyInput.getName() != "") {
+            new CategoryUI(categoryFromKeyInput);
         }
     }
 
@@ -55,6 +53,8 @@ public class MainUI extends UI {
         System.out.println("Type in the name of the category you wish to create.");
 
         cmd = keyInput.next();
+        cmd += keyInput.nextLine();
+
         Category c = new Category(cmd);
         allCategories.add(c);
     }
@@ -67,6 +67,8 @@ public class MainUI extends UI {
         printCategoryNames();
 
         cmd = keyInput.next();
+        cmd += keyInput.nextLine();
+
         for (Category c:allCategories) {
             if (cmd.equals(c.getName())) {
                 allCategories.remove(c);
@@ -82,12 +84,12 @@ public class MainUI extends UI {
         }
     }
 
-    // REQUIRES: name is in all caps
+    // REQUIRES: name is in lower case
     // EFFECTS: returns the category with the given name, returns a placeholder if there is no such category
     private Category getCategoryByName(String name) {
         String ctyName;
         for (Category c:allCategories) {
-            ctyName = c.getName().toUpperCase();
+            ctyName = c.getName().toLowerCase();
             if (name.equals(ctyName)) {
                 return c;
             }

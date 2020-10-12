@@ -18,14 +18,9 @@ I've always wanted to make a note-taking program as a result.
 
 ## User Stories
 - As a user, I want to be able to create annotated notes,
-complete with a title and body.
-- As a user, I want to be able to create categories
-under which notes can be saved under.
-- As a user, I want to be able to save my notes under
-different these categories.
-- As a user, I want to be able to view my list of note
+complete with a title, body and category.
+- As a user, I want to be able to select and view my list of note
 categories, and their associated notes.
 - As a user, I want to be able to delete unneeded categories
 and unneeded notes.
-- As a user, I want to be able to view these notes
-individually.
+- As a user, I want to be to rename these notes and categories.

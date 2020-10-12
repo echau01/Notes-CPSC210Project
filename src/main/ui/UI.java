@@ -7,6 +7,7 @@ abstract class UI {
     protected Scanner keyInput;
     protected boolean running;
     protected String cmd;
+    protected String cmd2;
 
     // MODIFIES: this
     // EFFECTS: initialises the entire ui
@@ -20,13 +21,16 @@ abstract class UI {
         }
     }
 
+    // I took some inspiration from the Teller app here when designing key inputs.
     // MODIFIES: this
-    // EFFECTS: processes key inputs, x terminates the ui
+    // EFFECTS: processes key inputs, pressing x terminates the ui
     public void processCommands() {
         cmd = keyInput.next();
-        cmd = cmd.toUpperCase();
+        cmd += keyInput.nextLine();
+        cmd2 = cmd;
+        cmd = cmd.toLowerCase();
 
-        if (cmd.equals("X")) {
+        if (cmd.equals("x")) {
             running = false;
             System.out.println("Exiting...");
         }
