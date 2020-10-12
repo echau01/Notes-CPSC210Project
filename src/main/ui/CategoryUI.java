@@ -4,9 +4,9 @@ import model.Category;
 import model.Notes;
 
 public class CategoryUI extends UI {
-
     Category cty;
 
+    // CONSTRUCTOR
     // MODIFIES: this
     // EFFECTS: constructs the category ui
     public CategoryUI(Category c) {
@@ -22,7 +22,7 @@ public class CategoryUI extends UI {
                     + "\n\tR = Rename this category \n\tC = Create new notes \n\tX = Exit category");
         } else {
             System.out.println("All notes under category: " + cty.getName());
-            cty.printNoteNames();
+            printNoteNames();
             System.out.println("Enter the name of the notes you wish to access. Otherwise, please refer to commands."
                     + "\n COMMANDS: \n\tR = Rename This Category \n\tC = Create Notes \n\tD = Delete Notes"
                     + "\n\tX = Exit Category");
@@ -35,7 +35,7 @@ public class CategoryUI extends UI {
     public void processCommands() {
         super.processCommands();
 
-        Notes noteFromKeyInput = cty.returnNoteWithName(cmd);
+        Notes noteFromKeyInput = cty.getNoteByName(cmd);
         if (cmd.equals("c")) {
             makeNotes();
         } else if (cmd.equals("d")) {
@@ -60,17 +60,24 @@ public class CategoryUI extends UI {
         cty.addNotes(n);
     }
 
+    // EFFECTS: prints all note names
+    private void printNoteNames() {
+        for (int i = 0; i < cty.getLength(); i++) {
+            System.out.println("\t" + cty.getNoteByIndex(i));
+        }
+    }
+
     // REQUIRES: length of allCategories is at least 1
     // MODIFIES: this
     // EFFECTS: deletes a category with the given name, print 'unknown name' otherwise
     private void deleteNotes() {
         System.out.println("Type in the title of the note you wish to delete. Your notes are:");
-        cty.printNoteNames();
+        printNoteNames();
 
         cmd = keyInput.next();
         cmd += keyInput.nextLine();
 
-        cty.removeNotes(cmd);
+        cty.removeNotesByName(cmd);
     }
 
     // MODIFIES: this
@@ -81,6 +88,6 @@ public class CategoryUI extends UI {
         cmd = keyInput.next();
         cmd += keyInput.nextLine();
 
-        cty.rename(cmd);
+        cty.setName(cmd);
     }
 }

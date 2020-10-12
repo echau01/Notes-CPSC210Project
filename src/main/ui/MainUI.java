@@ -1,24 +1,23 @@
 package ui;
 
 import model.Category;
-
-import java.util.ArrayList;
-import java.util.List;
+import model.CategoryContainer;
 
 
 public class MainUI extends UI {
-    private List<Category> allCategories;
+    private final CategoryContainer ALL_CATEGORIES;
 
+    // CONSTRUCTOR
     // EFFECTS: runs the category ui
     public MainUI() {
-        allCategories = new ArrayList<>();
+        ALL_CATEGORIES = new CategoryContainer();
         init();
     }
 
     // EFFECTS: prints out the terminal ui
     @Override
     public void consoleUI() {
-        if (allCategories.size() == 0) {
+        if (ALL_CATEGORIES.getLength() == 0) {
             System.out.println("You currently have no categories. Please refer to commands."
                     + "\n COMMANDS: \n\tC = Create new category \n\tX = Terminate program");
         } else {
@@ -35,7 +34,7 @@ public class MainUI extends UI {
     @Override
     public void processCommands() {
         super.processCommands();
-        Category categoryFromKeyInput = getCategoryByName(cmd);
+        Category categoryFromKeyInput = ALL_CATEGORIES.getCategoryByName(cmd);
 
         if (cmd.equals("c")) {
             makeCategory();
@@ -56,7 +55,7 @@ public class MainUI extends UI {
         cmd += keyInput.nextLine();
 
         Category c = new Category(cmd);
-        allCategories.add(c);
+        ALL_CATEGORIES.addCategory(c);
     }
 
     // REQUIRES: length of allCategories is at least 1
@@ -69,31 +68,13 @@ public class MainUI extends UI {
         cmd = keyInput.next();
         cmd += keyInput.nextLine();
 
-        for (Category c:allCategories) {
-            if (cmd.equals(c.getName())) {
-                allCategories.remove(c);
-                break;
-            }
-        }
+        ALL_CATEGORIES.deleteCategory(cmd);
     }
 
-    // EFFECTS: prints out the name of every category
+    // EFFECTS: prints all note names
     private void printCategoryNames() {
-        for (Category c:allCategories) {
-            System.out.println("\t" + c.getName());
+        for (int i = 0; i < ALL_CATEGORIES.getLength(); i++) {
+            System.out.println("\t" + ALL_CATEGORIES.getCategoryNameByIndex(i));
         }
-    }
-
-    // REQUIRES: name is in lower case
-    // EFFECTS: returns the category with the given name, returns a placeholder if there is no such category
-    private Category getCategoryByName(String name) {
-        String ctyName;
-        for (Category c:allCategories) {
-            ctyName = c.getName().toLowerCase();
-            if (name.equals(ctyName)) {
-                return c;
-            }
-        }
-        return new Category("");
     }
 }

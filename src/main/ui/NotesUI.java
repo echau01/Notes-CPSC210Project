@@ -18,7 +18,7 @@ public class NotesUI extends UI {
     @Override
     public void consoleUI() {
         System.out.println("Viewing note: " + note.getTitle());
-        note.printAllLines();
+        printAllLines();
         System.out.println("\nTo add on to the notes, type anything and hit enter. "
                 + "\n COMMANDS: \n\tR = Rename This Note \n\tD = Delete Line \n\tX = Exit Note");
     }
@@ -44,9 +44,13 @@ public class NotesUI extends UI {
         System.out.println("Delete which line?");
         cmd = keyInput.next();
 
-        Integer indexNumber = abs(Integer.parseInt(cmd) - 1);
-        if (note.withinIndex(indexNumber)) {
-            note.deleteBodyByIndex(indexNumber);
+        try {
+            Integer indexNumber = abs(Integer.parseInt(cmd) - 1);
+            if (note.withinIndex(indexNumber)) {
+                note.deleteBodyByIndex(indexNumber);
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Enter a valid number.");
         }
     }
 
@@ -57,6 +61,13 @@ public class NotesUI extends UI {
         cmd = keyInput.next();
         cmd += keyInput.nextLine();
         note.setTitle(cmd);
+    }
+
+    // EFFECTS: prints out all entries in body, with their corresponding line numbers
+    private void printAllLines() {
+        for (int i = 0; i < note.getLength(); i++) {
+            System.out.println(note.getEntryWithLineNumber(i));
+        }
     }
 
 

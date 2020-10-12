@@ -27,11 +27,6 @@ public class Notes {
         body.remove(i);
     }
 
-    // EFFECTS: returns true if title is the same as the given string, false otherwise
-    public boolean hasTitle(String s) {
-        return s.equals(title);
-    }
-
     // REQUIRES: body must have an entry at the given index
     // EFFECTS: returns the specified entry in body, with index / line number as its first character
     public String getEntryWithLineNumber(int i) {
@@ -39,11 +34,14 @@ public class Notes {
         return "Line " + lineNumber + ": " + body.get(i);
     }
 
-    // EFFECTS: prints out all entries in body, with their corresponding line numbers
-    public void printAllLines() {
-        for (int i = 0; i < body.size(); i++) {
-            System.out.println(getEntryWithLineNumber(i));
-        }
+    // EFFECTS: returns true if title is the same as the given string, false otherwise
+    public boolean hasTitle(String s) {
+        return s.equals(title);
+    }
+
+    // EFFECTS: returns true if the body contains the given string, false otherwise
+    public boolean containsEntry(String entry) {
+        return body.contains(entry);
     }
 
     // EFFECTS: returns true if i is less than the body size (is in the index of the body)
@@ -59,6 +57,10 @@ public class Notes {
     // EFFECTS: sets the title to the given string
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getLength() {
+        return body.size();
     }
 
 }
