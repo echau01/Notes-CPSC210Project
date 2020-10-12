@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryContainer {
+public class CategoryContainer implements Container {
     private List<Category> categories;
 
     // CONSTRUCTOR
@@ -27,7 +27,7 @@ public class CategoryContainer {
 
     // MODIFIES: this
     // EFFECTS: if a category matches the given string, the category is deleted, otherwise do nothing
-    public void deleteCategory(String s) {
+    public void removeCategoryByName(String s) {
         for (Category c:categories) {
             if (s.equals(c.getName())) {
                 removeCategory(c);

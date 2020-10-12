@@ -68,7 +68,7 @@ public class MainUI extends UI {
         cmd = keyInput.next();
         cmd += keyInput.nextLine();
 
-        allCategories.deleteCategory(cmd);
+        allCategories.removeCategoryByName(cmd);
     }
 
     // EFFECTS: prints all note names

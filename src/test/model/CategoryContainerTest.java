@@ -35,7 +35,7 @@ public class CategoryContainerTest {
         ctyc.addCategory(new Category(""));
         assertEquals(1, ctyc.getLength());
 
-        ctyc.deleteCategory("a");
+        ctyc.removeCategoryByName("a");
         assertEquals(1, ctyc.getLength());
     }
 
@@ -44,7 +44,7 @@ public class CategoryContainerTest {
         ctyc.addCategory(new Category(""));
         assertEquals(1, ctyc.getLength());
 
-        ctyc.deleteCategory("");
+        ctyc.removeCategoryByName("");
         assertEquals(0, ctyc.getLength());
     }
 
@@ -60,12 +60,12 @@ public class CategoryContainerTest {
         assertTrue(ctyc.containsCategory("251"));
         assertTrue(ctyc.containsCategory("0"));
 
-        ctyc.deleteCategory("484");
-        ctyc.deleteCategory("251");
-        ctyc.deleteCategory("0");
+        ctyc.removeCategoryByName("484");
+        ctyc.removeCategoryByName("251");
+        ctyc.removeCategoryByName("0");
         // these should result in doing nothing
-        ctyc.deleteCategory("693");
-        ctyc.deleteCategory("-576");
+        ctyc.removeCategoryByName("693");
+        ctyc.removeCategoryByName("-576");
 
         assertEquals(497, ctyc.getLength());
         assertFalse(ctyc.containsCategory("484"));
