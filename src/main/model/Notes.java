@@ -3,7 +3,7 @@ package model;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Notes implements Container {
+public class Notes {
     private String title;
     private List<String> body;
 

@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryContainer implements Container {
+public class CategoryContainer {
     private List<Category> categories;
 
     // CONSTRUCTOR
