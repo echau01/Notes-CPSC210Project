@@ -38,6 +38,8 @@ public class NotesUI extends UI {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: deletes a line with index given by key input
     private void deleteLine() {
         System.out.println("Delete which line?");
         cmd = keyInput.next();
