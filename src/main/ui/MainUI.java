@@ -5,19 +5,19 @@ import model.CategoryContainer;
 
 
 public class MainUI extends UI {
-    private final CategoryContainer ALL_CATEGORIES;
+    private final CategoryContainer allCategories;
 
     // CONSTRUCTOR
     // EFFECTS: runs the category ui
     public MainUI() {
-        ALL_CATEGORIES = new CategoryContainer();
+        allCategories = new CategoryContainer();
         init();
     }
 
     // EFFECTS: prints out the terminal ui
     @Override
     public void consoleUI() {
-        if (ALL_CATEGORIES.getLength() == 0) {
+        if (allCategories.getLength() == 0) {
             System.out.println("You currently have no categories. Please refer to commands."
                     + "\n COMMANDS: \n\tC = Create new category \n\tX = Terminate program");
         } else {
@@ -34,7 +34,7 @@ public class MainUI extends UI {
     @Override
     public void processCommands() {
         super.processCommands();
-        Category categoryFromKeyInput = ALL_CATEGORIES.getCategoryByName(cmd);
+        Category categoryFromKeyInput = allCategories.getCategoryByName(cmd);
 
         if (cmd.equals("c")) {
             makeCategory();
@@ -55,7 +55,7 @@ public class MainUI extends UI {
         cmd += keyInput.nextLine();
 
         Category c = new Category(cmd);
-        ALL_CATEGORIES.addCategory(c);
+        allCategories.addCategory(c);
     }
 
     // REQUIRES: length of allCategories is at least 1
@@ -68,13 +68,13 @@ public class MainUI extends UI {
         cmd = keyInput.next();
         cmd += keyInput.nextLine();
 
-        ALL_CATEGORIES.deleteCategory(cmd);
+        allCategories.deleteCategory(cmd);
     }
 
     // EFFECTS: prints all note names
     private void printCategoryNames() {
-        for (int i = 0; i < ALL_CATEGORIES.getLength(); i++) {
-            System.out.println("\t" + ALL_CATEGORIES.getCategoryNameByIndex(i));
+        for (int i = 0; i < allCategories.getLength(); i++) {
+            System.out.println("\t" + allCategories.getCategoryNameByIndex(i));
         }
     }
 }
