@@ -26,7 +26,8 @@ public class MainUI extends UI {
             System.out.println("Your note categories are: ");
             printCategoryNames();
             System.out.println("Enter the name of the category you wish to access. Otherwise, please refer to commands."
-                    + "\n COMMANDS: \n\tD = Delete a category \n\tC = Make new category \n\tX = Terminate program");
+                    + "\n COMMANDS: \n\tD = Delete category \n\tC = Make category \n\tR = Rename category"
+                    + "\n\tX = Terminate program");
         }
     }
 
@@ -36,7 +37,6 @@ public class MainUI extends UI {
     @Override
     public void processCommands() {
         super.processCommands();
-
         Category categoryNamedCmd = getCategoryByName(cmd);
 
         if (cmd.equals("C")) {

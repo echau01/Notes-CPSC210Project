@@ -16,12 +16,13 @@ public class CategoryUI extends UI {
     public void consoleUI() {
         if (cty.getLength() == 0) {
             System.out.println(cty.getName() + " currently has no notes. Create a new note? \n COMMANDS:"
-                    + "\n\tC = Create new notes \n\tX = Exit category");
+                    + "\n\tR = Rename this category \n\tC = Create new notes \n\tX = Exit category");
         } else {
             System.out.println("All notes under category: " + cty.getName());
             cty.printNoteNames();
             System.out.println("Enter the name of the notes you wish to access. Otherwise, please refer to commands."
-                    + "\n COMMANDS: \n\tC = Create new notes \n\tD = Delete notes \n\tX = Exit category");
+                    + "\n COMMANDS: \n\tR = Rename this category \n\tC = Create notes \n\tD = Delete notes"
+                    + "\n\tX = Exit category");
         }
     }
 
@@ -33,6 +34,8 @@ public class CategoryUI extends UI {
             makeNotes();
         } else if (cmd.equals("D")) {
             deleteNotes();
+        } else if (cmd.equals("R")) {
+            renameCategory();
         }
     }
 
@@ -56,5 +59,13 @@ public class CategoryUI extends UI {
 
         cmd = keyInput.next();
         cty.removeNotes(cmd);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: renames category to the string given by key input
+    private void renameCategory() {
+        System.out.println("Rename this category to:");
+        cmd = keyInput.next();
+        cty.rename(cmd);
     }
 }
