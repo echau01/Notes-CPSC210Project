@@ -1,9 +1,13 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.LinkedList;
 import java.util.List;
 
-public class Notes {
+public class Notes implements Writable {
     private String title;
     private List<String> body;
 
@@ -59,8 +63,26 @@ public class Notes {
         this.title = title;
     }
 
+    // EFFECTS: returns total line number of notes
     public int getLength() {
         return body.size();
     }
 
+    // the method here is inspired by the JsonSerializationDemo app provided in the Phase 2 edX page
+    @Override
+    public JSONObject toJson() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("notes", title);
+        jsonObject.put("note body", bodyToJsonArray());
+        return jsonObject;
+    }
+
+    // EFFECTS: places every single line in note body into a single json array
+    private JSONArray bodyToJsonArray() {
+        JSONArray jsonArray = new JSONArray();
+        for (String lines: body) {
+            jsonArray.put(lines);
+        }
+        return jsonArray;
+    }
 }

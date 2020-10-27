@@ -1,9 +1,13 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Category {
+public class Category implements Writable {
     private String category;
     private List<Notes> allNotes;
 
@@ -81,5 +85,21 @@ public class Category {
         category = name;
     }
 
+    // the method here is inspired by the JsonSerializationDemo app provided in the Phase 2 edX page
+    @Override
+    public JSONObject toJson() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("category", category);
+        jsonObject.put("all notes", allNotesToJsonArray());
+        return jsonObject;
+    }
 
+    // EFFECTS: places every single note in category into a single json array
+    private JSONArray allNotesToJsonArray() {
+        JSONArray jsonArray = new JSONArray();
+        for (Notes notes: allNotes) {
+            jsonArray.put(notes);
+        }
+        return jsonArray;
+    }
 }

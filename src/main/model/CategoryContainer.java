@@ -1,9 +1,13 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryContainer {
+public class CategoryContainer implements Writable {
     private List<Category> categories;
 
     // CONSTRUCTOR
@@ -54,6 +58,7 @@ public class CategoryContainer {
         return new Category("");
     }
 
+    // EFFECTS: returns true if category container contains a category with the given name
     public boolean containsCategory(String name) {
         for (Category c: categories) {
             if (name.equals(c.getName())) {
@@ -66,5 +71,22 @@ public class CategoryContainer {
     // EFFECTS: returns number categories in category container
     public Integer getLength() {
         return categories.size();
+    }
+
+    // the method here is inspired by the JsonSerializationDemo app provided in the Phase 2 edX page
+    @Override
+    public JSONObject toJson() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("categories", categoriesToJsonArray());
+        return jsonObject;
+    }
+
+    // EFFECTS: places every single category in categories into a single json array
+    private JSONArray categoriesToJsonArray() {
+        JSONArray jsonArray = new JSONArray();
+        for (Category cty: categories) {
+            jsonArray.put(cty);
+        }
+        return jsonArray;
     }
 }

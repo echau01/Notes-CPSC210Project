@@ -2,15 +2,21 @@ package ui;
 
 import model.Category;
 import model.CategoryContainer;
+import persistence.JsonSaver;
+
+import java.io.FileNotFoundException;
 
 
 public class MainUI extends UI {
     private final CategoryContainer allCategories;
+    private static final String DESTINATION = "./data/CategoryContainer.json";
+    private JsonSaver jsonSaver;
 
     // CONSTRUCTOR
     // EFFECTS: runs the category ui
     public MainUI() {
         allCategories = new CategoryContainer();
+        jsonSaver = new JsonSaver(DESTINATION);
         init();
     }
 
@@ -25,7 +31,7 @@ public class MainUI extends UI {
             printCategoryNames();
             System.out.println("Enter the name of the category you wish to access. Otherwise, please refer to commands."
                     + "\n COMMANDS: \n\tD = Delete Category \n\tC = Make Category"
-                    + "\n\tX = Terminate Program");
+                    + "\n\tS = Save Categories \n\tX = Terminate Program");
         }
     }
 
@@ -40,6 +46,8 @@ public class MainUI extends UI {
             makeCategory();
         } else if (cmd.equals("d")) {
             deleteCategory();
+        } else if (cmd.equals("s")) {
+            saveCategories();
         } else if (categoryFromKeyInput.getName() != "") {
             new CategoryUI(categoryFromKeyInput);
         }
@@ -47,7 +55,6 @@ public class MainUI extends UI {
 
     // MODIFIES: this
     // EFFECTS: creates a new category
-    // TODO: add a check to see if the category already exists - if it does, don't make the category
     private void makeCategory() {
         System.out.println("Type in the name of the category you wish to create.");
 
@@ -69,6 +76,17 @@ public class MainUI extends UI {
         cmd += keyInput.nextLine();
 
         allCategories.removeCategoryByName(cmd);
+    }
+
+    private void saveCategories() {
+        try {
+            jsonSaver.initWriter();
+            jsonSaver.save(allCategories);
+            jsonSaver.terminate();
+            System.out.println("Files successfully saved to " + DESTINATION);
+        } catch (FileNotFoundException e) {
+            System.out.println("Cannot save to " + DESTINATION);
+        }
     }
 
     // EFFECTS: prints all note names
