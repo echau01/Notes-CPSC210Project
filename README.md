@@ -24,3 +24,5 @@ categories, and their associated notes.
 - As a user, I want to be able to delete unneeded categories
 and unneeded notes.
 - As a user, I want to be to rename these notes and categories.
+- As a user, I want to be able to save my notes and categories to file
+- As a user, I want to be able to load my notes and categories from file
