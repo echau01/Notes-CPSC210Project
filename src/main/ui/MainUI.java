@@ -46,16 +46,25 @@ public class MainUI extends UI {
         super.processCommands();
         Category categoryFromKeyInput = allCategories.getCategoryByName(cmd);
 
-        if (cmd.equals("c")) {
-            makeCategory();
-        } else if (cmd.equals("d")) {
-            deleteCategory();
-        } else if (cmd.equals("s")) {
-            saveCategories();
-        } else if (cmd.equals("l")) {
-            loadCategories();
-        } else if (categoryFromKeyInput.getName() != "") {
-            new CategoryUI(categoryFromKeyInput);
+        switch (cmd) {
+            case "c":
+                makeCategory();
+                break;
+            case "d":
+                deleteCategory();
+                break;
+            case "s":
+                saveCategories();
+                break;
+            case "l":
+                loadCategories();
+                break;
+            default:
+                if (categoryFromKeyInput.getName() != "") {
+                    new CategoryUI(categoryFromKeyInput);
+                }
+                break;
+
         }
     }
 

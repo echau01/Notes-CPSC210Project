@@ -2,6 +2,8 @@ package ui;
 
 import model.Notes;
 
+import java.io.Serializable;
+
 import static java.lang.Math.abs;
 
 public class NotesUI extends UI {
