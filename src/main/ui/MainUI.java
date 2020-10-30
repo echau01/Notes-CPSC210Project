@@ -27,13 +27,20 @@ public class MainUI extends UI {
     public void consoleUI() {
         if (allCategories.getLength() == 0) {
             System.out.println("You currently have no categories. Please refer to commands."
-                    + "\n COMMANDS: \n\tL = Load Categories \n\tC = Create new category \n\tX = Terminate program");
+                    + "\n COMMANDS:"
+                    + "\n\tL = Load Categories"
+                    + "\n\tC = Create new category"
+                    + "\n\tX = Terminate program");
         } else {
             System.out.println("Your note categories are: ");
             printCategoryNames();
             System.out.println("Enter the name of the category you wish to access. Otherwise, please refer to commands."
-                    + "\n COMMANDS: \n\tD = Delete Category \n\tC = Make Category"
-                    + "\n\tS = Save Categories \n\tL = Load Categories \n\tX = Terminate Program");
+                    + "\n COMMANDS:"
+                    + "\n\tD = Delete Category"
+                    + "\n\tC = Make Category"
+                    + "\n\tS = Save Categories"
+                    + "\n\tL = Load Categories"
+                    + "\n\tX = Terminate Program");
         }
     }
 

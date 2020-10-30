@@ -18,8 +18,11 @@ public class NotesUI extends UI {
     public void consoleUI() {
         System.out.println("Viewing note: " + note.getTitle());
         printAllLines();
-        System.out.println("\nTo add on to the notes, type anything and hit enter. "
-                + "\n COMMANDS: \n\tR = Rename This Note \n\tD = Delete Line \n\tX = Exit Note");
+        System.out.println("\nTo add on to the notes, type anything and hit enter."
+                + "\n COMMANDS:"
+                + "\n\tR = Rename This Note"
+                + "\n\tD = Delete Line"
+                + "\n\tX = Exit Note");
     }
 
     // MODIFIES: this

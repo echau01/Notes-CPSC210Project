@@ -18,13 +18,19 @@ public class CategoryUI extends UI {
     @Override
     public void consoleUI() {
         if (cty.getLength() == 0) {
-            System.out.println(cty.getName() + " currently has no notes. Create a new note? \n COMMANDS:"
-                    + "\n\tR = Rename this category \n\tC = Create new notes \n\tX = Exit category");
+            System.out.println(cty.getName() + " currently has no notes. Create a new note?"
+                    + "\n COMMANDS:"
+                    + "\n\tR = Rename this category"
+                    + "\n\tC = Create new notes"
+                    + "\n\tX = Exit category");
         } else {
             System.out.println("All notes under category: " + cty.getName());
             printNoteNames();
             System.out.println("Enter the name of the notes you wish to access. Otherwise, please refer to commands."
-                    + "\n COMMANDS: \n\tR = Rename This Category \n\tC = Create Notes \n\tD = Delete Notes"
+                    + "\n COMMANDS:"
+                    + "\n\tR = Rename This Category"
+                    + "\n\tC = Create Notes"
+                    + "\n\tD = Delete Notes"
                     + "\n\tX = Exit Category");
         }
     }
