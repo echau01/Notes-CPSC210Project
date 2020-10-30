@@ -3,7 +3,6 @@ package model;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,7 +23,6 @@ public class Notes implements Writable {
         body.add(entry);
     }
 
-    // REQUIRES: body must have an entry in the given index number
     // MODIFIES: this
     // EFFECTS: deletes the string from the body at the given index number
     public void deleteBodyByIndex(int i) {
@@ -69,6 +67,7 @@ public class Notes implements Writable {
     }
 
     // the method here is inspired by the JsonSerializationDemo app provided in the Phase 2 edX page
+    // EFFECTS: converts this into a JSONObject
     @Override
     public JSONObject toJson() {
         JSONObject jsonObject = new JSONObject();

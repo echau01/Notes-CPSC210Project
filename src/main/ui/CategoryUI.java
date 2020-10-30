@@ -34,16 +34,23 @@ public class CategoryUI extends UI {
     @Override
     public void processCommands() {
         super.processCommands();
-
         Notes noteFromKeyInput = cty.getNoteByName(cmd);
-        if (cmd.equals("c")) {
-            makeNotes();
-        } else if (cmd.equals("d")) {
-            deleteNotes();
-        } else if (cmd.equals("r")) {
-            renameCategory();
-        } else if (noteFromKeyInput.getTitle() != "") {
-            new NotesUI(noteFromKeyInput);
+
+        switch (cmd) {
+            case "c":
+                makeNotes();
+                break;
+            case "d":
+                deleteNotes();
+                break;
+            case "r":
+                renameCategory();
+                break;
+            default:
+                if (noteFromKeyInput.getTitle() != "") {
+                    new NotesUI(noteFromKeyInput);
+                }
+                break;
         }
     }
 
@@ -67,7 +74,6 @@ public class CategoryUI extends UI {
         }
     }
 
-    // REQUIRES: length of allCategories is at least 1
     // MODIFIES: this
     // EFFECTS: deletes a category with the given name, print 'unknown name' otherwise
     private void deleteNotes() {

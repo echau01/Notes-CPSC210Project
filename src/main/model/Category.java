@@ -3,7 +3,6 @@ package model;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +23,6 @@ public class Category implements Writable {
         allNotes.add(n);
     }
 
-    // REQUIRES: given note must be in category
     // MODIFIES: this
     // EFFECTS: removes the given note
     public void removeNotes(Notes n) {
@@ -42,13 +40,11 @@ public class Category implements Writable {
         }
     }
 
-    // REQUIRES: category contains a note at index i
     // EFFECTS: returns the title of the given note at index i
     public String getNoteByIndex(int i) {
         return allNotes.get(i).getTitle();
     }
 
-    // REQUIRES: name is in lower case
     // EFFECTS: returns the category with the given name, returns a placeholder if there is no such category
     public Notes getNoteByName(String s) {
         for (Notes n: allNotes) {
@@ -86,6 +82,7 @@ public class Category implements Writable {
     }
 
     // the method here is inspired by the JsonSerializationDemo app provided in the Phase 2 edX page
+    // EFFECTS: converts this into a JSONObject
     @Override
     public JSONObject toJson() {
         JSONObject jsonObject = new JSONObject();
@@ -98,7 +95,6 @@ public class Category implements Writable {
     private JSONArray allNotesToJsonArray() {
         JSONArray jsonArray = new JSONArray();
         for (Notes notes: allNotes) {
-            //jsonArray.put(notes);
             jsonArray.put(notes.toJson());
         }
         return jsonArray;

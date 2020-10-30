@@ -4,10 +4,8 @@ import model.Category;
 import model.CategoryContainer;
 import persistence.JsonParser;
 import persistence.JsonSaver;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
 
 public class MainUI extends UI {
     private CategoryContainer allCategories;
@@ -80,7 +78,6 @@ public class MainUI extends UI {
         allCategories.addCategory(c);
     }
 
-    // REQUIRES: length of allCategories is at least 1
     // MODIFIES: this
     // EFFECTS: deletes a category with the given name, print 'unknown name' otherwise
     private void deleteCategory() {
@@ -93,6 +90,7 @@ public class MainUI extends UI {
         allCategories.removeCategoryByName(cmd);
     }
 
+    // EFFECTS: saves CategoryContainer to file at DESTINATION
     private void saveCategories() {
         try {
             jsonSaver.save(allCategories);
@@ -102,6 +100,8 @@ public class MainUI extends UI {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: loads all category data saved in file at DESTINATION
     private void loadCategories() {
         try {
             allCategories = jsonParser.parseFile();

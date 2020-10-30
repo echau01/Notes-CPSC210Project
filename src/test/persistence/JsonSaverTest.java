@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.nio.file.InvalidPathException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,7 +40,7 @@ public class JsonSaverTest {
         try {
             JsonSaver saver = new JsonSaver("./data/testJsonSaverAllEmpty.json");
             saver.save(ctyc);
-        } catch(IOException e) {
+        } catch (IOException e) {
             fail("caught IOException");
         }
     }
@@ -54,7 +55,9 @@ public class JsonSaverTest {
             JsonParser parser = new JsonParser("./data/testJsonSaverOnlyCategoriesSaved.json");
             ctyc = parser.parseFile();
             assertTrue(ctyc.containsCategory("category"));
-        } catch(IOException e) {
+        } catch (InvalidPathException e) {
+            fail("caught InvalidPathException");
+        } catch (IOException e) {
             fail("caught IOException");
         }
     }
@@ -71,7 +74,9 @@ public class JsonSaverTest {
             ctyc = parser.parseFile();
             assertTrue(ctyc.containsCategory("category"));
             assertTrue(ctyc.getCategoryByName("category").containsNote("note"));
-        } catch(IOException e) {
+        } catch (InvalidPathException e) {
+            fail("caught InvalidPathException");
+        } catch (IOException e) {
             fail("caught IOException");
         }
     }
@@ -90,6 +95,8 @@ public class JsonSaverTest {
             assertTrue(ctyc.containsCategory("category"));
             assertTrue(ctyc.getCategoryByName("category").containsNote("note"));
             assertTrue(ctyc.getCategoryByName("category").getNoteByName("note").containsEntry("entry"));
+        } catch (InvalidPathException e) {
+            fail("caught InvalidPathException");
         } catch (IOException e) {
             fail("caught IOException");
         }

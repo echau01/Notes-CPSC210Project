@@ -3,7 +3,6 @@ package model;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +21,6 @@ public class CategoryContainer implements Writable {
         categories.add(c);
     }
 
-    // REQUIRES: given category must be in category container
     // MODIFIES: this
     // EFFECTS: removes the given category
     public void removeCategory(Category c) {
@@ -45,7 +43,6 @@ public class CategoryContainer implements Writable {
         return categories.get(i).getName();
     }
 
-    // REQUIRES: name is in lower case
     // EFFECTS: returns the category with the given name, returns a placeholder if there is no such category
     public Category getCategoryByName(String name) {
         String ctyName;
@@ -74,6 +71,7 @@ public class CategoryContainer implements Writable {
     }
 
     // the method here is inspired by the JsonSerializationDemo app provided in the Phase 2 edX page
+    // EFFECTS: converts this into a JSONObject
     @Override
     public JSONObject toJson() {
         JSONObject jsonObject = new JSONObject();
@@ -85,7 +83,6 @@ public class CategoryContainer implements Writable {
     private JSONArray categoriesToJsonArray() {
         JSONArray jsonArray = new JSONArray();
         for (Category cty: categories) {
-            // jsonArray.put(cty);
             jsonArray.put(cty.toJson());
         }
         return jsonArray;

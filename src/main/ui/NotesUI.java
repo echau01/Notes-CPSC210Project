@@ -1,9 +1,6 @@
 package ui;
 
 import model.Notes;
-
-import java.io.Serializable;
-
 import static java.lang.Math.abs;
 
 public class NotesUI extends UI {
@@ -31,14 +28,18 @@ public class NotesUI extends UI {
     public void processCommands() {
         super.processCommands();
 
-        if (cmd.equals("r")) {
-            renameNote();
-        } else if (cmd.equals("d")) {
-            deleteLine();
-        } else if (cmd.equals("x")) {
-            ;
-        } else {
-            note.addEntryToBody(cmd2);
+        switch (cmd) {
+            case "x":
+                break;
+            case "r":
+                renameNote();
+                break;
+            case "d":
+                deleteLine();
+                break;
+            default:
+                note.addEntryToBody(cmd2);
+                break;
         }
     }
 
@@ -49,7 +50,7 @@ public class NotesUI extends UI {
         cmd = keyInput.next();
 
         try {
-            Integer indexNumber = abs(Integer.parseInt(cmd) - 1);
+            int indexNumber = abs(Integer.parseInt(cmd) - 1);
             if (note.withinIndex(indexNumber)) {
                 note.deleteBodyByIndex(indexNumber);
             }
