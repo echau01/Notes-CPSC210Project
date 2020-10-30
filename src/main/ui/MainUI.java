@@ -2,21 +2,25 @@ package ui;
 
 import model.Category;
 import model.CategoryContainer;
+import persistence.JsonParser;
 import persistence.JsonSaver;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 
 public class MainUI extends UI {
-    private final CategoryContainer allCategories;
+    private CategoryContainer allCategories;
     private static final String DESTINATION = "./data/CategoryContainer.json";
     private JsonSaver jsonSaver;
+    private JsonParser jsonParser;
 
     // CONSTRUCTOR
     // EFFECTS: runs the category ui
     public MainUI() {
         allCategories = new CategoryContainer();
         jsonSaver = new JsonSaver(DESTINATION);
+        jsonParser = new JsonParser(DESTINATION);
         init();
     }
 
@@ -25,13 +29,13 @@ public class MainUI extends UI {
     public void consoleUI() {
         if (allCategories.getLength() == 0) {
             System.out.println("You currently have no categories. Please refer to commands."
-                    + "\n COMMANDS: \n\tC = Create new category \n\tX = Terminate program");
+                    + "\n COMMANDS: \n\tL = Load Categories \n\tC = Create new category \n\tX = Terminate program");
         } else {
             System.out.println("Your note categories are: ");
             printCategoryNames();
             System.out.println("Enter the name of the category you wish to access. Otherwise, please refer to commands."
                     + "\n COMMANDS: \n\tD = Delete Category \n\tC = Make Category"
-                    + "\n\tS = Save Categories \n\tX = Terminate Program");
+                    + "\n\tS = Save Categories \n\tL = Load Categories \n\tX = Terminate Program");
         }
     }
 
@@ -48,6 +52,8 @@ public class MainUI extends UI {
             deleteCategory();
         } else if (cmd.equals("s")) {
             saveCategories();
+        } else if (cmd.equals("l")) {
+            loadCategories();
         } else if (categoryFromKeyInput.getName() != "") {
             new CategoryUI(categoryFromKeyInput);
         }
@@ -80,12 +86,19 @@ public class MainUI extends UI {
 
     private void saveCategories() {
         try {
-            jsonSaver.initWriter();
             jsonSaver.save(allCategories);
-            jsonSaver.terminate();
             System.out.println("Files successfully saved to " + DESTINATION);
         } catch (FileNotFoundException e) {
             System.out.println("Cannot save to " + DESTINATION);
+        }
+    }
+
+    private void loadCategories() {
+        try {
+            allCategories = jsonParser.parseFile();
+            System.out.println("Loaded from " + DESTINATION);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + DESTINATION);
         }
     }
 

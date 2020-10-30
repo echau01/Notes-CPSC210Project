@@ -98,7 +98,8 @@ public class Category implements Writable {
     private JSONArray allNotesToJsonArray() {
         JSONArray jsonArray = new JSONArray();
         for (Notes notes: allNotes) {
-            jsonArray.put(notes);
+            //jsonArray.put(notes);
+            jsonArray.put(notes.toJson());
         }
         return jsonArray;
     }

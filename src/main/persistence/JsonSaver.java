@@ -21,14 +21,15 @@ public class JsonSaver {
     }
 
     // EFFECTS: prints the JSON representation of the given CategoryContainer as a string to a file
-    public void save(CategoryContainer ctyCon) {
+    public void save(CategoryContainer ctyCon) throws FileNotFoundException {
+        initWriter();
         String jsonCtyCon = ctyCon.toJson().toString(TAB);
         printWriter.write(jsonCtyCon);
+        terminate();
     }
 
     public void terminate() {
         printWriter.close();
     }
-
 
 }

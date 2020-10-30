@@ -33,6 +33,8 @@ public class NotesUI extends UI {
             renameNote();
         } else if (cmd.equals("d")) {
             deleteLine();
+        } else if (cmd.equals("x")) {
+            ;
         } else {
             note.addEntryToBody(cmd2);
         }

@@ -85,7 +85,8 @@ public class CategoryContainer implements Writable {
     private JSONArray categoriesToJsonArray() {
         JSONArray jsonArray = new JSONArray();
         for (Category cty: categories) {
-            jsonArray.put(cty);
+            // jsonArray.put(cty);
+            jsonArray.put(cty.toJson());
         }
         return jsonArray;
     }
