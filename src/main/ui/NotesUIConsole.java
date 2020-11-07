@@ -3,12 +3,12 @@ package ui;
 import model.Notes;
 import static java.lang.Math.abs;
 
-public class NotesUI extends UI {
+public class NotesUIConsole extends UIConsole {
 
     Notes note;
 
     // EFFECTS: constructs the notes ui
-    public NotesUI(Notes note) {
+    public NotesUIConsole(Notes note) {
         this.note = note;
         init();
     }

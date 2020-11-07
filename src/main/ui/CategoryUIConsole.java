@@ -3,13 +3,13 @@ package ui;
 import model.Category;
 import model.Notes;
 
-public class CategoryUI extends UI {
+public class CategoryUIConsole extends UIConsole {
     Category cty;
 
     // CONSTRUCTOR
     // MODIFIES: this
     // EFFECTS: constructs the category ui
-    public CategoryUI(Category c) {
+    public CategoryUIConsole(Category c) {
         cty = c;
         init();
     }
@@ -54,7 +54,7 @@ public class CategoryUI extends UI {
                 break;
             default:
                 if (noteFromKeyInput.getTitle() != "") {
-                    new NotesUI(noteFromKeyInput);
+                    new NotesUIConsole(noteFromKeyInput);
                 }
                 break;
         }

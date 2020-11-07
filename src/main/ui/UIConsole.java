@@ -2,7 +2,7 @@ package ui;
 
 import java.util.Scanner;
 
-abstract class UI {
+abstract class UIConsole {
 
     protected Scanner keyInput;
     protected boolean running;
