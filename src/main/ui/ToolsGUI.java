@@ -1,5 +1,6 @@
 package ui;
 
+import model.NotePanel;
 import model.Notes;
 import ui.tools.*;
 
@@ -12,7 +13,7 @@ public class ToolsGUI {
     private JPanel optionsPanel;
     private JPanel coloursPanel;
     private JPanel toolsPanel;
-    private JTextPane notePane;
+    private NotePanel notePane;
 
     private ButtonGroup colourButtons;
     private ButtonGroup toolButtons;
@@ -22,7 +23,7 @@ public class ToolsGUI {
 
     Notes note;
 
-    ToolsGUI(Notes note, JPanel optionsPanel, JPanel coloursPanel, JPanel toolsPanel, JTextPane notePane) {
+    ToolsGUI(Notes note, JPanel optionsPanel, JPanel coloursPanel, JPanel toolsPanel, NotePanel notePane) {
         this.optionsPanel = optionsPanel;
         this.coloursPanel = coloursPanel;
         this.toolsPanel = toolsPanel;
@@ -83,7 +84,7 @@ public class ToolsGUI {
 
     // TODO: handle the case where the colour / tool selected is null later
     private void performToolAction(Tools t) {
-        notePane.setEditable(false);
+        notePane.toggleEditable(false);
         switch (t) {
             case PEN:
                 new PenTool(note, notePane, selectedColour);

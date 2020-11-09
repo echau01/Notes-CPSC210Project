@@ -1,6 +1,7 @@
 package ui;
 
 import model.NoTitleException;
+import model.NotePanel;
 import model.Notes;
 
 import javax.swing.*;
@@ -15,7 +16,7 @@ public class MainGUI extends JFrame {
     private JPanel optionsPanel;
     private JPanel coloursPanel;
     private JPanel toolsPanel;
-    private JTextPane notePane;
+    private NotePanel notePane;
 
     private Notes note;
 
@@ -50,8 +51,7 @@ public class MainGUI extends JFrame {
         coloursPanel.setLayout(new GridLayout(2, 6));
         coloursPanel.setBorder(BorderFactory.createTitledBorder("Colours"));
 
-        notePane = new JTextPane();
-        notePane.setEditable(false);
+        notePane = new NotePanel();
     }
 
     // MODIFIES: this
