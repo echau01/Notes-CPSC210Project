@@ -1,13 +1,14 @@
-package ui;
+package consoleui;
 
 import model.Category;
 import model.CategoryContainer;
 import persistence.JsonParser;
 import persistence.JsonSaver;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class MainUIConsole extends UIConsole {
+public class MainUI extends UI {
     private CategoryContainer allCategories;
     private static final String DESTINATION = "./data/CategoryContainer.json";
     private JsonSaver jsonSaver;
@@ -15,7 +16,7 @@ public class MainUIConsole extends UIConsole {
 
     // CONSTRUCTOR
     // EFFECTS: runs the category ui
-    public MainUIConsole() {
+    public MainUI() {
         allCategories = new CategoryContainer();
         jsonSaver = new JsonSaver(DESTINATION);
         jsonParser = new JsonParser(DESTINATION);
@@ -66,7 +67,7 @@ public class MainUIConsole extends UIConsole {
                 break;
             default:
                 if (categoryFromKeyInput.getName() != "") {
-                    new CategoryUIConsole(categoryFromKeyInput);
+                    new CategoryUI(categoryFromKeyInput);
                 }
                 break;
 

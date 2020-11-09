@@ -6,9 +6,11 @@ import persistence.Writable;
 import java.util.LinkedList;
 import java.util.List;
 
+// TODO: design tests for the new shit
 public class Notes implements Writable {
     private String title;
     private List<String> body;
+    // private Set<> coords;
 
     // CONSTRUCTOR
     // EFFECTS: Creates a new note with the given title

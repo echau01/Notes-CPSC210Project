@@ -1,14 +1,14 @@
-package ui;
+package consoleui;
 
 import model.Notes;
 import static java.lang.Math.abs;
 
-public class NotesUIConsole extends UIConsole {
+public class NotesUI extends UI {
 
     Notes note;
 
     // EFFECTS: constructs the notes ui
-    public NotesUIConsole(Notes note) {
+    public NotesUI(Notes note) {
         this.note = note;
         init();
     }

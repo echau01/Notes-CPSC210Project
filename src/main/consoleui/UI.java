@@ -1,8 +1,8 @@
-package ui;
+package consoleui;
 
 import java.util.Scanner;
 
-abstract class UIConsole {
+abstract class UI {
 
     protected Scanner keyInput;
     protected boolean running;

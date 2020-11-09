@@ -1,70 +1,41 @@
 package ui;
 
+import model.NoTitleException;
+import model.Notes;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class MainGUI extends JFrame {
 
-    private static final int WIDTH = 960;
-    private static final int HEIGHT = 640;
+    private static final int WIDTH = 1280;
+    private static final int HEIGHT = 790;
     private static final int TOOLBAR_SIZE = 70;
-
-    private ButtonGroup colourButtons;
-    private ButtonGroup toolButtons;
 
     private JPanel optionsPanel;
     private JPanel coloursPanel;
     private JPanel toolsPanel;
-    private JTextArea textPanel;
+    private JTextPane notePane;
 
-    public MainGUI() {
+    private Notes note;
+
+    public MainGUI(String title) throws NoTitleException {
         // give this the title of the notes later - use untitled as a placeholder value
-        super("Untitled");
+        super(title);
+        note = new Notes(title);
+
+        if (title.length() == 0) {
+            dispose();
+            throw new NoTitleException();
+        }
 
         initPanels();
         generatePanelLayout();
-        generateToolsUI();
+        new ToolsGUI(note, optionsPanel, coloursPanel, toolsPanel, notePane);
 
         setSize(WIDTH, HEIGHT);
+        setResizable(false);
         setVisible(true);
-
-    }
-
-    private void generateToolsUI() {
-        generateColourButtons();
-        generateToolButtons();
-        generateOptionButtons();
-    }
-
-    private void generateOptionButtons() {
-        JButton optionButton = new JButton("Save");
-        JButton exitButton = new JButton("Load");
-        optionsPanel.add(optionButton);
-        optionsPanel.add(exitButton);
-    }
-
-    private void generateToolButtons() {
-        toolButtons = new ButtonGroup();
-        Tools[] tools;
-        tools = Tools.values();
-        for (Tools t: tools) {
-            String buttonName = t.toString().substring(0, 1) + t.toString().substring(1).toLowerCase();
-            JRadioButton tb = new JRadioButton(buttonName);
-            toolButtons.add(tb);
-            toolsPanel.add(tb);
-        }
-    }
-
-    private void generateColourButtons() {
-        colourButtons = new ButtonGroup();
-        Colours[] colours;
-        colours = Colours.values();
-        for (Colours c: colours) {
-            String buttonName = c.toString().substring(0, 1) + c.toString().substring(1).toLowerCase();
-            JRadioButton cb = new JRadioButton(buttonName);
-            colourButtons.add(cb);
-            coloursPanel.add(cb);
-        }
     }
 
     private void initPanels() {
@@ -79,7 +50,8 @@ public class MainGUI extends JFrame {
         coloursPanel.setLayout(new GridLayout(2, 6));
         coloursPanel.setBorder(BorderFactory.createTitledBorder("Colours"));
 
-        textPanel = new JTextArea();
+        notePane = new JTextPane();
+        notePane.setEditable(false);
     }
 
     // MODIFIES: this
@@ -99,7 +71,7 @@ public class MainGUI extends JFrame {
         toolTypeDivider.setDividerSize(5);
         toolTypeDivider.setEnabled(false);
 
-        toolsDivider = new JSplitPane(JSplitPane.VERTICAL_SPLIT, toolTypeDivider, textPanel);
+        toolsDivider = new JSplitPane(JSplitPane.VERTICAL_SPLIT, toolTypeDivider, notePane);
         toolsDivider.setDividerLocation(TOOLBAR_SIZE);
         toolsDivider.setDividerSize(5);
         toolsDivider.setEnabled(false);

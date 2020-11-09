@@ -1,15 +1,14 @@
 package ui;
 
+import model.NoTitleException;
+
 public class Main {
-
     public static void main(String[] args) {
-        new MainGUI();
+        try {
+            new MainGUI("a");
+        } catch (NoTitleException noTitleException) {
+            noTitleException.printStackTrace();
+        }
+        //new NoteCreationGUI();
     }
-
-    // Old main method which created a console-based UI.
-    /*
-    public static void main(String[] args) {
-        new MainUIConsole();
-    }*/
-
 }
