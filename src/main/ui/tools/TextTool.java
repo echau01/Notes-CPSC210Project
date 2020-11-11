@@ -1,24 +1,27 @@
 package ui.tools;
 
 import model.NotePanel;
-import model.Notes;
+import model.NotePanelData;
 
-import javax.swing.*;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 
-public class TextTool {
+public class TextTool implements Tool {
 
     private NotePanel textPane;
     private Color colour;
-    private Notes note;
+    private boolean running;
 
-    public TextTool(Notes note, NotePanel textPane, Color c) {
+    public TextTool(NotePanel textPane, Color c) {
         this.textPane = textPane;
-        this.note = note;
         colour = c;
         textPane.setColour(colour);
         textPane.toggleEditable(true);
+    }
+
+    @Override
+    public void setRunning(Boolean b) {
+        running = b;
     }
 }

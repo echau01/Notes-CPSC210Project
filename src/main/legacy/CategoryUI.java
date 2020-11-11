@@ -1,10 +1,10 @@
-package consoleui;
-
+package legacy;
+/*
 import model.Category;
-import model.Notes;
+import model.NotePanelData;
 
 public class CategoryUI extends UI {
-    Category cty;
+    CategoryOld cty;
 
     // CONSTRUCTOR
     // MODIFIES: this
@@ -40,7 +40,7 @@ public class CategoryUI extends UI {
     @Override
     public void processCommands() {
         super.processCommands();
-        Notes noteFromKeyInput = cty.getNoteByName(cmd);
+        NotePanelData noteFromKeyInput = cty.getNoteByName(cmd);
 
         switch (cmd) {
             case "c":
@@ -69,7 +69,7 @@ public class CategoryUI extends UI {
         cmd = keyInput.next();
         cmd += keyInput.nextLine();
 
-        Notes n = new Notes(cmd);
+        NotePanelData n = new NotePanelData(cmd);
         cty.addNotes(n);
     }
 
@@ -103,3 +103,4 @@ public class CategoryUI extends UI {
         cty.setName(cmd);
     }
 }
+*/

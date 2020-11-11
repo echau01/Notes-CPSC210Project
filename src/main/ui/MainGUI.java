@@ -2,7 +2,7 @@ package ui;
 
 import model.NoTitleException;
 import model.NotePanel;
-import model.Notes;
+import model.NotePanelData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,13 +17,14 @@ public class MainGUI extends JFrame {
     private JPanel coloursPanel;
     private JPanel toolsPanel;
     private NotePanel notePane;
-
-    private Notes note;
+    private String title;
 
     public MainGUI(String title) throws NoTitleException {
         // give this the title of the notes later - use untitled as a placeholder value
         super(title);
-        note = new Notes(title);
+        this.title = title;
+
+        setTitle("E");
 
         if (title.length() == 0) {
             dispose();
@@ -32,7 +33,7 @@ public class MainGUI extends JFrame {
 
         initPanels();
         generatePanelLayout();
-        new ToolsGUI(note, optionsPanel, coloursPanel, toolsPanel, notePane);
+        new ToolsGUI(this, optionsPanel, coloursPanel, toolsPanel, notePane);
 
         setSize(WIDTH, HEIGHT);
         setResizable(false);
@@ -51,7 +52,7 @@ public class MainGUI extends JFrame {
         coloursPanel.setLayout(new GridLayout(2, 6));
         coloursPanel.setBorder(BorderFactory.createTitledBorder("Colours"));
 
-        notePane = new NotePanel();
+        notePane = new NotePanel(title);
     }
 
     // MODIFIES: this
@@ -79,4 +80,11 @@ public class MainGUI extends JFrame {
         add(toolsDivider);
     }
 
+    public void renameNote(String name) throws NoTitleException {
+        if (name.length() == 0) {
+            throw new NoTitleException();
+        } else {
+            setTitle(name);
+        }
+    }
 }

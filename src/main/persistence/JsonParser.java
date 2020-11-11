@@ -2,16 +2,16 @@ package persistence;
 
 import model.Category;
 import model.CategoryContainer;
-import model.Notes;
+import model.NotePanelData;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.InvalidPathException;
 import java.nio.file.Paths;
 
 // the formatting of methods in this class takes inspiration from JsonSerializationDemo
 public class JsonParser {
+    /*
     String filePath;
 
     // CONSTRUCTOR
@@ -74,7 +74,7 @@ public class JsonParser {
     // EFFECTS: parses individual notes from json data and adds it to cty
     private void loadNote(Category cty, JSONObject jsonNote) {
         String noteTitle = jsonNote.getString("notes");
-        Notes notes = new Notes(noteTitle);
+        NotePanelData notes = new NotePanelData(noteTitle);
         cty.addNotes(notes);
 
         JSONArray jsonNoteBody = jsonNote.getJSONArray("note body");
@@ -83,11 +83,11 @@ public class JsonParser {
 
     // MODIFIES: notes
     // EFFECTS: parses note body, adds every entry in note body to notes
-    private void loadBody(Notes notes, JSONArray jsonNoteBody) {
+    private void loadBody(NotePanelData notes, JSONArray jsonNoteBody) {
         for (Object noteBody : jsonNoteBody) {
             String body = noteBody.toString();
             notes.addEntryToBody(body);
         }
     }
-
+*/
 }

@@ -1,9 +1,6 @@
 package persistence;
-
-import model.Category;
+/*
 import model.CategoryContainer;
-import model.Notes;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -82,3 +79,4 @@ public class JsonParserTest {
         }
     }
 }
+ */

@@ -1,5 +1,5 @@
-package consoleui;
-
+package legacy;
+/*
 import model.Category;
 import model.CategoryContainer;
 import persistence.JsonParser;
@@ -126,3 +126,5 @@ public class MainUI extends UI {
         }
     }
 }
+
+ */

@@ -1,20 +1,19 @@
-package model;
+package legacy;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
+
 import java.util.LinkedList;
 import java.util.List;
-
-// TODO: design tests for the new shit
-public class Notes implements Writable {
+/*
+public class NotesOld implements Writable {
     private String title;
     private List<String> body;
-    // private Set<> coords;
 
     // CONSTRUCTOR
     // EFFECTS: Creates a new note with the given title
-    public Notes(String title) {
+    public NotesOld(String title) {
         this.title = title;
         body = new LinkedList<>();
     }
@@ -87,3 +86,5 @@ public class Notes implements Writable {
         return jsonArray;
     }
 }
+
+ */

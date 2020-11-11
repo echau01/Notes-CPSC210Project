@@ -1,14 +1,14 @@
-package consoleui;
-
-import model.Notes;
+package legacy;
+/*
+import model.NotePanelData;
 import static java.lang.Math.abs;
 
 public class NotesUI extends UI {
 
-    Notes note;
+    NotePanelData note;
 
     // EFFECTS: constructs the notes ui
-    public NotesUI(Notes note) {
+    public NotesUI(NotePanelData note) {
         this.note = note;
         init();
     }
@@ -80,3 +80,5 @@ public class NotesUI extends UI {
 
 
 }
+
+ */

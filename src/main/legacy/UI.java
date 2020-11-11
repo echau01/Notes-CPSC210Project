@@ -1,5 +1,5 @@
-package consoleui;
-
+package legacy;
+/*
 import java.util.Scanner;
 
 abstract class UI {
@@ -39,3 +39,5 @@ abstract class UI {
     // EFFECTS: prints out the terminal ui
     public abstract void consoleUI();
 }
+
+ */

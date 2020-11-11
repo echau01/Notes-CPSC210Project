@@ -1,7 +1,6 @@
 package ui;
 
 import model.NotePanel;
-import model.Notes;
 import ui.tools.*;
 
 import javax.swing.*;
@@ -14,6 +13,7 @@ public class ToolsGUI {
     private JPanel coloursPanel;
     private JPanel toolsPanel;
     private NotePanel notePane;
+    private MainGUI mainGUI;
 
     private ButtonGroup colourButtons;
     private ButtonGroup toolButtons;
@@ -21,14 +21,14 @@ public class ToolsGUI {
     private Color selectedColour;
     private Tools selectedTool;
 
-    Notes note;
+    private PenTool penTool;
 
-    ToolsGUI(Notes note, JPanel optionsPanel, JPanel coloursPanel, JPanel toolsPanel, NotePanel notePane) {
+    ToolsGUI(MainGUI mainGUI, JPanel optionsPanel, JPanel coloursPanel, JPanel toolsPanel, NotePanel notePane) {
         this.optionsPanel = optionsPanel;
         this.coloursPanel = coloursPanel;
         this.toolsPanel = toolsPanel;
         this.notePane = notePane;
-        this.note = note;
+        this.mainGUI = mainGUI;
 
         generateColourButtons();
         generateToolButtons();
@@ -36,11 +36,24 @@ public class ToolsGUI {
     }
 
     private void generateOptionButtons() {
-        JButton optionButton = new JButton("Save");
-        JButton exitButton = new JButton("Load");
-        optionsPanel.add(optionButton);
-        optionsPanel.add(exitButton);
+        JButton optionsButton = new JButton("Options");
+        optionsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new OptionsGUI(notePane);
+            }
+        });
+        JButton renameButton = new JButton("Rename Note");
+        renameButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new RenameGUI(mainGUI);
+            }
+        });
+        optionsPanel.add(optionsButton);
+        optionsPanel.add(renameButton);
     }
+
 
     // https://stackoverflow.com/questions/17653116/action-listener-for-multiple-radio-buttons
     private void generateToolButtons() {
@@ -74,7 +87,7 @@ public class ToolsGUI {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     selectedColour = c.getColour();
-                    performToolAction(selectedTool);
+                    penTool.setColour(selectedColour);
                 }
             });
             colourButtons.add(cb);
@@ -87,12 +100,13 @@ public class ToolsGUI {
         notePane.toggleEditable(false);
         switch (t) {
             case PEN:
-                new PenTool(note, notePane, selectedColour);
+                penTool = new PenTool(notePane, selectedColour);
                 break;
             case ERASER:
+                new EraserTool(notePane);
                 break;
             case TEXT:
-                new TextTool(note, notePane, selectedColour);
+                new TextTool(notePane, selectedColour);
                 break;
             default:
                 ;

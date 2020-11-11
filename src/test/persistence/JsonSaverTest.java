@@ -1,8 +1,8 @@
 package persistence;
-
+/*
 import model.Category;
 import model.CategoryContainer;
-import model.Notes;
+import model.NotePanelData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,13 +15,13 @@ public class JsonSaverTest {
 
     CategoryContainer ctyc;
     Category c;
-    Notes n;
+    NotePanelData n;
 
     @BeforeEach
     void init() {
         ctyc = new CategoryContainer();
         c = new Category("category");
-        n = new Notes("note");
+        n = new NotePanelData("note");
     }
 
     @Test
@@ -102,3 +102,5 @@ public class JsonSaverTest {
         }
     }
 }
+
+ */

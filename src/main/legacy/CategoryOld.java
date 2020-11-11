@@ -1,18 +1,20 @@
-package model;
-
+package legacy;
+/*
+import model.NotePanelData;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Category implements Writable {
+public class CategoryOld implements Writable {
     private String category;
     private List<NotePanelData> allNotes;
 
     // CONSTRUCTOR
     // EFFECTS: sets the category name
-    public Category(String name) {
+    public CategoryOld(String name) {
         category = name;
         allNotes = new ArrayList<>();
     }
@@ -29,6 +31,16 @@ public class Category implements Writable {
         allNotes.remove(n);
     }
 
+    // MODIFIES: this
+    // EFFECTS: deletes the note with the given title, does nothing if there is no note with the title
+    public void removeNotesByName(String s) {
+        for (NotePanelData n: allNotes) {
+            if (n.hasTitle(s)) {
+                removeNotes(n);
+                break;
+            }
+        }
+    }
 
     // EFFECTS: returns the title of the given note at index i
     public String getNoteByIndex(int i) {
@@ -44,6 +56,16 @@ public class Category implements Writable {
             }
         }
         return new NotePanelData("");
+    }
+
+    // EFFECTS: returns true if the category contains the note with the given title
+    public boolean containsNote(String title) {
+        for (NotePanelData n: allNotes) {
+            if (n.hasTitle(title)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // EFFECTS: returns the category length
@@ -80,3 +102,5 @@ public class Category implements Writable {
         return jsonArray;
     }
 }
+
+ */
