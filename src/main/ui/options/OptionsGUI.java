@@ -18,19 +18,23 @@ import java.io.IOException;
 
 // TODO: every single time this is loaded, it will use persistence to load the categories and notes
 public class OptionsGUI extends PopupGUI {
-    private static final String DESTINATION = "./data/CategoryContainer.json";
-
     protected static final int WIDTH = 640;
     protected static final int HEIGHT = 480;
 
-    private NotePanel notePane;
-    private JList ctycPanel;
-    private CategoryContainer ctyc;
+    private static final String DESTINATION = "./data/CategoryContainer.json";
     private JsonParser jsonParser;
+
+    private NotePanel notePane;
+    private CategoryContainer ctyc;
+
+    private JList ctycPanel;
 
     public OptionsGUI(NotePanel notePane) {
         super("Note Creation", WIDTH, HEIGHT);
         this.notePane = notePane;
+
+        loadCategoryContainer();
+        addUIElements();
     }
 
     // https://stackoverflow.com/questions/4262669/refresh-jlist-in-a-jframe/4262716
@@ -42,7 +46,6 @@ public class OptionsGUI extends PopupGUI {
     // https://stackoverflow.com/questions/4344682/double-click-event-on-jlist-element
     @Override
     protected void addUIElements() {
-        loadCategoryContainer();
         ctycPanel = new JList(getAllCategoryNames());
         ctycPanelAddMouseListener();
 

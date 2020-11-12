@@ -22,6 +22,8 @@ public class RenameGUI extends PopupGUI {
     public RenameGUI(NoteGUI noteGUI) {
         super("Rename Note", WIDTH, HEIGHT);
         this.noteGUI = noteGUI;
+
+        addUIElements();
     }
 
     @Override

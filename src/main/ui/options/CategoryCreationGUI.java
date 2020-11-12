@@ -21,6 +21,8 @@ public class CategoryCreationGUI extends PopupGUI {
     public CategoryCreationGUI(OptionsGUI optionsGUI) {
         super("Category Creation", WIDTH, HEIGHT);
         this.optionsGUI = optionsGUI;
+
+        addUIElements();
     }
 
     @Override

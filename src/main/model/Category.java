@@ -4,12 +4,12 @@ import model.exceptions.NoTitleException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.*;
 
 public class Category implements Writable {
     private String category;
-    private List<NotePanel> allNotes;
+    private HashMap<String, NotePanel> allNotes;
 
     // CONSTRUCTOR
     // EFFECTS: sets the category name
@@ -18,13 +18,14 @@ public class Category implements Writable {
             throw new NoTitleException();
         }
         category = name;
-        allNotes = new ArrayList<>();
+        allNotes = new HashMap<String, NotePanel>();
     }
+
 
     // MODIFIES: this
     // EFFECTS: adds the note into the given category
     public void addNotes(NotePanel n) {
-        allNotes.add(n);
+        allNotes.put(n.getTitle(), n);
     }
 
     // EFFECTS: returns the category name
@@ -35,6 +36,18 @@ public class Category implements Writable {
     // EFFECTS: renames the category to the given name
     public void setName(String name) {
         category = name;
+    }
+
+    public Set<NotePanel> getNotesOnly() {
+        Set<NotePanel> allNotesKeyless = new HashSet<>();
+        for (String key: allNotes.keySet()) {
+            allNotesKeyless.add(allNotes.get(key));
+        }
+        return allNotesKeyless;
+    }
+
+    public HashMap<String, NotePanel> getNotes() {
+        return allNotes;
     }
 
     // the method here is inspired by the JsonSerializationDemo app provided in the Phase 2 edX page
@@ -50,7 +63,7 @@ public class Category implements Writable {
     // EFFECTS: places every single note in category into a single json array
     private JSONArray allNotesToJsonArray() {
         JSONArray jsonArray = new JSONArray();
-        for (NotePanel notes: allNotes) {
+        for (NotePanel notes: getNotesOnly()) {
             NotePanelData data = notes.toData();
             jsonArray.put(data.toJson());
         }

@@ -18,6 +18,7 @@ public class NoteCreationGUI extends PopupGUI {
 
     public NoteCreationGUI() {
         super("Note Creation", WIDTH, HEIGHT);
+        addUIElements();
     }
 
     @Override

@@ -15,8 +15,6 @@ public abstract class PopupGUI extends JFrame {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - x / 2, dim.height / 2 - y / 2);
 
-        addUIElements();
-
         setSize(x, y);
         setResizable(false);
         setVisible(true);
@@ -31,8 +29,6 @@ public abstract class PopupGUI extends JFrame {
 
     // TODO: fix this
     protected void createTitleWarning() {
-        JLabel titleWarning = new JLabel("Enter a proper title!");
-        titleWarning.setForeground(Color.RED);
-        add(titleWarning);
+        new ErrorGUI("Please enter a valid title.", "Invalid Title");
     }
 }
