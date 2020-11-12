@@ -1,8 +1,12 @@
 package ui.options;
 
+import jdk.nashorn.internal.parser.JSONParser;
 import model.Category;
 import model.CategoryContainer;
 import model.NotePanel;
+import model.exceptions.NoTitleException;
+import persistence.JsonParser;
+import ui.ErrorGUI;
 import ui.PopupGUI;
 
 import javax.swing.*;
@@ -10,15 +14,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 // TODO: every single time this is loaded, it will use persistence to load the categories and notes
 public class OptionsGUI extends PopupGUI {
+    private static final String DESTINATION = "./data/CategoryContainer.json";
+
     protected static final int WIDTH = 640;
     protected static final int HEIGHT = 480;
 
     private NotePanel notePane;
     private JList ctycPanel;
     private CategoryContainer ctyc;
+    private JsonParser jsonParser;
 
     public OptionsGUI(NotePanel notePane) {
         super("Note Creation", WIDTH, HEIGHT);
@@ -34,7 +42,7 @@ public class OptionsGUI extends PopupGUI {
     // https://stackoverflow.com/questions/4344682/double-click-event-on-jlist-element
     @Override
     protected void addUIElements() {
-        ctyc = new CategoryContainer();
+        loadCategoryContainer();
         ctycPanel = new JList(getAllCategoryNames());
         ctycPanelAddMouseListener();
 
@@ -43,6 +51,17 @@ public class OptionsGUI extends PopupGUI {
         divider.setDividerSize(5);
         divider.setEnabled(false);
         add(divider);
+    }
+
+    private void loadCategoryContainer() {
+        jsonParser = new JsonParser(DESTINATION);
+        try {
+            ctyc = jsonParser.parseFile();
+        } catch (Exception e) {
+            new ErrorGUI("Error in loading saved files.", "Cannot load from file.");
+            ctyc = new CategoryContainer();
+            // e.printStackTrace();
+        }
     }
 
     private DefaultListModel<String> getAllCategoryNames() {

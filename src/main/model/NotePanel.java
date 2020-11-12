@@ -31,6 +31,10 @@ public class NotePanel extends JPanel {
         this.title = title;
     }
 
+    public void addBody(String body) {
+        textPane.setText(body);
+    }
+
     public NotePanelData toData() {
         return new NotePanelData(title, textPane.getText(), pixels);
     }

@@ -27,6 +27,15 @@ public class CategoryGUI extends PopupGUI {
         this.cty = cty;
         this.notePane = notePane;
 
+        /*
+        cty.addNotes(notePane);
+        try {
+            jsonSaver.save(ctyc);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        */
+
 
     }
 

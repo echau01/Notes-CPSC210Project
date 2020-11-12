@@ -51,7 +51,7 @@ public class Pixel extends Component implements Writable {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("x", x);
         jsonObject.put("y", y);
-        jsonObject.put("colour", colour);
+        jsonObject.put("colour", colour.getRGB());
         return jsonObject;
     }
 }

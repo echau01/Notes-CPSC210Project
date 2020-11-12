@@ -37,7 +37,6 @@ public class CategoryCreationGUI extends PopupGUI {
         divider.setDividerSize(5);
         divider.setEnabled(false);
         add(divider);
-
     }
 
     private JButton makeButton() {
