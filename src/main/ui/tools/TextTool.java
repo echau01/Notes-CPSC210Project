@@ -1,17 +1,11 @@
 package ui.tools;
 
 import model.NotePanel;
-import model.NotePanelData;
 
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 
 // TODO: add a colour feature to textTool
-public class TextTool implements Tool {
+public class TextTool {
 
     private NotePanel textPane;
     private Color colour;

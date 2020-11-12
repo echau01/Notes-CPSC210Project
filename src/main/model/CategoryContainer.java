@@ -4,10 +4,8 @@ import model.exceptions.NoCategoryException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+
+import java.util.*;
 
 public class CategoryContainer implements Writable {
     private HashMap<String, Category> categories;
@@ -34,6 +32,14 @@ public class CategoryContainer implements Writable {
         return categories;
     }
 
+    public Set<Category> getCategoriesOnly() {
+        Set<Category> categoriesKeyless = new HashSet<>();
+        for (String key: categories.keySet()) {
+            categoriesKeyless.add(categories.get(key));
+        }
+        return categoriesKeyless;
+    }
+
     // the method here is inspired by the JsonSerializationDemo app provided in the Phase 2 edX page
     // EFFECTS: converts this into a JSONObject
     @Override
@@ -45,6 +51,10 @@ public class CategoryContainer implements Writable {
 
     // EFFECTS: places every single category in categories into a single json array
     private JSONArray categoriesToJsonArray() {
-        return new JSONArray();
+        JSONArray jsonArray = new JSONArray();
+        for (Category cty: getCategoriesOnly()) {
+            jsonArray.put(cty.toJson());
+        }
+        return jsonArray;
     }
 }

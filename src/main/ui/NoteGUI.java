@@ -37,6 +37,15 @@ public class NoteGUI extends JFrame {
         setVisible(true);
     }
 
+    public void renameNote(String name) throws NoTitleException {
+        if (name.length() == 0) {
+            throw new NoTitleException();
+        } else {
+            setTitle(name);
+            notePane.setTitle(name);
+        }
+    }
+
     private void initPanels() {
         toolsPanel = new JPanel();
         toolsPanel.setLayout(new GridLayout(2, 6));
@@ -73,14 +82,5 @@ public class NoteGUI extends JFrame {
         toolsDivider.setEnabled(false);
 
         add(toolsDivider);
-    }
-
-    public void renameNote(String name) throws NoTitleException {
-        if (name.length() == 0) {
-            throw new NoTitleException();
-        } else {
-            setTitle(name);
-            notePane.setTitle(name);
-        }
     }
 }

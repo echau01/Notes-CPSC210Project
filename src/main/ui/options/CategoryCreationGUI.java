@@ -12,11 +12,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CategoryCreationGUI extends PopupGUI {
+    protected static final int WIDTH = 320;
+    protected static final int HEIGHT = 240;
+
     private JTextPane pane;
     private OptionsGUI optionsGUI;
 
     public CategoryCreationGUI(OptionsGUI optionsGUI) {
-        super("Category Creation");
+        super("Category Creation", WIDTH, HEIGHT);
         this.optionsGUI = optionsGUI;
     }
 
@@ -37,7 +40,7 @@ public class CategoryCreationGUI extends PopupGUI {
 
     }
 
-    protected JButton makeButton() {
+    private JButton makeButton() {
         super.makeButton("Create Category");
         button.addActionListener(new ActionListener() {
             @Override
@@ -51,12 +54,5 @@ public class CategoryCreationGUI extends PopupGUI {
             }
         });
         return button;
-    }
-
-    // TODO: fix this
-    protected void createTitleWarning() {
-        JLabel titleWarning = new JLabel("Enter a proper title!");
-        titleWarning.setForeground(Color.RED);
-        add(titleWarning);
     }
 }

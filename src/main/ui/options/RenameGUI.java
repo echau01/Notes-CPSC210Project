@@ -12,12 +12,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class RenameGUI extends PopupGUI {
+    protected static final int WIDTH = 320;
+    protected static final int HEIGHT = 240;
+
     private NoteGUI noteGUI;
     private JTextPane pane;
 
     // https://stackoverflow.com/questions/2442599/how-to-set-jframe-to-appear-centered-regardless-of-monitor-resolution
     public RenameGUI(NoteGUI noteGUI) {
-        super("Rename Note");
+        super("Rename Note", WIDTH, HEIGHT);
         this.noteGUI = noteGUI;
     }
 

@@ -1,7 +1,6 @@
 package ui.tools;
 
 import model.NotePanel;
-import model.NotePanelData;
 import model.Pixel;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -9,7 +8,7 @@ import java.awt.event.MouseMotionListener;
 
 
 // https://stackoverflow.com/questions/23122492/java-jframe-draw
-public class PenTool implements Tool, MouseMotionListener {
+public class PenTool implements MouseMotionListener {
     private Color colour;
     private NotePanel notePanel;
 

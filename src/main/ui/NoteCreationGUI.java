@@ -11,10 +11,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class NoteCreationGUI extends PopupGUI {
+    protected static final int WIDTH = 320;
+    protected static final int HEIGHT = 240;
+
     private JTextPane pane;
 
     public NoteCreationGUI() {
-        super("Note Creation");
+        super("Note Creation", WIDTH, HEIGHT);
     }
 
     @Override

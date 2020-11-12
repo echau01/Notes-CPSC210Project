@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CategoryOld implements Writable {
     private String category;
-    private List<NotePanelData> allNotes;
+    private List<Category> allNotes;
 
     // CONSTRUCTOR
     // EFFECTS: sets the category name

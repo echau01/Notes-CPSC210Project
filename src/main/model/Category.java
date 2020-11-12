@@ -27,11 +27,6 @@ public class Category implements Writable {
         allNotes.add(n);
     }
 
-    // EFFECTS: returns the category length
-    public int getLength() {
-        return allNotes.size();
-    }
-
     // EFFECTS: returns the category name
     public String getName() {
         return category;

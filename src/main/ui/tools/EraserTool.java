@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
-public class EraserTool implements Tool, MouseMotionListener {
+public class EraserTool implements MouseMotionListener {
     private NotePanel notePanel;
 
     private int x;
