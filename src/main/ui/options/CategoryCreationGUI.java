@@ -1,6 +1,7 @@
-package ui;
+package ui.options;
 
-import model.NoTitleException;
+import model.Category;
+import model.exceptions.NoTitleException;
 
 import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
@@ -9,18 +10,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class RenameGUI extends JFrame {
-
+public class CategoryCreationGUI extends JFrame {
     private static final int WIDTH = 320;
     private static final int HEIGHT = 240;
-    private MainGUI mainGUI;
 
-    JTextPane pane;
+    private JTextPane pane;
+    private OptionsGUI optionsGUI;
 
-    // https://stackoverflow.com/questions/2442599/how-to-set-jframe-to-appear-centered-regardless-of-monitor-resolution
-    RenameGUI(MainGUI mainGUI) {
-        super("Rename Note");
-        this.mainGUI = mainGUI;
+    public CategoryCreationGUI(OptionsGUI optionsGUI) {
+        super("Category Creation");
+
+        this.optionsGUI = optionsGUI;
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - WIDTH / 2, dim.height / 2 - HEIGHT / 2);
@@ -49,13 +49,13 @@ public class RenameGUI extends JFrame {
     }
 
     private JButton renameButton() {
-        JButton button = new JButton("Set Name");
+        JButton button = new JButton("Create Category");
         button.setBorder(BorderFactory.createEmptyBorder());
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    mainGUI.renameNote(pane.getText());
+                    optionsGUI.addCategory(new Category(pane.getText()));
                     dispose();
                 } catch (NoTitleException noTitleException) {
                     createTitleWarning();
@@ -71,5 +71,4 @@ public class RenameGUI extends JFrame {
         titleWarning.setForeground(Color.RED);
         add(titleWarning);
     }
-
 }

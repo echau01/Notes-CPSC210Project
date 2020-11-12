@@ -1,5 +1,6 @@
 package model;
 
+import model.exceptions.NoTitleException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -8,42 +9,22 @@ import java.util.List;
 
 public class Category implements Writable {
     private String category;
-    private List<NotePanelData> allNotes;
+    private List<NotePanel> allNotes;
 
     // CONSTRUCTOR
     // EFFECTS: sets the category name
-    public Category(String name) {
+    public Category(String name) throws NoTitleException {
+        if (name.length() == 0) {
+            throw new NoTitleException();
+        }
         category = name;
         allNotes = new ArrayList<>();
     }
 
     // MODIFIES: this
     // EFFECTS: adds the note into the given category
-    public void addNotes(NotePanelData n) {
+    public void addNotes(NotePanel n) {
         allNotes.add(n);
-    }
-
-    // MODIFIES: this
-    // EFFECTS: removes the given note
-    public void removeNotes(NotePanelData n) {
-        allNotes.remove(n);
-    }
-
-
-    // EFFECTS: returns the title of the given note at index i
-    public String getNoteByIndex(int i) {
-        return allNotes.get(i).getTitle();
-    }
-
-    // EFFECTS: returns the category with the given name, returns a placeholder if there is no such category
-    public NotePanelData getNoteByName(String s) {
-        for (NotePanelData n: allNotes) {
-            String noteName = n.getTitle().toLowerCase();
-            if (s.equals(noteName)) {
-                return n;
-            }
-        }
-        return new NotePanelData("");
     }
 
     // EFFECTS: returns the category length
@@ -74,8 +55,9 @@ public class Category implements Writable {
     // EFFECTS: places every single note in category into a single json array
     private JSONArray allNotesToJsonArray() {
         JSONArray jsonArray = new JSONArray();
-        for (NotePanelData notes: allNotes) {
-            jsonArray.put(notes.toJson());
+        for (NotePanel notes: allNotes) {
+            NotePanelData data = notes.toData();
+            jsonArray.put(data.toJson());
         }
         return jsonArray;
     }

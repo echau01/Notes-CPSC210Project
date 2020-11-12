@@ -12,7 +12,7 @@ public class EraserTool implements Tool, MouseMotionListener {
 
     private int x;
     private int y;
-    private boolean running;
+    private boolean active;
 
     public EraserTool(NotePanel notePanel) {
         this.notePanel = notePanel;
@@ -20,22 +20,23 @@ public class EraserTool implements Tool, MouseMotionListener {
         notePanel.addMouseMotionListener(this);
     }
 
+    public void setActive(Boolean b) {
+        active = b;
+    }
+
     @Override
     public void mouseDragged(MouseEvent e) {
-        x = e.getX();
-        y = e.getY();
-        notePanel.removePixel(new Pixel(x, y, Color.BLACK));
-        notePanel.repaint();
+        if (active) {
+            x = e.getX();
+            y = e.getY();
+            notePanel.removePixel(new Pixel(x, y, Color.BLACK));
+            notePanel.repaint();
+        }
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
             ;
-    }
-
-    @Override
-    public void setRunning(Boolean b) {
-        running = b;
     }
 }
 

@@ -1,8 +1,7 @@
 package ui;
 
-import model.NoTitleException;
+import model.exceptions.NoTitleException;
 import model.NotePanel;
-import model.NotePanelData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -85,6 +84,7 @@ public class MainGUI extends JFrame {
             throw new NoTitleException();
         } else {
             setTitle(name);
+            notePane.setTitle(name);
         }
     }
 }

@@ -1,6 +1,7 @@
 package model;
 
 import com.sun.xml.internal.ws.api.Component;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
@@ -12,15 +13,13 @@ import java.awt.event.MouseMotionListener;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 
-public class NotePanel extends JPanel implements Writable {
+public class NotePanel extends JPanel {
 
     private JTextPane textPane;
+    private String title;
     private LinkedHashSet<Pixel> pixels;
-    private NotePanelData panelData;
 
     public NotePanel(String title) {
-        panelData = new NotePanelData(title);
-
         setLayout(new BorderLayout());
         textPane = new JTextPane();
         textPane.setEditable(false);
@@ -30,12 +29,20 @@ public class NotePanel extends JPanel implements Writable {
         pixels = new LinkedHashSet<>();
     }
 
+    public NotePanelData toData() {
+        return new NotePanelData(title, textPane.getText(), pixels);
+    }
+
     public void addPixel(Pixel p) {
         pixels.add(p);
     }
 
     public void removePixel(Pixel p) {
         pixels.remove(p);
+    }
+
+    public void setTitle(String t) {
+        title = t;
     }
 
     @Override
@@ -57,10 +64,5 @@ public class NotePanel extends JPanel implements Writable {
         SimpleAttributeSet attributeSet = new SimpleAttributeSet();
         StyleConstants.setForeground(attributeSet, colour);
         textPane.setCharacterAttributes(attributeSet, true);
-    }
-
-    @Override
-    public JSONObject toJson() {
-        return null;
     }
 }

@@ -3,10 +3,14 @@ package ui.tools;
 import model.NotePanel;
 import model.NotePanelData;
 
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
+// TODO: add a colour feature to textTool
 public class TextTool implements Tool {
 
     private NotePanel textPane;
@@ -17,11 +21,13 @@ public class TextTool implements Tool {
         this.textPane = textPane;
         colour = c;
         textPane.setColour(colour);
-        textPane.toggleEditable(true);
     }
 
-    @Override
-    public void setRunning(Boolean b) {
-        running = b;
+    public void setActive(Boolean b) {
+        if (b) {
+            textPane.toggleEditable(true);
+        } else {
+            textPane.toggleEditable(false);
+        }
     }
 }

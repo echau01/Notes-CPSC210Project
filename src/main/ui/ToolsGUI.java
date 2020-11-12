@@ -1,6 +1,8 @@
 package ui;
 
 import model.NotePanel;
+import ui.options.OptionsGUI;
+import ui.options.RenameGUI;
 import ui.tools.*;
 
 import javax.swing.*;
@@ -19,9 +21,10 @@ public class ToolsGUI {
     private ButtonGroup toolButtons;
 
     private Color selectedColour;
-    private Tools selectedTool;
 
     private PenTool penTool;
+    private EraserTool eraserTool;
+    private TextTool textTool;
 
     ToolsGUI(MainGUI mainGUI, JPanel optionsPanel, JPanel coloursPanel, JPanel toolsPanel, NotePanel notePane) {
         this.optionsPanel = optionsPanel;
@@ -30,9 +33,18 @@ public class ToolsGUI {
         this.notePane = notePane;
         this.mainGUI = mainGUI;
 
+        selectedColour = Color.black;
+
         generateColourButtons();
         generateToolButtons();
         generateOptionButtons();
+        initTools();
+    }
+
+    private void initTools() {
+        penTool = new PenTool(notePane, selectedColour);
+        eraserTool = new EraserTool(notePane);
+        textTool = new TextTool(notePane, selectedColour);
     }
 
     private void generateOptionButtons() {
@@ -67,7 +79,6 @@ public class ToolsGUI {
             tb.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    selectedTool = t;
                     performToolAction(t);
                 }
             });
@@ -97,16 +108,18 @@ public class ToolsGUI {
 
     // TODO: handle the case where the colour / tool selected is null later
     private void performToolAction(Tools t) {
-        notePane.toggleEditable(false);
+        penTool.setActive(false);
+        eraserTool.setActive(false);
+        textTool.setActive(false);
         switch (t) {
             case PEN:
-                penTool = new PenTool(notePane, selectedColour);
+                penTool.setActive(true);
                 break;
             case ERASER:
-                new EraserTool(notePane);
+                eraserTool.setActive(true);
                 break;
             case TEXT:
-                new TextTool(notePane, selectedColour);
+                textTool.setActive(true);
                 break;
             default:
                 ;

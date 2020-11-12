@@ -1,5 +1,6 @@
 package model;
 
+import model.exceptions.NoCategoryException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -27,24 +28,9 @@ public class CategoryContainer implements Writable {
         categories.remove(c);
     }
 
-    // MODIFIES: this
-    // EFFECTS: if a category matches the given string, the category is deleted, otherwise do nothing
-    public void removeCategoryByName(String s) {
-        for (Category c:categories) {
-            if (s.equals(c.getName())) {
-                removeCategory(c);
-                break;
-            }
-        }
-    }
-
-    // EFFECTS: prints out the name of every category
-    public String getCategoryNameByIndex(int i) {
-        return categories.get(i).getName();
-    }
-
+    // REQUIRES: name is in lower case
     // EFFECTS: returns the category with the given name, returns a placeholder if there is no such category
-    public Category getCategoryByName(String name) {
+    public Category getCategoryByName(String name) throws NoCategoryException {
         String ctyName;
         for (Category c:categories) {
             ctyName = c.getName().toLowerCase();
@@ -52,22 +38,11 @@ public class CategoryContainer implements Writable {
                 return c;
             }
         }
-        return new Category("");
+        throw new NoCategoryException();
     }
 
-    // EFFECTS: returns true if category container contains a category with the given name
-    public boolean containsCategory(String name) {
-        for (Category c: categories) {
-            if (name.equals(c.getName())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    // EFFECTS: returns number categories in category container
-    public Integer getLength() {
-        return categories.size();
+    public List<Category> getCategories() {
+        return categories;
     }
 
     // the method here is inspired by the JsonSerializationDemo app provided in the Phase 2 edX page

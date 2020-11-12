@@ -3,40 +3,38 @@ package model;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.LinkedHashSet;
 
 // TODO: add documentation
 public class NotePanelData implements Writable {
     private String title;
     private String body;
-    private LinkedList<Pixel> pixels;
+    private LinkedHashSet<Pixel> pixels;
 
     // CONSTRUCTOR
     // EFFECTS: Creates a new note with the given title
-    public NotePanelData(String title) {
+    public NotePanelData(String title, String body, LinkedHashSet<Pixel> pixels) {
         this.title = title;
-        pixels = new LinkedList<>();
+        this.body = body;
+        this.pixels = pixels;
     }
-
-    public void addPixel(Pixel p) {
-        pixels.add(p);
-    }
-
-    // EFFECTS: gets title of note
-    public String getTitle() {
-        return title;
-    }
-
-    // EFFECTS: sets the title to the given string
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
 
     @Override
     public JSONObject toJson() {
-        return null;
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("title", title);
+        jsonObject.put("body", body);
+        jsonObject.put("pixels", pixelsToJsonArray());
+        return jsonObject;
+    }
+
+    // EFFECTS: places every single line in note body into a single json array
+    private JSONArray pixelsToJsonArray() {
+        JSONArray jsonArray = new JSONArray();
+        for (Pixel p: pixels) {
+            jsonArray.put(p.toJson());
+        }
+        return jsonArray;
     }
 
 }
