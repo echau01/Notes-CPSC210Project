@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 public class NoteCreationGUI extends PopupGUI {
     protected static final int WIDTH = 320;
     protected static final int HEIGHT = 240;
+    private static final int DIVIDER_SIZE = 0;
 
     private JTextPane pane;
 
@@ -32,7 +33,7 @@ public class NoteCreationGUI extends PopupGUI {
 
         JSplitPane divider = new JSplitPane(JSplitPane.VERTICAL_SPLIT, pane, makeButton());
         divider.setDividerLocation(HEIGHT / 2);
-        divider.setDividerSize(5);
+        divider.setDividerSize(DIVIDER_SIZE);
         divider.setEnabled(false);
         add(divider);
 

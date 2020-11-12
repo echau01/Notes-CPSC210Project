@@ -1,7 +1,7 @@
 package ui.options;
 
-import model.Category;
 import model.exceptions.NoTitleException;
+import ui.NoteGUI;
 import ui.PopupGUI;
 
 import javax.swing.*;
@@ -11,17 +11,18 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CategoryCreationGUI extends PopupGUI {
+public class NoteRenameGUI extends PopupGUI {
     protected static final int WIDTH = 320;
     protected static final int HEIGHT = 240;
     private static final int DIVIDER_SIZE = 0;
 
+    private NoteGUI noteGUI;
     private JTextPane pane;
-    private CategoryContainerGUI optionsGUI;
 
-    public CategoryCreationGUI(CategoryContainerGUI optionsGUI) {
-        super("Category Creation", WIDTH, HEIGHT);
-        this.optionsGUI = optionsGUI;
+    // https://stackoverflow.com/questions/2442599/how-to-set-jframe-to-appear-centered-regardless-of-monitor-resolution
+    public NoteRenameGUI(NoteGUI noteGUI) {
+        super("Rename Note", WIDTH, HEIGHT);
+        this.noteGUI = noteGUI;
 
         addUIElements();
     }
@@ -43,12 +44,12 @@ public class CategoryCreationGUI extends PopupGUI {
     }
 
     private JButton makeButton() {
-        super.makeButton("Create Category");
+        makeButton("Set Name");
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    optionsGUI.addCategory(new Category(pane.getText()));
+                    noteGUI.renameNote(pane.getText());
                     dispose();
                 } catch (NoTitleException noTitleException) {
                     createTitleWarning();

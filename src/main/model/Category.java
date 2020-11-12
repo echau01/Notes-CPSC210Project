@@ -13,6 +13,7 @@ public class Category implements Writable {
 
     // CONSTRUCTOR
     // EFFECTS: sets the category name
+    // throws NoTitleException if name length is 0
     public Category(String name) throws NoTitleException {
         if (name.length() == 0) {
             throw new NoTitleException();
@@ -21,6 +22,20 @@ public class Category implements Writable {
         allNotes = new HashMap<String, NotePanel>();
     }
 
+    // MODIFIES: this
+    // EFFECTS: deletes the note with the given title, does nothing if there is no note with the title
+    public void removeNotesByName(String s) {
+        for (NotePanel n: getNotesOnly()) {
+            if (n.hasTitle(s)) {
+                allNotes.remove(s);
+                break;
+            }
+        }
+    }
+
+    public boolean hasName(String s) {
+        return s.equals(category);
+    }
 
     // MODIFIES: this
     // EFFECTS: adds the note into the given category
@@ -34,7 +49,11 @@ public class Category implements Writable {
     }
 
     // EFFECTS: renames the category to the given name
-    public void setName(String name) {
+    // throws NoTitleException if name length is zero
+    public void setName(String name) throws NoTitleException {
+        if (name.length() == 0) {
+            throw new NoTitleException();
+        }
         category = name;
     }
 

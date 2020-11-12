@@ -1,6 +1,7 @@
 package model;
 
 import model.exceptions.NoCategoryException;
+import model.exceptions.NoTitleException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
@@ -31,6 +32,23 @@ public class CategoryContainer implements Writable {
     public HashMap<String, Category> getCategories() {
         return categories;
     }
+
+    // MODIFIES: this
+    // EFFECTS: if a category matches the given string, the category is deleted, otherwise do nothing
+    public void removeCategoryByName(String s) {
+        for (Category c:getCategoriesOnly()) {
+            if (s.equals(c.getName())) {
+                categories.remove(s);
+                break;
+            }
+        }
+    }
+
+    // EFFECTS: returns the category with the given name, returns a placeholder if there is no such category
+    public Category getCategoryByName(String name) {
+        return categories.get(name);
+    }
+
 
     public Set<Category> getCategoriesOnly() {
         Set<Category> categoriesKeyless = new HashSet<>();

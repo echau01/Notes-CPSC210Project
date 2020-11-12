@@ -21,6 +21,7 @@ public class NotePanel extends JPanel {
 
     public NotePanel(String title) {
         setLayout(new BorderLayout());
+        setBackground(Color.white);
         textPane = new JTextPane();
         textPane.setEditable(false);
         textPane.setVisible(true);
@@ -29,6 +30,11 @@ public class NotePanel extends JPanel {
 
         pixels = new LinkedHashSet<>();
         this.title = title;
+    }
+
+    // EFFECTS: returns true if title is the same as the given string, false otherwise
+    public boolean hasTitle(String s) {
+        return s.equals(title);
     }
 
     public void addBody(String body) {

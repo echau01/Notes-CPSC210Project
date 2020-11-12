@@ -11,6 +11,7 @@ import ui.NoteGUI;
 import ui.PopupGUI;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -19,22 +20,25 @@ import java.awt.event.MouseEvent;
 public class CategoryGUI extends PopupGUI {
     protected static final int WIDTH = 640;
     protected static final int HEIGHT = 480;
+    private static final int DIVIDER_SIZE = 0;
 
     private static final String DESTINATION = "./data/CategoryContainer.json";
     private JsonSaver jsonSaver;
 
+    private NoteGUI noteGUI;
     private Category cty;
     private CategoryContainer ctyc;
     private NotePanel notePane;
 
     private JList ctyPanel;
 
-    CategoryGUI(CategoryContainer ctyc, Category cty, NotePanel notePane) {
+    CategoryGUI(NoteGUI noteGUI, CategoryContainer ctyc, Category cty, NotePanel notePane) {
         super(cty.getName(), WIDTH, HEIGHT);
         jsonSaver = new JsonSaver(DESTINATION);
         this.ctyc = ctyc;
         this.cty = cty;
         this.notePane = notePane;
+        this.noteGUI = noteGUI;
 
         addUIElements();
     }
@@ -42,18 +46,66 @@ public class CategoryGUI extends PopupGUI {
     @Override
     protected void addUIElements() {
         ctyPanel = new JList(getAllCategoryNames());
+        ctyPanel.setBorder(BorderFactory.createTitledBorder("Notes"));
         ctyPanelAddMouseListener();
 
-        JSplitPane buttonDivider = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, createSaveButton(), createNoteButton());
-        buttonDivider.setDividerLocation(WIDTH / 2);
-        buttonDivider.setDividerSize(5);
-        buttonDivider.setEnabled(false);
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(1, 3));
+        buttonPanel.add(createSaveButton());
+        buttonPanel.add(createDeleteButton());
+        buttonPanel.add(createNoteButton());
 
-        JSplitPane divider = new JSplitPane(JSplitPane.VERTICAL_SPLIT, ctyPanel, buttonDivider);
+
+        JSplitPane divider = new JSplitPane(JSplitPane.VERTICAL_SPLIT, ctyPanel, buttonPanel);
         divider.setDividerLocation(HEIGHT - HEIGHT / 4);
-        divider.setDividerSize(5);
+        divider.setDividerSize(DIVIDER_SIZE);
         divider.setEnabled(false);
         add(divider);
+    }
+
+
+    private JButton createSaveButton() {
+        super.makeButton("Save");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                saveCategoryContainer();
+                refresh();
+            }
+        });
+        return button;
+    }
+
+    private JButton createDeleteButton() {
+        super.makeButton("Delete Selected");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                deleteNote();
+            }
+        });
+        return button;
+    }
+
+
+    private JButton createNoteButton() {
+        super.makeButton("Create New Note");
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new NoteCreationGUI();
+                saveCategoryContainer();
+                dispose();
+            }
+        });
+        return button;
+    }
+
+    private void deleteNote() {
+        String selected = ctyPanel.getSelectedValue().toString();
+        cty.removeNotesByName(selected);
+        saveCategoryContainer();
+        refresh();
     }
 
     private void saveCategoryContainer() {
@@ -75,31 +127,6 @@ public class CategoryGUI extends PopupGUI {
         return model;
     }
 
-    private JButton createSaveButton() {
-        super.makeButton("Save");
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                saveCategoryContainer();
-                ctyPanel.setModel(getAllCategoryNames());
-            }
-        });
-        return button;
-    }
-
-    private JButton createNoteButton() {
-        super.makeButton("Create New Note");
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new NoteCreationGUI();
-                saveCategoryContainer();
-                dispose();
-            }
-        });
-        return button;
-    }
-
     private void ctyPanelAddMouseListener() {
         ctyPanel.addMouseListener(new MouseAdapter() {
             @Override
@@ -112,6 +139,7 @@ public class CategoryGUI extends PopupGUI {
                     try {
                         new NoteGUI(selectedNotePanel);
                         saveCategoryContainer();
+                        noteGUI.dispose();
                         dispose();
                     } catch (NoTitleException noTitleException) {
                         new ErrorGUI("Error loading the desired note.", "Cannot load note");
@@ -119,5 +147,10 @@ public class CategoryGUI extends PopupGUI {
                 }
             }
         });
+    }
+
+    private void refresh() {
+        new CategoryGUI(noteGUI, ctyc, cty, notePane);
+        dispose();
     }
 }

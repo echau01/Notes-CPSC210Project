@@ -1,8 +1,8 @@
 package ui;
 
 import model.NotePanel;
-import ui.options.OptionsGUI;
-import ui.options.RenameGUI;
+import ui.options.CategoryContainerGUI;
+import ui.options.NoteRenameGUI;
 import ui.tools.*;
 
 import javax.swing.*;
@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ToolsGUI {
+    private static final Color BACKGROUND = new Color(240, 240, 240);
+
     private JPanel optionsPanel;
     private JPanel coloursPanel;
     private JPanel toolsPanel;
@@ -49,17 +51,21 @@ public class ToolsGUI {
 
     private void generateOptionButtons() {
         JButton optionsButton = new JButton("Options");
+        optionsButton.setBorder(BorderFactory.createEmptyBorder());
+        optionsButton.setBackground(BACKGROUND);
         optionsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new OptionsGUI(notePane);
+                new CategoryContainerGUI(noteGUI, notePane);
             }
         });
         JButton renameButton = new JButton("Rename Note");
+        renameButton.setBorder(BorderFactory.createEmptyBorder());
+        renameButton.setBackground(BACKGROUND);
         renameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new RenameGUI(noteGUI);
+                new NoteRenameGUI(noteGUI);
             }
         });
         optionsPanel.add(optionsButton);
@@ -75,6 +81,7 @@ public class ToolsGUI {
         for (Tools t: tools) {
             String buttonName = t.toString().substring(0, 1) + t.toString().substring(1).toLowerCase();
             JRadioButton tb = new JRadioButton(buttonName);
+            tb.setBackground(BACKGROUND);
             tb.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -93,6 +100,7 @@ public class ToolsGUI {
         for (Colours c: colours) {
             String buttonName = c.toString().substring(0, 1) + c.toString().substring(1).toLowerCase();
             JRadioButton cb = new JRadioButton(buttonName);
+            cb.setBackground(BACKGROUND);
             cb.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
