@@ -8,6 +8,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class OptionsGUI extends JFrame {
     private static final int WIDTH = 640;
@@ -20,10 +22,10 @@ public class OptionsGUI extends JFrame {
     public OptionsGUI(NotePanel notePane) {
         super("Note Creation");
         ctyc = new CategoryContainer();
+        this.notePane = notePane;
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - WIDTH / 2, dim.height / 2 - HEIGHT / 2);
-        this.notePane = notePane;
 
         addUIElements();
 
@@ -35,19 +37,21 @@ public class OptionsGUI extends JFrame {
     // https://stackoverflow.com/questions/4262669/refresh-jlist-in-a-jframe/4262716
     public void addCategory(Category c) {
         ctyc.addCategory(c);
-        ctycPanel.setModel(categoryContainerToListModel());
+        ctycPanel.setModel(getAllCategoryNames());
     }
 
-    private DefaultListModel<Category> categoryContainerToListModel() {
-        DefaultListModel<Category> model = new DefaultListModel<>();
-        for (Category c : ctyc.getCategories()) {
-            model.addElement(c);
+    private DefaultListModel<String> getAllCategoryNames() {
+        DefaultListModel<String> model = new DefaultListModel<>();
+        for (String name : ctyc.getCategories().keySet()) {
+            model.addElement(name);
         }
         return model;
     }
 
+    // https://stackoverflow.com/questions/4344682/double-click-event-on-jlist-element
     private void addUIElements() {
-        ctycPanel = new JList(ctyc.getCategories().toArray());
+        ctycPanel = new JList(getAllCategoryNames());
+        ctycPanelAddMouseListener();
 
         JSplitPane divider = new JSplitPane(JSplitPane.VERTICAL_SPLIT, ctycPanel, createButton());
         divider.setDividerLocation(HEIGHT - HEIGHT / 4);
@@ -70,6 +74,21 @@ public class OptionsGUI extends JFrame {
 
     private void makeCategoryCreationUI() {
         new CategoryCreationGUI(this);
+    }
+
+    private void ctycPanelAddMouseListener() {
+        ctycPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                JList list = (JList) e.getSource();
+                // Double-click detected
+                if (e.getClickCount() == 2) {
+                    String key = list.getSelectedValue().toString();
+                    Category c = ctyc.getCategories().get(key);
+                    System.out.println(c.getName());
+                }
+            }
+        });
     }
 
 }

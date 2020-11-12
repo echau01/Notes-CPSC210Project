@@ -66,7 +66,6 @@ public class ToolsGUI {
         optionsPanel.add(renameButton);
     }
 
-
     // https://stackoverflow.com/questions/17653116/action-listener-for-multiple-radio-buttons
     private void generateToolButtons() {
         toolButtons = new ButtonGroup();

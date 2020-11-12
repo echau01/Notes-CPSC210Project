@@ -5,43 +5,32 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class CategoryContainer implements Writable {
-    private List<Category> categories;
+    private HashMap<String, Category> categories;
 
     // CONSTRUCTOR
     // EFFECTS: constructs an empty category container
     public CategoryContainer() {
-        categories = new ArrayList<>();
+        categories = new HashMap<>();
     }
 
     // MODIFIES: this
     // EFFECTS: constructs an empty category
     public void addCategory(Category c) {
-        categories.add(c);
+        categories.put(c.getName(), c);
     }
 
     // MODIFIES: this
     // EFFECTS: removes the given category
     public void removeCategory(Category c) {
-        categories.remove(c);
+        categories.remove(c.getName());
     }
 
-    // REQUIRES: name is in lower case
-    // EFFECTS: returns the category with the given name, returns a placeholder if there is no such category
-    public Category getCategoryByName(String name) throws NoCategoryException {
-        String ctyName;
-        for (Category c:categories) {
-            ctyName = c.getName().toLowerCase();
-            if (name.equals(ctyName)) {
-                return c;
-            }
-        }
-        throw new NoCategoryException();
-    }
-
-    public List<Category> getCategories() {
+    public HashMap<String, Category> getCategories() {
         return categories;
     }
 
@@ -56,10 +45,6 @@ public class CategoryContainer implements Writable {
 
     // EFFECTS: places every single category in categories into a single json array
     private JSONArray categoriesToJsonArray() {
-        JSONArray jsonArray = new JSONArray();
-        for (Category cty: categories) {
-            jsonArray.put(cty.toJson());
-        }
-        return jsonArray;
+        return new JSONArray();
     }
 }
