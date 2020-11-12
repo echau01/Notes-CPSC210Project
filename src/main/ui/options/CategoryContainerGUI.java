@@ -100,10 +100,14 @@ public class CategoryContainerGUI extends PopupGUI {
             }
 
             private void deleteCategory() {
-                String selected = ctycPanel.getSelectedValue().toString();
-                ctyc.removeCategoryByName(selected);
-                saveCategoryContainer();
-                refresh();
+                try {
+                    String selected = ctycPanel.getSelectedValue().toString();
+                    ctyc.removeCategoryByName(selected);
+                    saveCategoryContainer();
+                    refresh();
+                } catch (NullPointerException e) {
+                    new ErrorGUI("Please select a Category.", "Error");
+                }
             }
         });
         return button;
@@ -149,9 +153,23 @@ public class CategoryContainerGUI extends PopupGUI {
         try {
             ctyc = jsonParser.parseFile();
         } catch (Exception e) {
-            new ErrorGUI("Error in loading saved files.", "Cannot load from file.");
-            ctyc = new model.CategoryContainer();
+            new ErrorGUI("Error loading saved files. Creating default files.", "File load error");
+            generateDefaultFiles();
+            refresh();
             // e.printStackTrace();
+        }
+    }
+
+    private void generateDefaultFiles() {
+        try {
+            Category cty = new Category("Untitled");
+            ctyc = new model.CategoryContainer();
+            cty.addNotes(notePane);
+            ctyc.addCategory(cty);
+            saveCategoryContainer();
+        } catch (NoTitleException e) {
+            new ErrorGUI("This should never be thrown. Something has gone horribly wrong.", "Error");
+            e.printStackTrace();
         }
     }
 

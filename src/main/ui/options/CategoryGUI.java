@@ -102,10 +102,14 @@ public class CategoryGUI extends PopupGUI {
     }
 
     private void deleteNote() {
-        String selected = ctyPanel.getSelectedValue().toString();
-        cty.removeNotesByName(selected);
-        saveCategoryContainer();
-        refresh();
+        try {
+            String selected = ctyPanel.getSelectedValue().toString();
+            cty.removeNotesByName(selected);
+            saveCategoryContainer();
+            refresh();
+        } catch (NullPointerException e) {
+            new ErrorGUI("Please select a Note.", "Error");
+        }
     }
 
     private void saveCategoryContainer() {

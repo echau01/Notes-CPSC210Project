@@ -20,6 +20,7 @@ public class NoteCreationGUI extends PopupGUI {
     public NoteCreationGUI() {
         super("Note Creation", WIDTH, HEIGHT);
         addUIElements();
+        validate();
     }
 
     @Override
@@ -36,7 +37,6 @@ public class NoteCreationGUI extends PopupGUI {
         divider.setDividerSize(DIVIDER_SIZE);
         divider.setEnabled(false);
         add(divider);
-
     }
 
     private JButton makeButton() {
