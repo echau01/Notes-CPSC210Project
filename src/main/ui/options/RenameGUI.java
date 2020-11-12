@@ -1,7 +1,7 @@
 package ui.options;
 
 import model.exceptions.NoTitleException;
-import ui.MainGUI;
+import ui.NoteGUI;
 import ui.PopupGUI;
 
 import javax.swing.*;
@@ -12,13 +12,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class RenameGUI extends PopupGUI {
-    private MainGUI mainGUI;
+    private NoteGUI noteGUI;
     private JTextPane pane;
 
     // https://stackoverflow.com/questions/2442599/how-to-set-jframe-to-appear-centered-regardless-of-monitor-resolution
-    public RenameGUI(MainGUI mainGUI) {
+    public RenameGUI(NoteGUI noteGUI) {
         super("Rename Note");
-        this.mainGUI = mainGUI;
+        this.noteGUI = noteGUI;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class RenameGUI extends PopupGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    mainGUI.renameNote(pane.getText());
+                    noteGUI.renameNote(pane.getText());
                     dispose();
                 } catch (NoTitleException noTitleException) {
                     createTitleWarning();

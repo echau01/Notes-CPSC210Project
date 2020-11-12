@@ -26,7 +26,9 @@ public class NotePanel extends JPanel {
         textPane.setVisible(true);
         textPane.setOpaque(false);
         add(textPane);
+
         pixels = new LinkedHashSet<>();
+        this.title = title;
     }
 
     public NotePanelData toData() {
@@ -43,6 +45,10 @@ public class NotePanel extends JPanel {
 
     public void setTitle(String t) {
         title = t;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     @Override

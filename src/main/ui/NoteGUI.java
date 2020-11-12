@@ -6,7 +6,7 @@ import model.NotePanel;
 import javax.swing.*;
 import java.awt.*;
 
-public class MainGUI extends JFrame {
+public class NoteGUI extends JFrame {
 
     private static final int WIDTH = 1280;
     private static final int HEIGHT = 790;
@@ -16,16 +16,14 @@ public class MainGUI extends JFrame {
     private JPanel coloursPanel;
     private JPanel toolsPanel;
     private NotePanel notePane;
-    private String title;
 
-    public MainGUI(String title) throws NoTitleException {
+    public NoteGUI(NotePanel notePane) throws NoTitleException {
         // give this the title of the notes later - use untitled as a placeholder value
-        super(title);
-        this.title = title;
+        super(notePane.getTitle());
+        this.notePane = notePane;
 
-        setTitle("E");
-
-        if (title.length() == 0) {
+        // throws a NoTitleException if the note title has no characters
+        if (notePane.getTitle().length() == 0) {
             dispose();
             throw new NoTitleException();
         }
@@ -50,8 +48,6 @@ public class MainGUI extends JFrame {
         coloursPanel = new JPanel();
         coloursPanel.setLayout(new GridLayout(2, 6));
         coloursPanel.setBorder(BorderFactory.createTitledBorder("Colours"));
-
-        notePane = new NotePanel(title);
     }
 
     // MODIFIES: this

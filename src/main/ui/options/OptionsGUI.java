@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+// TODO: every single time this is loaded, it will use persistence to load the categories and notes
 public class OptionsGUI extends JFrame {
     private static final int WIDTH = 640;
     private static final int HEIGHT = 480;
@@ -85,7 +86,8 @@ public class OptionsGUI extends JFrame {
                 if (e.getClickCount() == 2) {
                     String key = list.getSelectedValue().toString();
                     Category c = ctyc.getCategories().get(key);
-                    System.out.println(c.getName());
+                    new CategoryGUI(c);
+                    dispose();
                 }
             }
         });

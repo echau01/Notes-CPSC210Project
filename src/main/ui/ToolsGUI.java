@@ -15,7 +15,7 @@ public class ToolsGUI {
     private JPanel coloursPanel;
     private JPanel toolsPanel;
     private NotePanel notePane;
-    private MainGUI mainGUI;
+    private NoteGUI noteGUI;
 
     private ButtonGroup colourButtons;
     private ButtonGroup toolButtons;
@@ -26,12 +26,12 @@ public class ToolsGUI {
     private EraserTool eraserTool;
     private TextTool textTool;
 
-    ToolsGUI(MainGUI mainGUI, JPanel optionsPanel, JPanel coloursPanel, JPanel toolsPanel, NotePanel notePane) {
+    ToolsGUI(NoteGUI noteGUI, JPanel optionsPanel, JPanel coloursPanel, JPanel toolsPanel, NotePanel notePane) {
         this.optionsPanel = optionsPanel;
         this.coloursPanel = coloursPanel;
         this.toolsPanel = toolsPanel;
         this.notePane = notePane;
-        this.mainGUI = mainGUI;
+        this.noteGUI = noteGUI;
 
         selectedColour = Color.black;
 
@@ -59,7 +59,7 @@ public class ToolsGUI {
         renameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new RenameGUI(mainGUI);
+                new RenameGUI(noteGUI);
             }
         });
         optionsPanel.add(optionsButton);

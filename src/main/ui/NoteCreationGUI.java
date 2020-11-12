@@ -1,5 +1,6 @@
 package ui;
 
+import model.NotePanel;
 import model.exceptions.NoTitleException;
 
 import javax.swing.*;
@@ -39,7 +40,7 @@ public class NoteCreationGUI extends PopupGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    new MainGUI(pane.getText());
+                    new NoteGUI(new NotePanel(pane.getText()));
                     dispose();
                 } catch (NoTitleException noTitleException) {
                     createTitleWarning();
