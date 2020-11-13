@@ -69,6 +69,7 @@ public class CategoryGUI extends PopupGUI {
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                cty.addNotes(notePane);
                 saveCategoryContainer();
                 refresh();
             }
@@ -95,6 +96,7 @@ public class CategoryGUI extends PopupGUI {
             public void actionPerformed(ActionEvent e) {
                 new NoteCreationGUI();
                 saveCategoryContainer();
+                noteGUI.dispose();
                 dispose();
             }
         });
@@ -113,7 +115,6 @@ public class CategoryGUI extends PopupGUI {
     }
 
     private void saveCategoryContainer() {
-        cty.addNotes(notePane);
         jsonSaver = new JsonSaver(DESTINATION);
         try {
             jsonSaver.save(ctyc);
@@ -142,7 +143,6 @@ public class CategoryGUI extends PopupGUI {
                     NotePanel selectedNotePanel = cty.getNotes().get(key);
                     try {
                         new NoteGUI(selectedNotePanel);
-                        saveCategoryContainer();
                         noteGUI.dispose();
                         dispose();
                     } catch (NoTitleException noTitleException) {
