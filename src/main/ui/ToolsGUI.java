@@ -6,20 +6,15 @@ import ui.options.NoteRenameGUI;
 import ui.tools.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class ToolsGUI {
     private static final Color BACKGROUND = new Color(240, 240, 240);
 
-    private JPanel optionsPanel;
-    private JPanel coloursPanel;
-    private JPanel toolsPanel;
-    private NotePanel notePane;
-    private NoteGUI noteGUI;
-
-    private ButtonGroup colourButtons;
-    private ButtonGroup toolButtons;
+    private final JPanel optionsPanel;
+    private final JPanel coloursPanel;
+    private final JPanel toolsPanel;
+    private final NotePanel notePane;
+    private final NoteGUI noteGUI;
 
     private Color selectedColour;
 
@@ -49,7 +44,7 @@ public class ToolsGUI {
     private void initTools() {
         penTool = new PenTool(notePane, selectedColour);
         eraserTool = new EraserTool(notePane);
-        textTool = new TextTool(notePane, selectedColour);
+        textTool = new TextTool(notePane);
     }
 
     // MODIFIES: this
@@ -60,21 +55,13 @@ public class ToolsGUI {
         JButton optionsButton = new JButton("Options");
         optionsButton.setBorder(BorderFactory.createEmptyBorder());
         optionsButton.setBackground(BACKGROUND);
-        optionsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new CategoryContainerGUI (noteGUI, notePane);
-            }
-        });
+        optionsButton.addActionListener(e -> new CategoryContainerGUI(noteGUI, notePane));
+
         JButton renameButton = new JButton("Rename Note");
         renameButton.setBorder(BorderFactory.createEmptyBorder());
         renameButton.setBackground(BACKGROUND);
-        renameButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new NoteRenameGUI(noteGUI);
-            }
-        });
+        renameButton.addActionListener(e -> new NoteRenameGUI(noteGUI));
+
         optionsPanel.add(optionsButton);
         optionsPanel.add(renameButton);
     }
@@ -83,21 +70,17 @@ public class ToolsGUI {
     // MODIFIES: this
     // EFFECTS: generates tool buttons for all the tools
     private void generateToolButtons() {
-        toolButtons = new ButtonGroup();
+        ButtonGroup toolButtons = new ButtonGroup();
         Tools[] tools;
         tools = Tools.values();
 
         for (Tools t: tools) {
-            String buttonName = t.toString().substring(0, 1) + t.toString().substring(1).toLowerCase();
+            String buttonName = t.toString().charAt(0) + t.toString().substring(1).toLowerCase();
             JRadioButton tb = new JRadioButton(buttonName);
             tb.setBackground(BACKGROUND);
-            tb.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    performToolAction(t);
-                }
-            });
+            tb.addActionListener(e -> performToolAction(t));
             toolButtons.add(tb);
+
             toolsPanel.add(tb);
         }
     }
@@ -105,19 +88,16 @@ public class ToolsGUI {
     // MODIFIES: this
     // EFFECTS: generates colour buttons for all the colours
     private void generateColourButtons() {
-        colourButtons = new ButtonGroup();
+        ButtonGroup colourButtons = new ButtonGroup();
         Colours[] colours;
         colours = Colours.values();
         for (Colours c: colours) {
-            String buttonName = c.toString().substring(0, 1) + c.toString().substring(1).toLowerCase();
+            String buttonName = c.toString().charAt(0) + c.toString().substring(1).toLowerCase();
             JRadioButton cb = new JRadioButton(buttonName);
             cb.setBackground(BACKGROUND);
-            cb.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    selectedColour = c.getColour();
-                    penTool.setColour(selectedColour);
-                }
+            cb.addActionListener(e -> {
+                selectedColour = c.getColour();
+                penTool.setColour(selectedColour);
             });
             colourButtons.add(cb);
             coloursPanel.add(cb);
@@ -142,7 +122,6 @@ public class ToolsGUI {
                 textTool.setActive(true);
                 break;
             default:
-                ;
                 break;
         }
     }

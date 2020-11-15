@@ -10,10 +10,7 @@ import java.awt.event.MouseMotionListener;
 // https://stackoverflow.com/questions/23122492/java-jframe-draw
 public class PenTool implements MouseMotionListener {
     private Color colour;
-    private NotePanel notePanel;
-
-    private int mouseX;
-    private int mouseY;
+    private final NotePanel notePanel;
     private boolean active;
 
     // CONSTRUCTOR
@@ -43,15 +40,12 @@ public class PenTool implements MouseMotionListener {
     @Override
     public void mouseDragged(MouseEvent e) {
         if (active) {
-            mouseX = e.getX();
-            mouseY = e.getY();
-            notePanel.addPixel(new Pixel(mouseX, mouseY, colour));
+            notePanel.addPixel(new Pixel(e.getX(), e.getY(), colour));
             notePanel.repaint();
         }
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        ;
     }
 }

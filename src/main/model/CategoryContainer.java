@@ -6,7 +6,7 @@ import persistence.Writable;
 import java.util.*;
 
 public class CategoryContainer implements Writable {
-    private HashMap<String, Category> categories;
+    private final HashMap<String, Category> categories;
 
     // CONSTRUCTOR
     // EFFECTS: constructs an empty CategoryContainer

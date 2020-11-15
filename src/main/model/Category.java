@@ -8,7 +8,7 @@ import java.util.*;
 
 public class Category implements Writable {
     private String category;
-    private HashMap<String, NotePanel> allNotes;
+    private final HashMap<String, NotePanel> allNotes;
 
     // CONSTRUCTOR
     // EFFECTS: creates a new Category with the given string
@@ -18,7 +18,7 @@ public class Category implements Writable {
             throw new NoTitleException();
         }
         category = name;
-        allNotes = new HashMap<String, NotePanel>();
+        allNotes = new HashMap<>();
     }
 
     // MODIFIES: this

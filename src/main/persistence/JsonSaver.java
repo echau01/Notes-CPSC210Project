@@ -8,7 +8,7 @@ import java.io.PrintWriter;
 // the formatting of methods in this class takes inspiration from JsonSerializationDemo
 public class JsonSaver {
     private PrintWriter printWriter;
-    private String filePath;
+    private final String filePath;
     private static int TAB = 4;
 
     // CONSTRUCTOR

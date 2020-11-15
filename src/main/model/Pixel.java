@@ -7,22 +7,22 @@ import java.util.Objects;
 
 public class Pixel extends Component implements Writable {
 
-    private Color colour;
-    private int x;
-    private int y;
+    private final Color colour;
+    private final int mouseX;
+    private final int mouseY;
 
     // CONSTRUCTOR
     // EFFECTS: constructs a new Pixel with the given x, y and colour
     public Pixel(int x, int y, Color colour) {
-        this.x = x;
-        this.y = y;
+        this.mouseX = x;
+        this.mouseY = y;
         this.colour = colour;
     }
 
     // EFFECTS: draws the pixel to x and y
     public void draw(final Graphics g) {
         g.setColor(colour);
-        g.fillOval(x, y, 5, 5);
+        g.fillOval(mouseX, mouseY, 5, 5);
     }
 
     // EFFECTS: returns the colour of the pixel
@@ -34,8 +34,8 @@ public class Pixel extends Component implements Writable {
     @Override
     public JSONObject toJson() {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("x", x);
-        jsonObject.put("y", y);
+        jsonObject.put("x", mouseX);
+        jsonObject.put("y", mouseY);
         jsonObject.put("colour", colour.getRGB());
         return jsonObject;
     }
@@ -49,12 +49,12 @@ public class Pixel extends Component implements Writable {
             return false;
         }
         Pixel pixel = (Pixel) o;
-        return x == pixel.x &&
-                y == pixel.y;
+        return mouseX == pixel.mouseX
+                && mouseY == pixel.mouseY;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(x, y);
+        return Objects.hash(mouseX, mouseY);
     }
 }

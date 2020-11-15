@@ -7,15 +7,13 @@ import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class NoteRenameGUI extends PopupGUI {
     protected static final int WIDTH = 320;
     protected static final int HEIGHT = 240;
     private static final int DIVIDER_SIZE = 0;
 
-    private NoteGUI noteGUI;
+    private final NoteGUI noteGUI;
     private JTextPane pane;
 
     // https://stackoverflow.com/questions/2442599/how-to-set-jframe-to-appear-centered-regardless-of-monitor-resolution
@@ -50,15 +48,12 @@ public class NoteRenameGUI extends PopupGUI {
     //          when clicked, renames the note to the string in pane
     private JButton makeButton() {
         makeButton("Set Name");
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    noteGUI.renameNote(pane.getText());
-                    dispose();
-                } catch (NoTitleException noTitleException) {
-                    createTitleWarning();
-                }
+        button.addActionListener(e -> {
+            try {
+                noteGUI.renameNote(pane.getText());
+                dispose();
+            } catch (NoTitleException noTitleException) {
+                createTitleWarning();
             }
         });
         return button;

@@ -31,8 +31,7 @@ public class JsonParser {
     //          throws IOException there are errors in reading the file
     private JSONObject fileToJson(String filePath) throws IOException {
         String fileToString = new String(Files.readAllBytes(Paths.get(filePath)));
-        JSONObject jsonObject = new JSONObject(fileToString);
-        return jsonObject;
+        return new JSONObject(fileToString);
     }
 
     // MODIFIES: ctyc

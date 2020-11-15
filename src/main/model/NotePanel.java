@@ -8,9 +8,9 @@ import java.util.LinkedHashSet;
 
 public class NotePanel extends JPanel {
 
-    private JTextPane textPane;
+    private final JTextPane textPane;
     private String title;
-    private LinkedHashSet<Pixel> pixels;
+    private final LinkedHashSet<Pixel> pixels;
 
     // CONSTRUCTOR
     // EFFECTS: creates a new NotePanel with the given string
@@ -79,7 +79,7 @@ public class NotePanel extends JPanel {
     @Override
     public void paintComponent(final Graphics g) {
         super.paintComponent(g);
-        pixels.stream().forEach((p) -> p.draw(g));
+        pixels.forEach((p) -> p.draw(g));
     }
 
     @Override

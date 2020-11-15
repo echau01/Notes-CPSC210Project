@@ -19,13 +19,10 @@ public class CategoryContainerGUI extends PopupGUI {
     protected static final int WIDTH = 640;
     protected static final int HEIGHT = 480;
     private static final int DIVIDER_SIZE = 0;
-
     private static final String DESTINATION = "./data/CategoryContainer.json";
-    private JsonParser jsonParser;
-    private JsonSaver jsonSaver;
 
-    private NoteGUI noteGUI;
-    private NotePanel notePane;
+    private final NoteGUI noteGUI;
+    private final NotePanel notePane;
     private model.CategoryContainer ctyc;
 
     private JList ctycPanel;
@@ -33,7 +30,7 @@ public class CategoryContainerGUI extends PopupGUI {
     // CONSTRUCTOR
     // EFFECTS: creates a new CategoryContainerGUI
     public CategoryContainerGUI(NoteGUI noteGUI, NotePanel notePane) {
-        super("Note Creation", WIDTH, HEIGHT);
+        super("All Categories", WIDTH, HEIGHT);
         this.notePane = notePane;
         this.noteGUI = noteGUI;
 
@@ -89,12 +86,7 @@ public class CategoryContainerGUI extends PopupGUI {
     // EFFECTS: creates the button which performs the rename category operation
     private JButton createRenameButton() {
         super.makeButton("Rename Selected");
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                createRenameCategoryGUI();
-            }
-        });
+        button.addActionListener(e -> createRenameCategoryGUI());
         return button;
     }
 
@@ -127,12 +119,7 @@ public class CategoryContainerGUI extends PopupGUI {
     // EFFECTS: creates the create category button which performs the make category operation
     private JButton createCategoryButton() {
         super.makeButton("New Category");
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                makeCategoryCreationUI();
-            }
-        });
+        button.addActionListener(e -> makeCategoryCreationUI());
         return button;
     }
 
@@ -144,7 +131,7 @@ public class CategoryContainerGUI extends PopupGUI {
     // EFFECTS: creates a new window which provides the steps needed to rename the selected category
     private void createRenameCategoryGUI() {
         try {
-            // String selected = ctycPanel.getSelectedValue().toString();
+            String selected = ctycPanel.getSelectedValue().toString();
             new CategoryRenameGUI(this);
             saveCategoryContainer();
         } catch (NullPointerException e) {
@@ -155,7 +142,7 @@ public class CategoryContainerGUI extends PopupGUI {
     // MODIFIES: this
     // EFFECTS: saves the ctyc to file
     private void saveCategoryContainer() {
-        jsonSaver = new JsonSaver(DESTINATION);
+        JsonSaver jsonSaver = new JsonSaver(DESTINATION);
         try {
             jsonSaver.save(ctyc);
         } catch (Exception e) {
@@ -168,7 +155,7 @@ public class CategoryContainerGUI extends PopupGUI {
     // EFFECTS: loads the ctyc from file
     //          if there is an error, default files are generated and loaded
     private void loadCategoryContainer() {
-        jsonParser = new JsonParser(DESTINATION);
+        JsonParser jsonParser = new JsonParser(DESTINATION);
         try {
             ctyc = jsonParser.parseFile();
         } catch (Exception e) {

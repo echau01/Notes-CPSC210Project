@@ -7,10 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
 public class EraserTool implements MouseMotionListener {
-    private NotePanel notePanel;
-
-    private int mouseX;
-    private int mouseY;
+    private final NotePanel notePanel;
     private boolean active;
 
     // CONSTRUCTOR
@@ -32,16 +29,13 @@ public class EraserTool implements MouseMotionListener {
     @Override
     public void mouseDragged(MouseEvent e) {
         if (active) {
-            mouseX = e.getX();
-            mouseY = e.getY();
-            notePanel.removePixel(new Pixel(mouseX, mouseY, Color.BLACK));
+            notePanel.removePixel(new Pixel(e.getX(), e.getY(), Color.BLACK));
             notePanel.repaint();
         }
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-            ;
     }
 }
 

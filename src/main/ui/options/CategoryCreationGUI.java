@@ -7,8 +7,6 @@ import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class CategoryCreationGUI extends PopupGUI {
     protected static final int WIDTH = 320;
@@ -16,7 +14,7 @@ public class CategoryCreationGUI extends PopupGUI {
     private static final int DIVIDER_SIZE = 0;
 
     private JTextPane pane;
-    private CategoryContainerGUI optionsGUI;
+    private final CategoryContainerGUI optionsGUI;
 
     // CONSTRUCTOR
     // EFFECTS: creates a new CategoryCreationGUI
@@ -49,15 +47,12 @@ public class CategoryCreationGUI extends PopupGUI {
     //          when clicked, creates a new category
     private JButton makeButton() {
         super.makeButton("Create Category");
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    optionsGUI.addCategory(new Category(pane.getText()));
-                    dispose();
-                } catch (NoTitleException noTitleException) {
-                    createTitleWarning();
-                }
+        button.addActionListener(e -> {
+            try {
+                optionsGUI.addCategory(new Category(pane.getText()));
+                dispose();
+            } catch (NoTitleException noTitleException) {
+                createTitleWarning();
             }
         });
         return button;

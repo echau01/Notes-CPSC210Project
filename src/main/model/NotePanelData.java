@@ -7,9 +7,9 @@ import java.util.LinkedHashSet;
 
 // TODO: add documentation
 public class NotePanelData implements Writable {
-    private String title;
-    private String body;
-    private LinkedHashSet<Pixel> pixels;
+    private final String title;
+    private final String body;
+    private final LinkedHashSet<Pixel> pixels;
 
     // CONSTRUCTOR
     // EFFECTS: Creates a new note with the given title

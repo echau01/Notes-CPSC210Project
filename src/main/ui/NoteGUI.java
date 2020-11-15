@@ -16,7 +16,7 @@ public class NoteGUI extends JFrame {
     private JPanel optionsPanel;
     private JPanel coloursPanel;
     private JPanel toolsPanel;
-    private NotePanel notePane;
+    private final NotePanel notePane;
 
     // CONSTRUCTOR
     // EFFECTS: creates a new NoteGUI with the given NotePanel

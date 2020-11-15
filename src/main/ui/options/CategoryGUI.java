@@ -9,8 +9,6 @@ import ui.NoteGUI;
 import ui.PopupGUI;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -22,10 +20,10 @@ public class CategoryGUI extends PopupGUI {
     private static final String DESTINATION = "./data/CategoryContainer.json";
     private JsonSaver jsonSaver;
 
-    private NoteGUI noteGUI;
-    private Category cty;
-    private CategoryContainer ctyc;
-    private NotePanel notePane;
+    private final NoteGUI noteGUI;
+    private final Category cty;
+    private final CategoryContainer ctyc;
+    private final NotePanel notePane;
 
     private JList ctyPanel;
 
@@ -69,13 +67,10 @@ public class CategoryGUI extends PopupGUI {
     //          when clicked, adds note to category performs save operation
     private JButton createSaveButton() {
         super.makeButton("Save");
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                cty.addNotes(notePane);
-                saveCategoryContainer();
-                refresh();
-            }
+        button.addActionListener(e -> {
+            cty.addNotes(notePane);
+            saveCategoryContainer();
+            refresh();
         });
         return button;
     }
@@ -84,12 +79,7 @@ public class CategoryGUI extends PopupGUI {
     //          when clicked, deletes selected note
     private JButton createDeleteButton() {
         super.makeButton("Delete Selected");
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                deleteNote();
-            }
-        });
+        button.addActionListener(e -> deleteNote());
         return button;
     }
 
@@ -97,14 +87,11 @@ public class CategoryGUI extends PopupGUI {
     //          when clicked, performs the note creation operation
     private JButton createNoteButton() {
         super.makeButton("Create New Note");
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new NoteCreationGUI();
-                saveCategoryContainer();
-                noteGUI.dispose();
-                dispose();
-            }
+        button.addActionListener(e -> {
+            new NoteCreationGUI();
+            saveCategoryContainer();
+            noteGUI.dispose();
+            dispose();
         });
         return button;
     }
