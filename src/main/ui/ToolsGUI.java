@@ -56,7 +56,7 @@ public class ToolsGUI {
         optionsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new CategoryContainerGUI(noteGUI, notePane);
+                new CategoryContainerGUI (noteGUI, notePane);
             }
         });
         JButton renameButton = new JButton("Rename Note");
