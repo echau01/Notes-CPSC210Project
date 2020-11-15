@@ -3,7 +3,6 @@ package ui.options;
 import model.Category;
 import model.exceptions.NoTitleException;
 import ui.PopupGUI;
-
 import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -19,6 +18,8 @@ public class CategoryCreationGUI extends PopupGUI {
     private JTextPane pane;
     private CategoryContainerGUI optionsGUI;
 
+    // CONSTRUCTOR
+    // EFFECTS: creates a new CategoryCreationGUI
     public CategoryCreationGUI(CategoryContainerGUI optionsGUI) {
         super("Category Creation", WIDTH, HEIGHT);
         this.optionsGUI = optionsGUI;
@@ -26,6 +27,8 @@ public class CategoryCreationGUI extends PopupGUI {
         addUIElements();
     }
 
+    // MODIFIES: this
+    // EFFECTS: initialises and adds the all the ui elements (buttons, text panels etc.) to the main window
     @Override
     protected void addUIElements() {
         pane = new JTextPane();
@@ -42,6 +45,8 @@ public class CategoryCreationGUI extends PopupGUI {
         add(divider);
     }
 
+    // EFFECTS: makes and returns the create button
+    //          when clicked, creates a new category
     private JButton makeButton() {
         super.makeButton("Create Category");
         button.addActionListener(new ActionListener() {

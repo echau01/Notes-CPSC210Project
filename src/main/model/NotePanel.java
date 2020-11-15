@@ -1,17 +1,10 @@
 package model;
 
-import com.sun.xml.internal.ws.api.Component;
-import org.json.JSONArray;
-import org.json.JSONObject;
-import persistence.Writable;
-
+import model.exceptions.NoTitleException;
 import javax.swing.*;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
 import java.awt.*;
 import java.awt.event.MouseMotionListener;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
 
 public class NotePanel extends JPanel {
 
@@ -20,8 +13,12 @@ public class NotePanel extends JPanel {
     private LinkedHashSet<Pixel> pixels;
 
     // CONSTRUCTOR
-    // EFFECTS: creates a new NotePanel with the given title
-    public NotePanel(String title) {
+    // EFFECTS: creates a new NotePanel with the given string
+    //          throws NoTitleException if the given string length is 0
+    public NotePanel(String title) throws NoTitleException {
+        if (title.length() == 0) {
+            throw new NoTitleException();
+        }
         setLayout(new BorderLayout());
         setBackground(Color.white);
         textPane = new JTextPane();
@@ -39,28 +36,44 @@ public class NotePanel extends JPanel {
         return s.equals(title);
     }
 
-    public void addBody(String body) {
+    // MODIFIES: this
+    // EFFECTS: sets the text in textPane to the given string
+    public void setBody(String body) {
         textPane.setText(body);
     }
 
+    // EFFECTS: returns the NotePanel, converted to its corresponding NotePanelData object
     public NotePanelData toData() {
         return new NotePanelData(title, textPane.getText(), pixels);
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds the given pixel to pixels
     public void addPixel(Pixel p) {
         pixels.add(p);
     }
 
+    // MODIFIES: this
+    // EFFECTS: removes the given pixel from pixels
     public void removePixel(Pixel p) {
         pixels.remove(p);
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets the title to the given string
     public void setTitle(String t) {
         title = t;
     }
 
+    // EFFECTS: returns the current title of NotePanel
     public String getTitle() {
         return title;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: disables / enables editing of textPane
+    public void toggleEditable(boolean b) {
+        textPane.setEditable(b);
     }
 
     @Override
@@ -74,13 +87,11 @@ public class NotePanel extends JPanel {
         textPane.addMouseMotionListener(l);
     }
 
-    public void toggleEditable(boolean b) {
-        textPane.setEditable(b);
-    }
-
+    /*
     public void setColour(Color colour) {
         SimpleAttributeSet attributeSet = new SimpleAttributeSet();
         StyleConstants.setForeground(attributeSet, colour);
         textPane.setCharacterAttributes(attributeSet, true);
     }
+     */
 }

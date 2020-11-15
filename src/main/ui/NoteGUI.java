@@ -2,7 +2,6 @@ package ui;
 
 import model.exceptions.NoTitleException;
 import model.NotePanel;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -19,16 +18,11 @@ public class NoteGUI extends JFrame {
     private JPanel toolsPanel;
     private NotePanel notePane;
 
-    public NoteGUI(NotePanel notePane) throws NoTitleException {
-        // give this the title of the notes later - use untitled as a placeholder value
+    // CONSTRUCTOR
+    // EFFECTS: creates a new NoteGUI with the given NotePanel
+    public NoteGUI(NotePanel notePane) {
         super(notePane.getTitle());
         this.notePane = notePane;
-
-        // throws a NoTitleException if the note title has no characters
-        if (notePane.getTitle().length() == 0) {
-            dispose();
-            throw new NoTitleException();
-        }
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - WIDTH / 2, dim.height / 2 - HEIGHT / 2);
@@ -42,11 +36,16 @@ public class NoteGUI extends JFrame {
         setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: clears the NoteGUI and sets it invisible - effectively closing it out
     public void dispose() {
         removeAll();
         setVisible(false);
     }
 
+    // MODIFIES: this, notePane
+    // EFFECTS: renames notePane and this to the given string
+    //          throws NoTitleException if the given string is blank
     public void renameNote(String name) throws NoTitleException {
         if (name.length() == 0) {
             throw new NoTitleException();
@@ -56,6 +55,8 @@ public class NoteGUI extends JFrame {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: initialises all the panels to be displayed on NoteGUI
     private void initPanels() {
         toolsPanel = new JPanel();
         toolsPanel.setLayout(new GridLayout(2, 6));

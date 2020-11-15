@@ -1,8 +1,18 @@
-{"categories": [{
-    "all notes": [{
-        "pixels": [],
-        "title": "fds",
-        "body": ""
-    }],
-    "category": "hbfdg"
-}]}
+{"categories": [
+    {
+        "all notes": [{
+            "pixels": [],
+            "title": "hgdf",
+            "body": ""
+        }],
+        "category": "hbfdg"
+    },
+    {
+        "all notes": [{
+            "pixels": [],
+            "title": "hgf",
+            "body": "h gfdh gfdhgfdhgfd"
+        }],
+        "category": "gf hgf"
+    }
+]}

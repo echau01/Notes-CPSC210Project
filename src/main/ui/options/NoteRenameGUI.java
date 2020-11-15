@@ -3,7 +3,6 @@ package ui.options;
 import model.exceptions.NoTitleException;
 import ui.NoteGUI;
 import ui.PopupGUI;
-
 import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -20,6 +19,8 @@ public class NoteRenameGUI extends PopupGUI {
     private JTextPane pane;
 
     // https://stackoverflow.com/questions/2442599/how-to-set-jframe-to-appear-centered-regardless-of-monitor-resolution
+    // CONSTRUCTOR
+    // EFFECTS: creates a new NoteRenameGUI
     public NoteRenameGUI(NoteGUI noteGUI) {
         super("Rename Note", WIDTH, HEIGHT);
         this.noteGUI = noteGUI;
@@ -27,6 +28,8 @@ public class NoteRenameGUI extends PopupGUI {
         addUIElements();
     }
 
+    // MODIFIES: this
+    // EFFECTS: initialises and adds the all the ui elements (buttons, text panels etc.) to the main window
     @Override
     protected void addUIElements() {
         pane = new JTextPane();
@@ -43,6 +46,8 @@ public class NoteRenameGUI extends PopupGUI {
         add(divider);
     }
 
+    // EFFECTS: makes and returns the rename button
+    //          when clicked, renames the note to the string in pane
     private JButton makeButton() {
         makeButton("Set Name");
         button.addActionListener(new ActionListener() {

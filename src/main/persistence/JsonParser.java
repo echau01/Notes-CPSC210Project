@@ -4,7 +4,6 @@ import model.*;
 import model.exceptions.NoTitleException;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -63,7 +62,7 @@ public class JsonParser {
 
     // MODIFIES: cty
     // EFFECTS: parses all notes from category json data
-    private void loadNotes(Category cty, JSONArray jsonAllNotes) {
+    private void loadNotes(Category cty, JSONArray jsonAllNotes) throws NoTitleException {
         for (Object noteObj : jsonAllNotes) {
             JSONObject jsonNote = (JSONObject) noteObj;
             loadNote(cty, jsonNote);
@@ -72,12 +71,12 @@ public class JsonParser {
 
     // MODIFIES: cty
     // EFFECTS: parses individual notes from json data and adds it to cty
-    private void loadNote(Category cty, JSONObject jsonNote) {
+    private void loadNote(Category cty, JSONObject jsonNote) throws NoTitleException {
         String noteTitle = jsonNote.getString("title");
         NotePanel note = new NotePanel(noteTitle);
 
         String body = jsonNote.getString("body");
-        note.addBody(body);
+        note.setBody(body);
 
         JSONArray pixels = jsonNote.getJSONArray("pixels");
         loadPixels(note, pixels);
@@ -86,7 +85,7 @@ public class JsonParser {
     }
 
     // MODIFIES: notes
-    // EFFECTS: parses note body, adds every entry in note body to notes
+    // EFFECTS: parses note body, adds note body string and loads all pixels to notes
     private void loadPixels(NotePanel notes, JSONArray pixels) {
         for (Object pixel : pixels) {
             JSONObject jsonPixel = (JSONObject) pixel;
@@ -94,6 +93,8 @@ public class JsonParser {
         }
     }
 
+    // MODIFIES: notes
+    // EFFECTS: parses pixel data - loads every pixel into notes
     private void loadPixel(NotePanel notes, JSONObject jsonPixel) {
         int pixelX = jsonPixel.getInt("x");
         int pixelY = jsonPixel.getInt("y");

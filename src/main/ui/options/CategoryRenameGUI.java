@@ -1,10 +1,7 @@
 package ui.options;
 
-import model.Category;
 import model.exceptions.NoTitleException;
-import ui.NoteGUI;
 import ui.PopupGUI;
-
 import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -21,6 +18,8 @@ public class CategoryRenameGUI extends PopupGUI {
     private JTextPane pane;
 
     // https://stackoverflow.com/questions/2442599/how-to-set-jframe-to-appear-centered-regardless-of-monitor-resolution
+    // CONSTRUCTOR
+    // EFFECTS: creates a new CategoryRenameGUI
     public CategoryRenameGUI(CategoryContainerGUI ctycGUI) {
         super("Rename Note", WIDTH, HEIGHT);
         this.ctycGUI = ctycGUI;
@@ -28,6 +27,8 @@ public class CategoryRenameGUI extends PopupGUI {
         addUIElements();
     }
 
+    // MODIFIES: this
+    // EFFECTS: initialises and adds the all the ui elements (buttons, text panels etc.) to the main window
     @Override
     protected void addUIElements() {
         pane = new JTextPane();
@@ -44,6 +45,8 @@ public class CategoryRenameGUI extends PopupGUI {
         add(divider);
     }
 
+    // EFFECTS: makes and returns the rename button
+    //          when clicked, renames the category to the string in pane
     private JButton makeButton() {
         makeButton("Set Name");
         button.addActionListener(new ActionListener() {

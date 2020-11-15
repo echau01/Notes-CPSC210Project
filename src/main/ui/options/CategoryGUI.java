@@ -3,13 +3,10 @@ package ui.options;
 import model.Category;
 import model.CategoryContainer;
 import model.NotePanel;
-import model.exceptions.NoTitleException;
 import persistence.JsonSaver;
 import ui.ErrorGUI;
-import ui.NoteCreationGUI;
 import ui.NoteGUI;
 import ui.PopupGUI;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -32,6 +29,8 @@ public class CategoryGUI extends PopupGUI {
 
     private JList ctyPanel;
 
+    // CONSTRUCTOR
+    // EFFECTS: creates a new CategoryGUI
     CategoryGUI(NoteGUI noteGUI, CategoryContainer ctyc, Category cty, NotePanel notePane) {
         super(cty.getName(), WIDTH, HEIGHT);
         jsonSaver = new JsonSaver(DESTINATION);
@@ -43,6 +42,8 @@ public class CategoryGUI extends PopupGUI {
         addUIElements();
     }
 
+    // MODIFIES: this
+    // EFFECTS: initialises and adds the all the ui elements (buttons, text panels etc.) to the main window
     @Override
     protected void addUIElements() {
         ctyPanel = new JList(getAllCategoryNames());
@@ -64,6 +65,8 @@ public class CategoryGUI extends PopupGUI {
     }
 
 
+    // EFFECTS: makes and returns the save button
+    //          when clicked, adds note to category performs save operation
     private JButton createSaveButton() {
         super.makeButton("Save");
         button.addActionListener(new ActionListener() {
@@ -77,6 +80,8 @@ public class CategoryGUI extends PopupGUI {
         return button;
     }
 
+    // EFFECTS: makes and returns the note delete button
+    //          when clicked, deletes selected note
     private JButton createDeleteButton() {
         super.makeButton("Delete Selected");
         button.addActionListener(new ActionListener() {
@@ -88,7 +93,8 @@ public class CategoryGUI extends PopupGUI {
         return button;
     }
 
-
+    // EFFECTS: makes and returns the note creation button
+    //          when clicked, performs the note creation operation
     private JButton createNoteButton() {
         super.makeButton("Create New Note");
         button.addActionListener(new ActionListener() {
@@ -103,6 +109,8 @@ public class CategoryGUI extends PopupGUI {
         return button;
     }
 
+    // MODIFIES: this
+    // EFFECTS: deletes the selected note and saves ctyc, then refreshes ui
     private void deleteNote() {
         try {
             String selected = ctyPanel.getSelectedValue().toString();
@@ -126,6 +134,7 @@ public class CategoryGUI extends PopupGUI {
         }
     }
 
+    // EFFECTS: returns a DefaultListModel of all the category names in ctyc
     private DefaultListModel<String> getAllCategoryNames() {
         DefaultListModel<String> model = new DefaultListModel<>();
         for (NotePanel notes: cty.getNotesOnly()) {
@@ -134,6 +143,8 @@ public class CategoryGUI extends PopupGUI {
         return model;
     }
 
+    // EFFECTS: adds a mouse listener to ctyPanel - the mouse listener will check for double clicks on selected items
+    //          creates a new noteGUI with the selected notePanel if item is double clicked
     private void ctyPanelAddMouseListener() {
         ctyPanel.addMouseListener(new MouseAdapter() {
             @Override
@@ -143,18 +154,15 @@ public class CategoryGUI extends PopupGUI {
                 if (e.getClickCount() == 2) {
                     String key = list.getSelectedValue().toString();
                     NotePanel selectedNotePanel = cty.getNotes().get(key);
-                    try {
-                        new NoteGUI(selectedNotePanel);
-                        noteGUI.dispose();
-                        dispose();
-                    } catch (NoTitleException noTitleException) {
-                        new ErrorGUI("Error loading the desired note.", "Cannot load note");
-                    }
+                    new NoteGUI(selectedNotePanel);
+                    noteGUI.dispose();
+                    dispose();
                 }
             }
         });
     }
 
+    // EFFECTS: refreshes the ui
     private void refresh() {
         new CategoryGUI(noteGUI, ctyc, cty, notePane);
         dispose();

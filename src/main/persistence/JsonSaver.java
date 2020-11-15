@@ -38,5 +38,4 @@ public class JsonSaver {
     private void terminate() {
         printWriter.close();
     }
-
 }

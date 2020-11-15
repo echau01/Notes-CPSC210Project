@@ -20,5 +20,4 @@ public enum Colours {
     public Color getColour() {
         return colour;
     }
-
 }

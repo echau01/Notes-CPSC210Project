@@ -1,5 +1,6 @@
 package model;
 
+import model.exceptions.NoTitleException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +12,11 @@ class NotesTest {
 
     @BeforeEach
     void testInit() {
-        note = new NotePanel("");
+        try {
+            note = new NotePanel("");
+        } catch (NoTitleException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test

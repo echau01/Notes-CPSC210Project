@@ -4,7 +4,6 @@ import model.NotePanel;
 import ui.options.CategoryContainerGUI;
 import ui.options.NoteRenameGUI;
 import ui.tools.*;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -28,6 +27,8 @@ public class ToolsGUI {
     private EraserTool eraserTool;
     private TextTool textTool;
 
+    // CONSTRUCTOR
+    // EFFECTS: creates a new ToolsGUI
     ToolsGUI(NoteGUI noteGUI, JPanel optionsPanel, JPanel coloursPanel, JPanel toolsPanel, NotePanel notePane) {
         this.optionsPanel = optionsPanel;
         this.coloursPanel = coloursPanel;
@@ -43,12 +44,18 @@ public class ToolsGUI {
         initTools();
     }
 
+    // MODIFIES: this
+    // EFFECTS: initialises the tools
     private void initTools() {
         penTool = new PenTool(notePane, selectedColour);
         eraserTool = new EraserTool(notePane);
         textTool = new TextTool(notePane, selectedColour);
     }
 
+    // MODIFIES: this
+    // EFFECTS: generates the option button and rename button
+    //          option button allows for operations on categories, saving, loading other notes etc.
+    //          rename button allows for renaming of this note
     private void generateOptionButtons() {
         JButton optionsButton = new JButton("Options");
         optionsButton.setBorder(BorderFactory.createEmptyBorder());
@@ -73,6 +80,8 @@ public class ToolsGUI {
     }
 
     // https://stackoverflow.com/questions/17653116/action-listener-for-multiple-radio-buttons
+    // MODIFIES: this
+    // EFFECTS: generates tool buttons for all the tools
     private void generateToolButtons() {
         toolButtons = new ButtonGroup();
         Tools[] tools;
@@ -93,6 +102,8 @@ public class ToolsGUI {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: generates colour buttons for all the colours
     private void generateColourButtons() {
         colourButtons = new ButtonGroup();
         Colours[] colours;
@@ -113,7 +124,9 @@ public class ToolsGUI {
         }
     }
 
-    // TODO: handle the case where the colour / tool selected is null later
+    // MODIFIES: this
+    // EFFECTS: performs the tool action for the given tool
+    //          tools that aren't the given tool are disabled, while the given tool is activated
     private void performToolAction(Tools t) {
         penTool.setActive(false);
         eraserTool.setActive(false);
@@ -133,5 +146,4 @@ public class ToolsGUI {
                 break;
         }
     }
-
 }

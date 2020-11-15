@@ -12,10 +12,12 @@ public class PenTool implements MouseMotionListener {
     private Color colour;
     private NotePanel notePanel;
 
-    private int x;
-    private int y;
+    private int mouseX;
+    private int mouseY;
     private boolean active;
 
+    // CONSTRUCTOR
+    // EFFECTS: creates a new PenTool
     public PenTool(NotePanel notePanel, Color colour) {
         this.notePanel = notePanel;
         this.colour = colour;
@@ -23,20 +25,27 @@ public class PenTool implements MouseMotionListener {
         notePanel.addMouseMotionListener(this);
     }
 
+    // MODIFIES: this
+    // EFFECTS: toggles whether PenTool is active or not
     public void setActive(Boolean b) {
         active = b;
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets this colour to the given colour
     public void setColour(Color c) {
         colour = c;
     }
 
+    // MODIFIES: this
+    // EFFECTS: when mouse is dragged with button held down, and if the pen tool is active:
+    //          paints pixel onto NotePanel
     @Override
     public void mouseDragged(MouseEvent e) {
         if (active) {
-            x = e.getX();
-            y = e.getY();
-            notePanel.addPixel(new Pixel(x, y, colour));
+            mouseX = e.getX();
+            mouseY = e.getY();
+            notePanel.addPixel(new Pixel(mouseX, mouseY, colour));
             notePanel.repaint();
         }
     }

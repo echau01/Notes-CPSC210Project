@@ -1,8 +1,9 @@
-package ui;
+package ui.options;
 
 import model.NotePanel;
 import model.exceptions.NoTitleException;
-
+import ui.NoteGUI;
+import ui.PopupGUI;
 import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -17,12 +18,16 @@ public class NoteCreationGUI extends PopupGUI {
 
     private JTextPane pane;
 
+    // CONSTRUCTOR
+    // EFFECTS: creates a new NoteCreationGUI
     public NoteCreationGUI() {
         super("Note Creation", WIDTH, HEIGHT);
         addUIElements();
         validate();
     }
 
+    // MODIFIES: this
+    // EFFECTS: initialises and adds the all the ui elements (buttons, text panels etc.) to the main window
     @Override
     protected void addUIElements() {
         pane = new JTextPane();
@@ -39,6 +44,8 @@ public class NoteCreationGUI extends PopupGUI {
         add(divider);
     }
 
+    // EFFECTS: makes and returns the create button
+    //          when clicked, creates a new note with the given string in pane
     private JButton makeButton() {
         super.makeButton("Create Note");
         button.addActionListener(new ActionListener() {

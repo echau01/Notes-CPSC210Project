@@ -2,14 +2,12 @@ package ui.options;
 
 import model.Category;
 import model.NotePanel;
-import model.exceptions.NoCategoryException;
 import model.exceptions.NoTitleException;
 import persistence.JsonParser;
 import persistence.JsonSaver;
 import ui.ErrorGUI;
 import ui.NoteGUI;
 import ui.PopupGUI;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -33,7 +31,7 @@ public class CategoryContainerGUI extends PopupGUI {
     private JList ctycPanel;
 
     // CONSTRUCTOR
-    // EFFECTS: creates a new CategoryContainerGUI with the given title
+    // EFFECTS: creates a new CategoryContainerGUI
     public CategoryContainerGUI(NoteGUI noteGUI, NotePanel notePane) {
         super("Note Creation", WIDTH, HEIGHT);
         this.notePane = notePane;

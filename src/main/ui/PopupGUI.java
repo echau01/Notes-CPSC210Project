@@ -8,6 +8,8 @@ public abstract class PopupGUI extends JFrame {
     protected JButton button;
 
     // https://stackoverflow.com/questions/2442599/how-to-set-jframe-to-appear-centered-regardless-of-monitor-resolution
+    // CONSTRUCTOR
+    // EFFECTS: creates a new PopupGUI
     public PopupGUI(String name, int x, int y) {
         super(name);
 
@@ -19,14 +21,17 @@ public abstract class PopupGUI extends JFrame {
         setVisible(true);
     }
 
+    // EFFECTS: adds the ui elements to the gui
     protected abstract void addUIElements();
 
+    // EFFECTS: makes a new JButton with the given name and an empty border
     protected void makeButton(String name) {
         button = new JButton(name);
         button.setBackground(background);
         button.setBorder(BorderFactory.createEmptyBorder());
     }
 
+    // EFFECTS: creates a new title warning
     protected void createTitleWarning() {
         new ErrorGUI("Please enter a valid title.", "Invalid Title");
     }

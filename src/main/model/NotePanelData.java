@@ -19,6 +19,7 @@ public class NotePanelData implements Writable {
         this.pixels = pixels;
     }
 
+    // EFFECTS: converts this into a JSONObject
     @Override
     public JSONObject toJson() {
         JSONObject jsonObject = new JSONObject();
@@ -36,5 +37,4 @@ public class NotePanelData implements Writable {
         }
         return jsonArray;
     }
-
 }

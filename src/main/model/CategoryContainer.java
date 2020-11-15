@@ -1,18 +1,15 @@
 package model;
 
-import model.exceptions.NoCategoryException;
-import model.exceptions.NoTitleException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
-
 import java.util.*;
 
 public class CategoryContainer implements Writable {
     private HashMap<String, Category> categories;
 
     // CONSTRUCTOR
-    // EFFECTS: constructs an empty category container
+    // EFFECTS: constructs an empty CategoryContainer
     public CategoryContainer() {
         categories = new HashMap<>();
     }

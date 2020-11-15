@@ -4,7 +4,6 @@ import model.exceptions.NoTitleException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
-
 import java.util.*;
 
 public class Category implements Writable {
@@ -12,8 +11,8 @@ public class Category implements Writable {
     private HashMap<String, NotePanel> allNotes;
 
     // CONSTRUCTOR
-    // EFFECTS: sets the category name
-    // throws NoTitleException if name length is 0
+    // EFFECTS: creates a new Category with the given string
+    //          throws NoTitleException if the given string length is 0
     public Category(String name) throws NoTitleException {
         if (name.length() == 0) {
             throw new NoTitleException();
