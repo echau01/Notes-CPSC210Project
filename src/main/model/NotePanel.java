@@ -19,6 +19,8 @@ public class NotePanel extends JPanel {
     private String title;
     private LinkedHashSet<Pixel> pixels;
 
+    // CONSTRUCTOR
+    // EFFECTS: creates a new NotePanel with the given title
     public NotePanel(String title) {
         setLayout(new BorderLayout());
         setBackground(Color.white);

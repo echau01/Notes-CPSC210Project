@@ -49,7 +49,7 @@ public class CategoryContainer implements Writable {
         return categories.get(name);
     }
 
-
+    // EFFECTS: returns a set of only the categories from the categories hashmap, without the keys
     public Set<Category> getCategoriesOnly() {
         Set<Category> categoriesKeyless = new HashSet<>();
         for (String key: categories.keySet()) {

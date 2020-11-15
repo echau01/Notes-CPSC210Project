@@ -17,7 +17,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-// TODO: every single time this is loaded, it will use persistence to load the categories and notes
 public class CategoryContainerGUI extends PopupGUI {
     protected static final int WIDTH = 640;
     protected static final int HEIGHT = 480;
@@ -33,6 +32,8 @@ public class CategoryContainerGUI extends PopupGUI {
 
     private JList ctycPanel;
 
+    // CONSTRUCTOR
+    // EFFECTS: creates a new CategoryContainerGUI with the given title
     public CategoryContainerGUI(NoteGUI noteGUI, NotePanel notePane) {
         super("Note Creation", WIDTH, HEIGHT);
         this.notePane = notePane;
@@ -43,12 +44,17 @@ public class CategoryContainerGUI extends PopupGUI {
     }
 
     // https://stackoverflow.com/questions/4262669/refresh-jlist-in-a-jframe/4262716
+    // MODIFIES: this
+    // EFFECTS: adds a new category to category container, then saves ctyc and refreshes the gui
     public void addCategory(Category c) {
         ctyc.addCategory(c);
         saveCategoryContainer();
         refresh();
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets the name of the selected category to the given string, then saves ctyc and refreshes the gui
+    //          throws a NoTitleException if the given name is blank
     public void renameCategory(String name) throws NoTitleException {
         if (name.length() == 0) {
             throw new NoTitleException();
@@ -61,6 +67,8 @@ public class CategoryContainerGUI extends PopupGUI {
     }
 
     // https://stackoverflow.com/questions/4344682/double-click-event-on-jlist-element
+    // MODIFIES: this
+    // EFFECTS: initialises and adds the all the ui elements (buttons, text panels etc.) to the main window
     @Override
     protected void addUIElements() {
         ctycPanel = new JList(getAllCategoryNames());
@@ -80,6 +88,7 @@ public class CategoryContainerGUI extends PopupGUI {
         add(divider);
     }
 
+    // EFFECTS: creates the button which performs the rename category operation
     private JButton createRenameButton() {
         super.makeButton("Rename Selected");
         button.addActionListener(new ActionListener() {
@@ -91,6 +100,7 @@ public class CategoryContainerGUI extends PopupGUI {
         return button;
     }
 
+    // EFFECTS: creates the delete button which performs the delete category operation
     private JButton createDeleteButton() {
         super.makeButton("Delete Selected");
         button.addActionListener(new ActionListener() {
@@ -99,6 +109,9 @@ public class CategoryContainerGUI extends PopupGUI {
                 deleteCategory();
             }
 
+            // Nested Method
+            // MODIFIES: this
+            // EFFECTS: deletes the selected category - saves ctyc and refreshes ui afterwards to reflect the change
             private void deleteCategory() {
                 try {
                     String selected = ctycPanel.getSelectedValue().toString();
@@ -113,6 +126,7 @@ public class CategoryContainerGUI extends PopupGUI {
         return button;
     }
 
+    // EFFECTS: creates the create category button which performs the make category operation
     private JButton createCategoryButton() {
         super.makeButton("New Category");
         button.addActionListener(new ActionListener() {
@@ -124,13 +138,15 @@ public class CategoryContainerGUI extends PopupGUI {
         return button;
     }
 
+    // EFFECTS: creates a new window which provides the steps needed to make a new category
     private void makeCategoryCreationUI() {
         new CategoryCreationGUI(this);
     }
 
+    // EFFECTS: creates a new window which provides the steps needed to rename the selected category
     private void createRenameCategoryGUI() {
         try {
-            String selected = ctycPanel.getSelectedValue().toString();
+            // String selected = ctycPanel.getSelectedValue().toString();
             new CategoryRenameGUI(this);
             saveCategoryContainer();
         } catch (NullPointerException e) {
@@ -138,6 +154,8 @@ public class CategoryContainerGUI extends PopupGUI {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: saves the ctyc to file
     private void saveCategoryContainer() {
         jsonSaver = new JsonSaver(DESTINATION);
         try {
@@ -148,6 +166,9 @@ public class CategoryContainerGUI extends PopupGUI {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: loads the ctyc from file
+    //          if there is an error, default files are generated and loaded
     private void loadCategoryContainer() {
         jsonParser = new JsonParser(DESTINATION);
         try {
@@ -160,6 +181,8 @@ public class CategoryContainerGUI extends PopupGUI {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: generates default files to save
     private void generateDefaultFiles() {
         try {
             Category cty = new Category("Untitled");
@@ -173,6 +196,8 @@ public class CategoryContainerGUI extends PopupGUI {
         }
     }
 
+    // EFFECTS: adds a mouse listener to ctycPanel - the mouse listener will check for double clicks on selected items
+    //          creates a new categoryGUI with the selected category if item is double clicked
     private void ctycPanelAddMouseListener() {
         ctycPanel.addMouseListener(new MouseAdapter() {
             @Override
@@ -189,6 +214,7 @@ public class CategoryContainerGUI extends PopupGUI {
         });
     }
 
+    // EFFECTS: returns a DefaultListModel of all the category names in ctyc
     private DefaultListModel<String> getAllCategoryNames() {
         DefaultListModel<String> model = new DefaultListModel<>();
         for (String name : ctyc.getCategories().keySet()) {
@@ -197,6 +223,7 @@ public class CategoryContainerGUI extends PopupGUI {
         return model;
     }
 
+    // MODIFIES: this
     private void refresh() {
         new CategoryContainerGUI(noteGUI, notePane);
         dispose();

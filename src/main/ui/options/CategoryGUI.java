@@ -114,6 +114,8 @@ public class CategoryGUI extends PopupGUI {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: saves the ctyc to file
     private void saveCategoryContainer() {
         jsonSaver = new JsonSaver(DESTINATION);
         try {

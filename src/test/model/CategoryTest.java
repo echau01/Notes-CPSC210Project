@@ -1,10 +1,11 @@
 package model;
-/*
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/*
 public class CategoryTest {
     private Category cty;
 
@@ -15,7 +16,7 @@ public class CategoryTest {
 
     @Test
     void testAddNotesOnce() {
-        cty.addNotes(new NotePanelData(""));
+        cty.addNotes(new NotePanel(""));
         assertEquals(1, cty.getLength());
     }
 
@@ -32,7 +33,7 @@ public class CategoryTest {
 
     @Test
     void testRemoveNonExistentNotes() {
-        cty.addNotes(new NotePanelData(""));
+        cty.addNotes(new NotePanel(""));
         assertEquals(1, cty.getLength());
 
         cty.removeNotesByName("a");
@@ -41,7 +42,7 @@ public class CategoryTest {
 
     @Test
     void testRemoveNotesOnce() {
-        cty.addNotes(new NotePanelData(""));
+        cty.addNotes(new NotePanel(""));
         assertEquals(1, cty.getLength());
 
         cty.removeNotesByName("");
@@ -74,31 +75,6 @@ public class CategoryTest {
     }
 
     @Test
-    void testReturnNoteByName() {
-        for (int i = 0; i < 500; i++) {
-            String j = Integer.toString(i);
-            cty.addNotes(new NotePanelData(j));
-        }
-
-        NotePanelData n = cty.getNoteByName("484");
-        NotePanelData n2 = cty.getNoteByName("-576");
-
-        assertEquals("484", n.getTitle());
-        assertEquals("", n2.getTitle());
-    }
-
-    @Test
-    void testReturnNoteByIndex() {
-        for (int i = 0; i < 500; i++) {
-            String j = Integer.toString(i);
-            cty.addNotes(new NotePanelData(j));
-        }
-
-        assertEquals("484", cty.getNoteByIndex(484));
-        assertEquals("251", cty.getNoteByIndex(251));
-    }
-
-    @Test
     void testSetName() {
         assertEquals("", cty.getName());
         cty.setName("a");
@@ -106,5 +82,4 @@ public class CategoryTest {
     }
 
 }
-
- */
+*/

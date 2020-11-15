@@ -33,10 +33,6 @@ public class Category implements Writable {
         }
     }
 
-    public boolean hasName(String s) {
-        return s.equals(category);
-    }
-
     // MODIFIES: this
     // EFFECTS: adds the note into the given category
     public void addNotes(NotePanel n) {
@@ -57,6 +53,7 @@ public class Category implements Writable {
         category = name;
     }
 
+    // EFFECTS: returns a set of only the notes from the allNotes hashmap, without the keys
     public Set<NotePanel> getNotesOnly() {
         Set<NotePanel> allNotesKeyless = new HashSet<>();
         for (String key: allNotes.keySet()) {
@@ -65,6 +62,7 @@ public class Category implements Writable {
         return allNotesKeyless;
     }
 
+    // EFFECTS: returns the hashmap for AllNotes
     public HashMap<String, NotePanel> getNotes() {
         return allNotes;
     }
