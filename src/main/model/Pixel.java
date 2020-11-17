@@ -19,7 +19,7 @@ public class Pixel extends Component implements Writable {
         this.colour = colour;
     }
 
-    // EFFECTS: draws the pixel to x and y
+    // EFFECTS: draws the pixel to x and y and returns true
     public void draw(final Graphics g) {
         g.setColor(colour);
         g.fillOval(mouseX, mouseY, 5, 5);

@@ -97,6 +97,12 @@ public class NotePanel extends JPanel {
         return textPane.isEditable();
     }
 
+    // EFFECTS: returns the last MouseMotionListener added to textPane
+    public MouseMotionListener getMouseMotionListener() {
+        MouseMotionListener[] mmls = textPane.getMouseMotionListeners();
+        return mmls[mmls.length - 1];
+    }
+
     @Override
     public void paintComponent(final Graphics g) {
         super.paintComponent(g);

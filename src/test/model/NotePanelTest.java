@@ -4,6 +4,9 @@ import model.exceptions.NoTitleException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class NotePanelTest {
@@ -119,6 +122,31 @@ class NotePanelTest {
         note.removePixel(new Pixel(1, 1, Color.black));
         note.removePixel(new Pixel(2, 2, Color.black));
         assertEquals(7, note.getPixels().size());
+    }
+
+    @Test
+    void testAddMouseListener() {
+        MouseMotionListener mml = makeMouseListener();
+        note.addMouseMotionListener(mml);
+        assertEquals(mml, note.getMouseMotionListener());
+    }
+
+    @Test
+    void testPaintComponent() {
+
+    }
+
+    // EFFECTS: creates a generic MouseMotionListener
+    private MouseMotionListener makeMouseListener() {
+        MouseMotionListener mml = new MouseMotionListener() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+            }
+            @Override
+            public void mouseMoved(MouseEvent e) {
+            }
+        };
+        return mml;
     }
 
 
