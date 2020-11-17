@@ -20,6 +20,6 @@ public class PixelTest {
         assertTrue(pixel.equals(pixel));
         assertFalse(pixel.equals(null));
         assertFalse(pixel.equals(""));
-        assertTrue(pixel.equals(new Pixel(1, 1, Color.black)));
+        assertTrue(pixel.equals(new Pixel(1, 1, Color.red)));
     }
 }
