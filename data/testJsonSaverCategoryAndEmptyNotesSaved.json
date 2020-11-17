@@ -1,7 +1,8 @@
 {"categories": [{
     "all notes": [{
-        "notes": "note",
-        "note body": []
+        "pixels": [],
+        "title": "note",
+        "body": ""
     }],
     "category": "category"
 }]}

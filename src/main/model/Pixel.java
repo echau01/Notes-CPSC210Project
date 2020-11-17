@@ -25,11 +25,6 @@ public class Pixel extends Component implements Writable {
         g.fillOval(mouseX, mouseY, 5, 5);
     }
 
-    // EFFECTS: returns the colour of the pixel
-    public Color getColour() {
-        return colour;
-    }
-
     // EFFECTS: converts this into a JSONObject
     @Override
     public JSONObject toJson() {

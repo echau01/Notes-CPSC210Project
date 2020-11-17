@@ -20,28 +20,28 @@ public class CategoryContainer implements Writable {
         categories.put(c.getName(), c);
     }
 
-    // MODIFIES: this
-    // EFFECTS: removes the given category
-    public void removeCategory(Category c) {
-        categories.remove(c.getName());
+    // EFFECTS: returns true if categories contains category with given name
+    public boolean containsCategory(String name) {
+        return categories.containsKey(name);
     }
 
+    // EFFECTS: returns the length of categories
+    public int getLength() {
+        return categories.size();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: removes the category with the given name
+    public void deleteCategory(String name) {
+        categories.remove(name);
+    }
+
+    // EFFECTS: returns categories
     public HashMap<String, Category> getCategories() {
         return categories;
     }
 
-    // MODIFIES: this
-    // EFFECTS: if a category matches the given string, the category is deleted, otherwise do nothing
-    public void removeCategoryByName(String s) {
-        for (Category c:getCategoriesOnly()) {
-            if (s.equals(c.getName())) {
-                categories.remove(s);
-                break;
-            }
-        }
-    }
-
-    // EFFECTS: returns the category with the given name, returns a placeholder if there is no such category
+    // EFFECTS: returns the category with the given name
     public Category getCategoryByName(String name) {
         return categories.get(name);
     }

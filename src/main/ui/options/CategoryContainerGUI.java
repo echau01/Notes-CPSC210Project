@@ -105,7 +105,7 @@ public class CategoryContainerGUI extends PopupGUI {
             private void deleteCategory() {
                 try {
                     String selected = ctycPanel.getSelectedValue().toString();
-                    ctyc.removeCategoryByName(selected);
+                    ctyc.deleteCategory(selected);
                     saveCategoryContainer();
                     refresh();
                 } catch (NullPointerException e) {

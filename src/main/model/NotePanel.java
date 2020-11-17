@@ -49,6 +49,7 @@ public class NotePanel extends JPanel {
 
     // MODIFIES: this
     // EFFECTS: adds the given pixel to pixels
+    //          does nothing if the pixel is in the same x and y
     public void addPixel(Pixel p) {
         pixels.add(p);
     }
@@ -70,10 +71,30 @@ public class NotePanel extends JPanel {
         return title;
     }
 
+    // EFFECTS: returns the body of the notes
+    public String getBody() {
+        return textPane.getText();
+    }
+
+    // EFFECTS: returns true if the given string matches the content in textPane
+    public boolean hasBody(String body) {
+        return textPane.getText().equals(body);
+    }
+
+    // EFFECTS: returns the pixels
+    public LinkedHashSet<Pixel> getPixels() {
+        return pixels;
+    }
+
     // MODIFIES: this
     // EFFECTS: disables / enables editing of textPane
     public void toggleEditable(boolean b) {
         textPane.setEditable(b);
+    }
+
+    // EFFECTS: returns true if textPane is editable, false if not
+    public boolean isTextEditable() {
+        return textPane.isEditable();
     }
 
     @Override

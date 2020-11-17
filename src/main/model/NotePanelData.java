@@ -19,6 +19,21 @@ public class NotePanelData implements Writable {
         this.pixels = pixels;
     }
 
+    // EFFECTS: returns the title assigned to the data
+    public String getTitle() {
+        return title;
+    }
+
+    // EFFECTS: returns the body of the notes
+    public String getBody() {
+        return body;
+    }
+
+    // EFFECTS: returns the pixels
+    public LinkedHashSet<Pixel> getPixels() {
+        return pixels;
+    }
+
     // EFFECTS: converts this into a JSONObject
     @Override
     public JSONObject toJson() {

@@ -23,13 +23,13 @@ public class Category implements Writable {
 
     // MODIFIES: this
     // EFFECTS: deletes the note with the given title, does nothing if there is no note with the title
-    public void removeNotesByName(String s) {
-        for (NotePanel n: getNotesOnly()) {
-            if (n.hasTitle(s)) {
-                allNotes.remove(s);
-                break;
-            }
-        }
+    public void removeNotesByName(String name) {
+        allNotes.remove(name);
+    }
+
+    // EFFECTS: returns the length of allNotes
+    public int getLength() {
+        return allNotes.size();
     }
 
     // MODIFIES: this
@@ -52,6 +52,11 @@ public class Category implements Writable {
         category = name;
     }
 
+    // EFFECTS: returns the category with the given name
+    public NotePanel getNoteByName(String s) {
+        return allNotes.get(s);
+    }
+
     // EFFECTS: returns a set of only the notes from the allNotes hashmap, without the keys
     public Set<NotePanel> getNotesOnly() {
         Set<NotePanel> allNotesKeyless = new HashSet<>();
@@ -59,6 +64,11 @@ public class Category implements Writable {
             allNotesKeyless.add(allNotes.get(key));
         }
         return allNotesKeyless;
+    }
+
+    // EFFECTS: returns true if allNotes contains note with given name
+    public boolean containsNote(String name) {
+        return allNotes.containsKey(name);
     }
 
     // EFFECTS: returns the hashmap for AllNotes

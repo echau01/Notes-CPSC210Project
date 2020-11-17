@@ -1,7 +1,12 @@
 {"categories": [{
     "all notes": [{
-        "notes": "note",
-        "note body": ["entry"]
+        "pixels": [{
+            "colour": -16777216,
+            "x": 1,
+            "y": 1
+        }],
+        "title": "note",
+        "body": "entry"
     }],
     "category": "category"
 }]}

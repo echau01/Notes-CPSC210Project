@@ -1,11 +1,10 @@
 package persistence;
-/*
-import model.CategoryContainer;
-import org.junit.jupiter.api.Test;
 
+import model.CategoryContainer;
+import model.exceptions.NoTitleException;
+import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.nio.file.InvalidPathException;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonParserTest {
@@ -17,6 +16,8 @@ public class JsonParserTest {
             JsonParser parser = new JsonParser("\0");
             ctyc = parser.parseFile();
             fail("IOException was expected");
+        } catch (NoTitleException e) {
+            fail("caught NoTitleException");
         } catch (InvalidPathException e) {
             // pass
         } catch (IOException e) {
@@ -30,6 +31,8 @@ public class JsonParserTest {
             JsonParser parser = new JsonParser("./data/testJsonSaverAllEmpty.json");
             ctyc = parser.parseFile();
             assertEquals(0, ctyc.getLength());
+        } catch (NoTitleException e) {
+            fail("caught NoTitleException");
         } catch (InvalidPathException e) {
             fail("caught InvalidPathException");
         } catch (IOException e) {
@@ -43,6 +46,8 @@ public class JsonParserTest {
             JsonParser parser = new JsonParser("./data/testJsonSaverOnlyCategoriesSaved.json");
             ctyc = parser.parseFile();
             assertTrue(ctyc.containsCategory("category"));
+        } catch (NoTitleException e) {
+            fail("caught NoTitleException");
         } catch (InvalidPathException e) {
             fail("caught InvalidPathException");
         } catch (IOException e) {
@@ -57,6 +62,8 @@ public class JsonParserTest {
             ctyc = parser.parseFile();
             assertTrue(ctyc.containsCategory("category"));
             assertTrue(ctyc.getCategoryByName("category").containsNote("note"));
+        } catch (NoTitleException e) {
+            fail("caught NoTitleException");
         } catch (InvalidPathException e) {
             fail("caught InvalidPathException");
         } catch (IOException e) {
@@ -71,7 +78,9 @@ public class JsonParserTest {
             ctyc = parser.parseFile();
             assertTrue(ctyc.containsCategory("category"));
             assertTrue(ctyc.getCategoryByName("category").containsNote("note"));
-            assertTrue(ctyc.getCategoryByName("category").getNoteByName("note").containsEntry("entry"));
+            assertTrue(ctyc.getCategoryByName("category").getNoteByName("note").hasBody("entry"));
+        } catch (NoTitleException e) {
+            fail("caught NoTitleException");
         } catch (InvalidPathException e) {
             fail("caught InvalidPathException");
         } catch (IOException e) {
@@ -79,4 +88,3 @@ public class JsonParserTest {
         }
     }
 }
- */
