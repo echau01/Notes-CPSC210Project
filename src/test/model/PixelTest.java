@@ -19,5 +19,7 @@ public class PixelTest {
     void testEquals() {
         assertTrue(pixel.equals(pixel));
         assertFalse(pixel.equals(null));
+        assertFalse(pixel.equals(""));
+        assertTrue(pixel.equals(new Pixel(1, 1, Color.black)));
     }
 }
