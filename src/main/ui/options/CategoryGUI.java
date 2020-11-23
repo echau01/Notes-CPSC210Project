@@ -33,6 +33,7 @@ public class CategoryGUI extends PopupGUI {
     CategoryGUI(Category cty, CategoryContainerGUI ctycGUI) {
         super(cty.getName(), WIDTH, HEIGHT);
         jsonSaver = new JsonSaver(DESTINATION);
+
         this.ctycGUI = ctycGUI;
         this.cty = cty;
         ctyc = ctycGUI.getCtyc();
@@ -46,7 +47,7 @@ public class CategoryGUI extends PopupGUI {
     // EFFECTS: initialises and adds the all the ui elements (buttons, text panels etc.) to the main window
     @Override
     protected void addUIElements() {
-        ctyPanel = new JList(getAllCategoryNames());
+        ctyPanel = new JList(getAllNoteNames());
         ctyPanel.setBorder(BorderFactory.createTitledBorder("Notes"));
         ctyPanelAddMouseListener();
 
@@ -55,7 +56,6 @@ public class CategoryGUI extends PopupGUI {
         buttonPanel.add(createSaveButton());
         buttonPanel.add(createDeleteButton());
         buttonPanel.add(createNoteButton());
-
 
         JSplitPane divider = new JSplitPane(JSplitPane.VERTICAL_SPLIT, ctyPanel, buttonPanel);
         divider.setDividerLocation(HEIGHT - HEIGHT / 4);
@@ -124,7 +124,7 @@ public class CategoryGUI extends PopupGUI {
     }
 
     // EFFECTS: returns a DefaultListModel of all the category names in ctyc
-    private DefaultListModel<String> getAllCategoryNames() {
+    private DefaultListModel<String> getAllNoteNames() {
         DefaultListModel<String> model = new DefaultListModel<>();
         for (NotePanel notes: cty.getNotesOnly()) {
             model.addElement(notes.getTitle());

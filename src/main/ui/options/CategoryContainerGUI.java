@@ -222,7 +222,7 @@ public class CategoryContainerGUI extends PopupGUI {
     // EFFECTS: returns a DefaultListModel of all the category names in ctyc
     private DefaultListModel<String> getAllCategoryNames() {
         DefaultListModel<String> model = new DefaultListModel<>();
-        for (String name : ctyc.getCategories().keySet()) {
+        for (String name: ctyc.getCategories().keySet()) {
             model.addElement(name);
         }
         return model;
