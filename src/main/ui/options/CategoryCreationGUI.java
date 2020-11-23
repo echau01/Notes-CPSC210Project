@@ -18,9 +18,9 @@ public class CategoryCreationGUI extends PopupGUI {
 
     // CONSTRUCTOR
     // EFFECTS: creates a new CategoryCreationGUI
-    public CategoryCreationGUI(CategoryContainerGUI optionsGUI) {
+    public CategoryCreationGUI(CategoryContainerGUI ctycGUI) {
         super("Category Creation", WIDTH, HEIGHT);
-        this.optionsGUI = optionsGUI;
+        this.optionsGUI = ctycGUI;
 
         addUIElements();
     }

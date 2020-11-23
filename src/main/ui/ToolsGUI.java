@@ -24,12 +24,12 @@ public class ToolsGUI {
 
     // CONSTRUCTOR
     // EFFECTS: creates a new ToolsGUI
-    ToolsGUI(NoteGUI noteGUI, JPanel optionsPanel, JPanel coloursPanel, JPanel toolsPanel, NotePanel notePane) {
-        this.optionsPanel = optionsPanel;
-        this.coloursPanel = coloursPanel;
-        this.toolsPanel = toolsPanel;
-        this.notePane = notePane;
+    ToolsGUI(NoteGUI noteGUI) {
         this.noteGUI = noteGUI;
+        optionsPanel = noteGUI.getOptionsPanel();
+        coloursPanel = noteGUI.getColoursPanel();
+        toolsPanel = noteGUI.getToolsPanel();
+        notePane = noteGUI.getNotePane();
 
         selectedColour = Color.black;
 
@@ -39,13 +39,24 @@ public class ToolsGUI {
         initTools();
     }
 
+    // EFFECTS: returns this note gui
+    public NoteGUI getNoteGUI() {
+        return noteGUI;
+    }
+
+    // EFFECTS: returns the selected colour
+    public Color getSelectedColour() {
+        return selectedColour;
+    }
+
     // MODIFIES: this
     // EFFECTS: initialises the tools
     private void initTools() {
-        penTool = new PenTool(notePane, selectedColour);
-        eraserTool = new EraserTool(notePane);
-        textTool = new TextTool(notePane);
+        penTool = new PenTool(this);
+        eraserTool = new EraserTool(this);
+        textTool = new TextTool(this);
     }
+
 
     // MODIFIES: this
     // EFFECTS: generates the option button and rename button
@@ -55,12 +66,12 @@ public class ToolsGUI {
         JButton optionsButton = new JButton("Options");
         optionsButton.setBorder(BorderFactory.createEmptyBorder());
         optionsButton.setBackground(BACKGROUND);
-        optionsButton.addActionListener(e -> new CategoryContainerGUI(noteGUI, notePane));
+        optionsButton.addActionListener(e -> new CategoryContainerGUI(this));
 
         JButton renameButton = new JButton("Rename Note");
         renameButton.setBorder(BorderFactory.createEmptyBorder());
         renameButton.setBackground(BACKGROUND);
-        renameButton.addActionListener(e -> new NoteRenameGUI(noteGUI));
+        renameButton.addActionListener(e -> new NoteRenameGUI(this));
 
         optionsPanel.add(optionsButton);
         optionsPanel.add(renameButton);

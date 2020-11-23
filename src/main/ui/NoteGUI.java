@@ -8,7 +8,7 @@ import java.awt.*;
 public class NoteGUI extends JFrame {
 
     private static final int WIDTH = 1280;
-    private static final int HEIGHT = 790;
+    private static final int HEIGHT = 720;
     private static final int TOOLBAR_SIZE = 70;
     private static final int DIVIDER_SIZE = 0;
     private static final Color BACKGROUND = new Color(240, 240, 240);
@@ -29,7 +29,7 @@ public class NoteGUI extends JFrame {
 
         initPanels();
         generatePanelLayout();
-        new ToolsGUI(this, optionsPanel, coloursPanel, toolsPanel, notePane);
+        new ToolsGUI(this);
 
         setSize(WIDTH, HEIGHT);
         setResizable(false);
@@ -41,6 +41,26 @@ public class NoteGUI extends JFrame {
     public void dispose() {
         removeAll();
         setVisible(false);
+    }
+
+    // EFFECTS: returns the options panel
+    public JPanel getOptionsPanel() {
+        return optionsPanel;
+    }
+
+    // EFFECTS: returns the note panel
+    public NotePanel getNotePane() {
+        return notePane;
+    }
+
+    // EFFECTS: returns the tools panel
+    public JPanel getToolsPanel() {
+        return toolsPanel;
+    }
+
+    // EFFECTS: returns the colours panel
+    public JPanel getColoursPanel() {
+        return coloursPanel;
     }
 
     // MODIFIES: this, notePane

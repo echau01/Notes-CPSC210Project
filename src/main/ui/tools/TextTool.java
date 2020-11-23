@@ -1,6 +1,7 @@
 package ui.tools;
 
 import model.NotePanel;
+import ui.ToolsGUI;
 
 // TODO: add a colour feature to textTool
 public class TextTool {
@@ -9,8 +10,8 @@ public class TextTool {
 
     // CONSTRUCTOR
     // EFFECTS: creates a new TextTool
-    public TextTool(NotePanel textPane) {
-        this.textPane = textPane;
+    public TextTool(ToolsGUI toolsGUI) {
+        textPane = toolsGUI.getNoteGUI().getNotePane();
     }
 
     // MODIFIES: this

@@ -24,18 +24,20 @@ public class CategoryGUI extends PopupGUI {
     private final Category cty;
     private final CategoryContainer ctyc;
     private final NotePanel notePane;
+    private final CategoryContainerGUI ctycGUI;
 
     private JList ctyPanel;
 
     // CONSTRUCTOR
     // EFFECTS: creates a new CategoryGUI
-    CategoryGUI(NoteGUI noteGUI, CategoryContainer ctyc, Category cty, NotePanel notePane) {
+    CategoryGUI(Category cty, CategoryContainerGUI ctycGUI) {
         super(cty.getName(), WIDTH, HEIGHT);
         jsonSaver = new JsonSaver(DESTINATION);
-        this.ctyc = ctyc;
+        this.ctycGUI = ctycGUI;
         this.cty = cty;
-        this.notePane = notePane;
-        this.noteGUI = noteGUI;
+        ctyc = ctycGUI.getCtyc();
+        notePane = ctycGUI.getNoteGUI().getNotePane();
+        noteGUI = ctycGUI.getNoteGUI();
 
         addUIElements();
     }
@@ -151,7 +153,7 @@ public class CategoryGUI extends PopupGUI {
 
     // EFFECTS: refreshes the ui
     private void refresh() {
-        new CategoryGUI(noteGUI, ctyc, cty, notePane);
+        new CategoryGUI(cty, ctycGUI);
         dispose();
     }
 }

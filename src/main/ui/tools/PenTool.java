@@ -2,6 +2,8 @@ package ui.tools;
 
 import model.NotePanel;
 import model.Pixel;
+import ui.ToolsGUI;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
@@ -15,9 +17,9 @@ public class PenTool implements MouseMotionListener {
 
     // CONSTRUCTOR
     // EFFECTS: creates a new PenTool
-    public PenTool(NotePanel notePanel, Color colour) {
-        this.notePanel = notePanel;
-        this.colour = colour;
+    public PenTool(ToolsGUI toolsGUI) {
+        notePanel = toolsGUI.getNoteGUI().getNotePane();
+        colour = toolsGUI.getSelectedColour();
 
         notePanel.addMouseMotionListener(this);
     }

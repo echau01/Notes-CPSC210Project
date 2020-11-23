@@ -1,6 +1,7 @@
 package ui.options;
 
 import model.Category;
+import model.CategoryContainer;
 import model.NotePanel;
 import model.exceptions.NoTitleException;
 import persistence.JsonParser;
@@ -8,6 +9,8 @@ import persistence.JsonSaver;
 import ui.ErrorGUI;
 import ui.NoteGUI;
 import ui.PopupGUI;
+import ui.ToolsGUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -21,6 +24,7 @@ public class CategoryContainerGUI extends PopupGUI {
     private static final int DIVIDER_SIZE = 0;
     private static final String DESTINATION = "./data/CategoryContainer.json";
 
+    private final ToolsGUI toolsGUI;
     private final NoteGUI noteGUI;
     private final NotePanel notePane;
     private model.CategoryContainer ctyc;
@@ -29,13 +33,24 @@ public class CategoryContainerGUI extends PopupGUI {
 
     // CONSTRUCTOR
     // EFFECTS: creates a new CategoryContainerGUI
-    public CategoryContainerGUI(NoteGUI noteGUI, NotePanel notePane) {
+    public CategoryContainerGUI(ToolsGUI toolsGUI) {
         super("All Categories", WIDTH, HEIGHT);
-        this.notePane = notePane;
-        this.noteGUI = noteGUI;
+        this.toolsGUI = toolsGUI;
+        notePane = toolsGUI.getNoteGUI().getNotePane();
+        noteGUI = toolsGUI.getNoteGUI();
 
         loadCategoryContainer();
         addUIElements();
+    }
+
+    // EFFECTS: returns this category container
+    public CategoryContainer getCtyc() {
+        return ctyc;
+    }
+
+    // EFFECTS: returns this note gui
+    public NoteGUI getNoteGUI() {
+        return noteGUI;
     }
 
     // https://stackoverflow.com/questions/4262669/refresh-jlist-in-a-jframe/4262716
@@ -191,12 +206,17 @@ public class CategoryContainerGUI extends PopupGUI {
                 // Double-click detected
                 if (e.getClickCount() == 2) {
                     String key = list.getSelectedValue().toString();
-                    Category c = ctyc.getCategories().get(key);
-                    new CategoryGUI(noteGUI, ctyc, c, notePane);
-                    dispose();
+                    selectCategory(key);
                 }
             }
         });
+    }
+
+    // EFFECTS: selects the category with the given key
+    private void selectCategory(String key) {
+        Category c = ctyc.getCategories().get(key);
+        new CategoryGUI(c, this);
+        dispose();
     }
 
     // EFFECTS: returns a DefaultListModel of all the category names in ctyc
@@ -210,7 +230,7 @@ public class CategoryContainerGUI extends PopupGUI {
 
     // MODIFIES: this
     private void refresh() {
-        new CategoryContainerGUI(noteGUI, notePane);
+        new CategoryContainerGUI(toolsGUI);
         dispose();
     }
 }

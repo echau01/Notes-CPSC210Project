@@ -2,6 +2,8 @@ package ui.tools;
 
 import model.NotePanel;
 import model.Pixel;
+import ui.ToolsGUI;
+
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
@@ -12,8 +14,8 @@ public class EraserTool implements MouseMotionListener {
 
     // CONSTRUCTOR
     // EFFECTS: creates a new EraserTool
-    public EraserTool(NotePanel notePanel) {
-        this.notePanel = notePanel;
+    public EraserTool(ToolsGUI toolsGUI) {
+        notePanel = toolsGUI.getNoteGUI().getNotePane();
 
         notePanel.addMouseMotionListener(this);
     }

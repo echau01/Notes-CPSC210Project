@@ -3,6 +3,8 @@ package ui.options;
 import model.exceptions.NoTitleException;
 import ui.NoteGUI;
 import ui.PopupGUI;
+import ui.ToolsGUI;
+
 import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -19,9 +21,9 @@ public class NoteRenameGUI extends PopupGUI {
     // https://stackoverflow.com/questions/2442599/how-to-set-jframe-to-appear-centered-regardless-of-monitor-resolution
     // CONSTRUCTOR
     // EFFECTS: creates a new NoteRenameGUI
-    public NoteRenameGUI(NoteGUI noteGUI) {
+    public NoteRenameGUI(ToolsGUI toolsGUI) {
         super("Rename Note", WIDTH, HEIGHT);
-        this.noteGUI = noteGUI;
+        noteGUI = toolsGUI.getNoteGUI();
 
         addUIElements();
     }
