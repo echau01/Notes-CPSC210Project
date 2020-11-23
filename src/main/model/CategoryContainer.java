@@ -15,7 +15,7 @@ public class CategoryContainer implements Writable {
     }
 
     // MODIFIES: this
-    // EFFECTS: constructs an empty category
+    // EFFECTS: adds the given category
     public void addCategory(Category c) {
         categories.put(c.getName(), c);
     }

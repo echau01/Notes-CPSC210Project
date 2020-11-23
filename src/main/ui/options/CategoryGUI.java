@@ -119,6 +119,14 @@ public class CategoryGUI extends ContainerGUI {
         return button;
     }
 
+    // MODIFIES: this
+    // EFFECTS: saves the ctyc to file
+    @Override
+    protected void saveCategoryContainer() {
+        ctyc.addCategory(cty);
+        super.saveCategoryContainer();
+    }
+
     // EFFECTS: refreshes the ui
     @Override
     protected void refresh() {
