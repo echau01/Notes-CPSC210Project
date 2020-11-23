@@ -9,7 +9,6 @@ import ui.ErrorGUI;
 import ui.NoteGUI;
 import ui.PopupGUI;
 import ui.ToolsGUI;
-import ui.tools.Tools;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,6 +34,27 @@ public abstract class ContainerGUI extends PopupGUI {
 
         loadCategoryContainer();
     }
+
+    // EFFECTS: returns the button panel
+    protected JPanel makeButtonPanel() {
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(1, 3));
+        buttonPanel.add(createFirstButton());
+        buttonPanel.add(createDeleteButton());
+        buttonPanel.add(createCreationButton());
+        return buttonPanel;
+    }
+
+
+    // EFFECTS: makes and returns the first button
+    abstract JButton createFirstButton();
+
+    // EFFECTS: makes and returns the delete button
+    abstract JButton createDeleteButton();
+
+    // EFFECTS: makes and returns the creation button
+    abstract JButton createCreationButton();
+
 
     // MODIFIES: this
     // EFFECTS: saves the ctyc to file
