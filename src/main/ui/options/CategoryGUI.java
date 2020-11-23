@@ -12,18 +12,10 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class CategoryGUI extends PopupGUI {
-    protected static final int WIDTH = 640;
-    protected static final int HEIGHT = 480;
-    private static final int DIVIDER_SIZE = 0;
-
-    private static final String DESTINATION = "./data/CategoryContainer.json";
+public class CategoryGUI extends ContainerGUI {
     private JsonSaver jsonSaver;
 
-    private final NoteGUI noteGUI;
     private final Category cty;
-    private final CategoryContainer ctyc;
-    private final NotePanel notePane;
     private final CategoryContainerGUI ctycGUI;
 
     private JList ctyPanel;
@@ -31,14 +23,9 @@ public class CategoryGUI extends PopupGUI {
     // CONSTRUCTOR
     // EFFECTS: creates a new CategoryGUI
     CategoryGUI(Category cty, CategoryContainerGUI ctycGUI) {
-        super(cty.getName(), WIDTH, HEIGHT);
-        jsonSaver = new JsonSaver(DESTINATION);
-
+        super(cty.getName(), ctycGUI.toolsGUI);
         this.ctycGUI = ctycGUI;
         this.cty = cty;
-        ctyc = ctycGUI.getCtyc();
-        notePane = ctycGUI.getNoteGUI().getNotePane();
-        noteGUI = ctycGUI.getNoteGUI();
 
         addUIElements();
     }
@@ -111,17 +98,6 @@ public class CategoryGUI extends PopupGUI {
         }
     }
 
-    // MODIFIES: this
-    // EFFECTS: saves the ctyc to file
-    private void saveCategoryContainer() {
-        jsonSaver = new JsonSaver(DESTINATION);
-        try {
-            jsonSaver.save(ctyc);
-        } catch (Exception e) {
-            new ErrorGUI("Error in saving files.", "Cannot save file.");
-            // e.printStackTrace();
-        }
-    }
 
     // EFFECTS: returns a DefaultListModel of all the category names in ctyc
     private DefaultListModel<String> getAllNoteNames() {
@@ -152,7 +128,8 @@ public class CategoryGUI extends PopupGUI {
     }
 
     // EFFECTS: refreshes the ui
-    private void refresh() {
+    @Override
+    protected void refresh() {
         new CategoryGUI(cty, ctycGUI);
         dispose();
     }

@@ -16,14 +16,15 @@ import java.awt.*;
 
 public abstract class ContainerGUI extends PopupGUI {
 
+    private static final String DESTINATION = "./data/CategoryContainer.json";
     protected static final int WIDTH = 640;
     protected static final int HEIGHT = 480;
-    private static final String DESTINATION = "./data/CategoryContainer.json";
+    protected static final int DIVIDER_SIZE = 0;
 
-    private final ToolsGUI toolsGUI;
-    private final NoteGUI noteGUI;
-    private final NotePanel notePane;
-    private model.CategoryContainer ctyc;
+    protected final ToolsGUI toolsGUI;
+    protected final NoteGUI noteGUI;
+    protected final NotePanel notePane;
+    protected model.CategoryContainer ctyc;
 
     public ContainerGUI(String name, ToolsGUI toolsGUI) {
         super(name, WIDTH, HEIGHT);
