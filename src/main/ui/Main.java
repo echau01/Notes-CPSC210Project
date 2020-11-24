@@ -1,6 +1,6 @@
 package ui;
 
-import ui.options.NoteCreationGUI;
+import ui.options.creation.NoteCreationGUI;
 
 public class Main {
 

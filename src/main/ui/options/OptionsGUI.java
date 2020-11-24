@@ -1,16 +1,16 @@
-package ui;
+package ui.options;
 
 import javax.swing.*;
 import java.awt.*;
 
-public abstract class PopupGUI extends JFrame {
+public abstract class OptionsGUI extends JFrame {
     protected Color background = new Color(240, 240, 240);
     protected JButton button;
 
     // https://stackoverflow.com/questions/2442599/how-to-set-jframe-to-appear-centered-regardless-of-monitor-resolution
     // CONSTRUCTOR
     // EFFECTS: creates a new PopupGUI
-    public PopupGUI(String name, int x, int y) {
+    public OptionsGUI(String name, int x, int y) {
         super(name);
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -20,9 +20,6 @@ public abstract class PopupGUI extends JFrame {
         setResizable(false);
         setVisible(true);
     }
-
-    // EFFECTS: adds the ui elements to the gui
-    protected abstract void addUIElements();
 
     // EFFECTS: makes a new JButton with the given name and an empty border
     protected void makeButton(String name) {

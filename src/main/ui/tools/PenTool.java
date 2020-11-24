@@ -3,7 +3,6 @@ package ui.tools;
 import model.NotePanel;
 import model.Pixel;
 import ui.ToolsGUI;
-
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
@@ -11,17 +10,18 @@ import java.awt.event.MouseMotionListener;
 
 // https://stackoverflow.com/questions/23122492/java-jframe-draw
 public class PenTool implements MouseMotionListener {
+    private final ToolsGUI toolsGUI;
+
     private Color colour;
-    private final NotePanel notePanel;
     private boolean active;
 
     // CONSTRUCTOR
     // EFFECTS: creates a new PenTool
     public PenTool(ToolsGUI toolsGUI) {
-        notePanel = toolsGUI.getNoteGUI().getNotePane();
+        this.toolsGUI = toolsGUI;
         colour = toolsGUI.getSelectedColour();
 
-        notePanel.addMouseMotionListener(this);
+        toolsGUI.getNoteGUI().getNotePane().addMouseMotionListener(this);
     }
 
     // MODIFIES: this
@@ -42,6 +42,7 @@ public class PenTool implements MouseMotionListener {
     @Override
     public void mouseDragged(MouseEvent e) {
         if (active) {
+            NotePanel notePanel = toolsGUI.getNoteGUI().getNotePane();
             notePanel.addPixel(new Pixel(e.getX(), e.getY(), colour));
             notePanel.repaint();
         }

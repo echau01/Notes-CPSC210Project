@@ -5,41 +5,36 @@ import org.json.JSONObject;
 import persistence.Writable;
 import java.util.LinkedHashSet;
 
-// TODO: add documentation
 public class NotePanelData implements Writable {
-    private final String title;
-    private final String body;
-    private final LinkedHashSet<Pixel> pixels;
+    private final NotePanel notePanel;
 
     // CONSTRUCTOR
     // EFFECTS: Creates a new note with the given title
-    public NotePanelData(String title, String body, LinkedHashSet<Pixel> pixels) {
-        this.title = title;
-        this.body = body;
-        this.pixels = pixels;
+    public NotePanelData(NotePanel notePanel) {
+        this.notePanel = notePanel;
     }
 
     // EFFECTS: returns the title assigned to the data
     public String getTitle() {
-        return title;
+        return notePanel.getTitle();
     }
 
     // EFFECTS: returns the body of the notes
     public String getBody() {
-        return body;
+        return notePanel.getBody();
     }
 
     // EFFECTS: returns the pixels
     public LinkedHashSet<Pixel> getPixels() {
-        return pixels;
+        return notePanel.getPixels();
     }
 
     // EFFECTS: converts this into a JSONObject
     @Override
     public JSONObject toJson() {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("title", title);
-        jsonObject.put("body", body);
+        jsonObject.put("title", notePanel.getTitle());
+        jsonObject.put("body", notePanel.getBody());
         jsonObject.put("pixels", pixelsToJsonArray());
         return jsonObject;
     }
@@ -47,7 +42,7 @@ public class NotePanelData implements Writable {
     // EFFECTS: places every single line in note body into a single json array
     private JSONArray pixelsToJsonArray() {
         JSONArray jsonArray = new JSONArray();
-        for (Pixel p: pixels) {
+        for (Pixel p: notePanel.getPixels()) {
             jsonArray.put(p.toJson());
         }
         return jsonArray;

@@ -26,3 +26,7 @@ and unneeded notes.
 - As a user, I want to be to rename these notes and categories.
 - As a user, I want to be able to save my notes and categories to file
 - As a user, I want to be able to load my notes and categories from file
+
+Phase 4: Task 2
+- A hashmap has been implemented in both CategoryContainer and Category.
+- Type Hierarchy: ContainerGUI abstracts away code from CategoryContainerGUI and CategoryGUI

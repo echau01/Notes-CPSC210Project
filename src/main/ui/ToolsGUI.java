@@ -1,19 +1,13 @@
 package ui;
 
-import model.NotePanel;
 import ui.options.CategoryContainerGUI;
-import ui.options.NoteRenameGUI;
+import ui.options.rename.NoteRenameGUI;
 import ui.tools.*;
 import javax.swing.*;
 import java.awt.*;
 
 public class ToolsGUI {
     private static final Color BACKGROUND = new Color(240, 240, 240);
-
-    private final JPanel optionsPanel;
-    private final JPanel coloursPanel;
-    private final JPanel toolsPanel;
-    private final NotePanel notePane;
     private final NoteGUI noteGUI;
 
     private Color selectedColour;
@@ -26,10 +20,6 @@ public class ToolsGUI {
     // EFFECTS: creates a new ToolsGUI
     ToolsGUI(NoteGUI noteGUI) {
         this.noteGUI = noteGUI;
-        optionsPanel = noteGUI.getOptionsPanel();
-        coloursPanel = noteGUI.getColoursPanel();
-        toolsPanel = noteGUI.getToolsPanel();
-        notePane = noteGUI.getNotePane();
 
         selectedColour = Color.black;
 
@@ -71,8 +61,9 @@ public class ToolsGUI {
         JButton renameButton = new JButton("Rename Note");
         renameButton.setBorder(BorderFactory.createEmptyBorder());
         renameButton.setBackground(BACKGROUND);
-        renameButton.addActionListener(e -> new NoteRenameGUI(this));
+        renameButton.addActionListener(e -> new NoteRenameGUI(noteGUI));
 
+        JPanel optionsPanel = noteGUI.getOptionsPanel();
         optionsPanel.add(optionsButton);
         optionsPanel.add(renameButton);
     }
@@ -92,6 +83,7 @@ public class ToolsGUI {
             tb.addActionListener(e -> performToolAction(t));
             toolButtons.add(tb);
 
+            JPanel toolsPanel = noteGUI.getToolsPanel();
             toolsPanel.add(tb);
         }
     }
@@ -110,6 +102,8 @@ public class ToolsGUI {
                 selectedColour = c.getColour();
                 penTool.setColour(selectedColour);
             });
+
+            JPanel coloursPanel = noteGUI.getColoursPanel();
             colourButtons.add(cb);
             coloursPanel.add(cb);
         }

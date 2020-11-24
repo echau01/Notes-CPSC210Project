@@ -44,7 +44,7 @@ public class NotePanel extends JPanel {
 
     // EFFECTS: returns the NotePanel, converted to its corresponding NotePanelData object
     public NotePanelData toData() {
-        return new NotePanelData(title, textPane.getText(), pixels);
+        return new NotePanelData(this);
     }
 
     // MODIFIES: this

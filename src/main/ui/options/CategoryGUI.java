@@ -2,24 +2,22 @@ package ui.options;
 
 import model.Category;
 import model.NotePanel;
-import ui.ErrorGUI;
 import ui.NoteGUI;
+import ui.options.creation.NoteCreationGUI;
+
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class CategoryGUI extends ContainerGUI {
-    private final Category cty;
     private final CategoryContainerGUI ctycGUI;
-
-    private JList ctyPanel;
 
     // CONSTRUCTOR
     // EFFECTS: creates a new CategoryGUI
-    CategoryGUI(Category cty, CategoryContainerGUI ctycGUI) {
-        super(cty.getName(), ctycGUI.toolsGUI);
+    CategoryGUI(CategoryContainerGUI ctycGUI) {
+        super(ctycGUI.getCty().getName(), ctycGUI.toolsGUI);
+        cty = ctycGUI.getCty();
         this.ctycGUI = ctycGUI;
-        this.cty = cty;
 
         addUIElements();
     }
@@ -28,7 +26,7 @@ public class CategoryGUI extends ContainerGUI {
     // EFFECTS: deletes the selected note and saves ctyc, then refreshes ui
     private void deleteNote() {
         try {
-            String selected = ctyPanel.getSelectedValue().toString();
+            String selected = objPanel.getSelectedValue().toString();
             cty.removeNotesByName(selected);
             saveCategoryContainer();
             refresh();
@@ -39,7 +37,8 @@ public class CategoryGUI extends ContainerGUI {
 
 
     // EFFECTS: returns a DefaultListModel of all the category names in ctyc
-    private DefaultListModel<String> getAllNoteNames() {
+    @Override
+    protected DefaultListModel<String> getAllObjectNames() {
         DefaultListModel<String> model = new DefaultListModel<>();
         for (NotePanel notes: cty.getNotesOnly()) {
             model.addElement(notes.getTitle());
@@ -49,8 +48,9 @@ public class CategoryGUI extends ContainerGUI {
 
     // EFFECTS: adds a mouse listener to ctyPanel - the mouse listener will check for double clicks on selected items
     //          creates a new noteGUI with the selected notePanel if item is double clicked
-    private void ctyPanelAddMouseListener() {
-        ctyPanel.addMouseListener(new MouseAdapter() {
+    @Override
+    protected void objPanelAddMouseListener() {
+        objPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 JList list = (JList) e.getSource();
@@ -59,28 +59,11 @@ public class CategoryGUI extends ContainerGUI {
                     String key = list.getSelectedValue().toString();
                     NotePanel selectedNotePanel = cty.getNotes().get(key);
                     new NoteGUI(selectedNotePanel);
-                    noteGUI.dispose();
+                    toolsGUI.getNoteGUI().dispose();
                     dispose();
                 }
             }
         });
-    }
-
-    // MODIFIES: this
-    // EFFECTS: initialises and adds the all the ui elements (buttons, text panels etc.) to the main window
-    @Override
-    protected void addUIElements() {
-        ctyPanel = new JList(getAllNoteNames());
-        ctyPanel.setBorder(BorderFactory.createTitledBorder("Notes"));
-        ctyPanelAddMouseListener();
-
-        JPanel buttonPanel = makeButtonPanel();
-
-        JSplitPane divider = new JSplitPane(JSplitPane.VERTICAL_SPLIT, ctyPanel, buttonPanel);
-        divider.setDividerLocation(HEIGHT - HEIGHT / 4);
-        divider.setDividerSize(DIVIDER_SIZE);
-        divider.setEnabled(false);
-        add(divider);
     }
 
     // EFFECTS: makes and returns the save button
@@ -89,7 +72,7 @@ public class CategoryGUI extends ContainerGUI {
     protected JButton createFirstButton() {
         super.makeButton("Save");
         button.addActionListener(e -> {
-            cty.addNotes(notePane);
+            cty.addNotes(toolsGUI.getNoteGUI().getNotePane());
             saveCategoryContainer();
             refresh();
         });
@@ -113,7 +96,7 @@ public class CategoryGUI extends ContainerGUI {
         button.addActionListener(e -> {
             new NoteCreationGUI();
             saveCategoryContainer();
-            noteGUI.dispose();
+            toolsGUI.getNoteGUI().dispose();
             dispose();
         });
         return button;
@@ -130,7 +113,7 @@ public class CategoryGUI extends ContainerGUI {
     // EFFECTS: refreshes the ui
     @Override
     protected void refresh() {
-        new CategoryGUI(cty, ctycGUI);
+        new CategoryGUI(ctycGUI);
         dispose();
     }
 }

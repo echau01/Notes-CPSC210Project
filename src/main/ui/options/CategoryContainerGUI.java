@@ -2,8 +2,10 @@ package ui.options;
 
 import model.Category;
 import model.exceptions.NoTitleException;
-import ui.ErrorGUI;
 import ui.ToolsGUI;
+import ui.options.creation.CategoryCreationGUI;
+import ui.options.rename.CategoryRenameGUI;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,7 +13,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class CategoryContainerGUI extends ContainerGUI {
-    private JList ctycPanel;
 
     // CONSTRUCTOR
     // EFFECTS: creates a new CategoryContainerGUI
@@ -36,7 +37,7 @@ public class CategoryContainerGUI extends ContainerGUI {
         if (name.length() == 0) {
             throw new NoTitleException();
         }
-        String selected = ctycPanel.getSelectedValue().toString();
+        String selected = objPanel.getSelectedValue().toString();
         Category selectedCty = ctyc.getCategoryByName(selected);
         selectedCty.setName(name);
         saveCategoryContainer();
@@ -51,7 +52,7 @@ public class CategoryContainerGUI extends ContainerGUI {
     // EFFECTS: creates a new window which provides the steps needed to rename the selected category
     private void createRenameCategoryGUI() {
         try {
-            String selected = ctycPanel.getSelectedValue().toString();
+            String selected = objPanel.getSelectedValue().toString();
             new CategoryRenameGUI(this);
             saveCategoryContainer();
         } catch (NullPointerException e) {
@@ -59,10 +60,19 @@ public class CategoryContainerGUI extends ContainerGUI {
         }
     }
 
+    // EFFECTS: selects the category with the given key
+    private void selectCategory(String key) {
+        Category c = ctyc.getCategories().get(key);
+        cty = c;
+        new CategoryGUI(this);
+        dispose();
+    }
+
     // EFFECTS: adds a mouse listener to ctycPanel - the mouse listener will check for double clicks on selected items
     //          creates a new categoryGUI with the selected category if item is double clicked
-    private void ctycPanelAddMouseListener() {
-        ctycPanel.addMouseListener(new MouseAdapter() {
+    @Override
+    protected void objPanelAddMouseListener() {
+        objPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 JList list = (JList) e.getSource();
@@ -75,38 +85,14 @@ public class CategoryContainerGUI extends ContainerGUI {
         });
     }
 
-    // EFFECTS: selects the category with the given key
-    private void selectCategory(String key) {
-        Category c = ctyc.getCategories().get(key);
-        new CategoryGUI(c, this);
-        dispose();
-    }
-
     // EFFECTS: returns a DefaultListModel of all the category names in ctyc
-    private DefaultListModel<String> getAllCategoryNames() {
+    @Override
+    protected DefaultListModel<String> getAllObjectNames() {
         DefaultListModel<String> model = new DefaultListModel<>();
         for (String name: ctyc.getCategories().keySet()) {
             model.addElement(name);
         }
         return model;
-    }
-
-    // https://stackoverflow.com/questions/4344682/double-click-event-on-jlist-element
-    // MODIFIES: this
-    // EFFECTS: initialises and adds the all the ui elements (buttons, text panels etc.) to the main window
-    @Override
-    protected void addUIElements() {
-        ctycPanel = new JList(getAllCategoryNames());
-        ctycPanel.setBorder(BorderFactory.createTitledBorder("Categories"));
-        ctycPanelAddMouseListener();
-
-        JPanel buttonPanel = makeButtonPanel();
-
-        JSplitPane divider = new JSplitPane(JSplitPane.VERTICAL_SPLIT, ctycPanel, buttonPanel);
-        divider.setDividerLocation(HEIGHT - HEIGHT / 4);
-        divider.setDividerSize(DIVIDER_SIZE);
-        divider.setEnabled(false);
-        add(divider);
     }
 
     // EFFECTS: creates the button which performs the rename category operation
@@ -132,7 +118,7 @@ public class CategoryContainerGUI extends ContainerGUI {
             // EFFECTS: deletes the selected category - saves ctyc and refreshes ui afterwards to reflect the change
             private void deleteCategory() {
                 try {
-                    String selected = ctycPanel.getSelectedValue().toString();
+                    String selected = objPanel.getSelectedValue().toString();
                     ctyc.deleteCategory(selected);
                     saveCategoryContainer();
                     refresh();

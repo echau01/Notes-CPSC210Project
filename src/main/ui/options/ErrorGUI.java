@@ -1,4 +1,4 @@
-package ui;
+package ui.options;
 
 import javax.sound.sampled.*;
 import javax.swing.*;

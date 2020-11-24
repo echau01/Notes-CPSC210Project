@@ -3,21 +3,19 @@ package ui.tools;
 import model.NotePanel;
 import model.Pixel;
 import ui.ToolsGUI;
-
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 
 public class EraserTool implements MouseMotionListener {
-    private final NotePanel notePanel;
+    private final ToolsGUI toolsGUI;
     private boolean active;
 
     // CONSTRUCTOR
     // EFFECTS: creates a new EraserTool
     public EraserTool(ToolsGUI toolsGUI) {
-        notePanel = toolsGUI.getNoteGUI().getNotePane();
-
-        notePanel.addMouseMotionListener(this);
+        this.toolsGUI = toolsGUI;
+        toolsGUI.getNoteGUI().getNotePane().addMouseMotionListener(this);
     }
 
     // EFFECTS: toggles whether EraserTool is active or not
@@ -31,6 +29,7 @@ public class EraserTool implements MouseMotionListener {
     @Override
     public void mouseDragged(MouseEvent e) {
         if (active) {
+            NotePanel notePanel = toolsGUI.getNoteGUI().getNotePane();
             notePanel.removePixel(new Pixel(e.getX(), e.getY(), Color.BLACK));
             notePanel.repaint();
         }

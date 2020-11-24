@@ -1,19 +1,15 @@
 package ui.options;
 
 import model.Category;
-import model.NotePanel;
 import model.exceptions.NoTitleException;
 import persistence.JsonParser;
 import persistence.JsonSaver;
-import ui.ErrorGUI;
-import ui.NoteGUI;
-import ui.PopupGUI;
 import ui.ToolsGUI;
 
 import javax.swing.*;
 import java.awt.*;
 
-public abstract class ContainerGUI extends PopupGUI {
+public abstract class ContainerGUI extends OptionsGUI {
 
     private static final String DESTINATION = "./data/CategoryContainer.json";
     protected static final int WIDTH = 640;
@@ -21,18 +17,22 @@ public abstract class ContainerGUI extends PopupGUI {
     protected static final int DIVIDER_SIZE = 0;
 
     protected final ToolsGUI toolsGUI;
-    protected final NoteGUI noteGUI;
-    protected final NotePanel notePane;
     protected model.CategoryContainer ctyc;
+    protected model.Category cty;
+
+    protected JList objPanel;
 
     public ContainerGUI(String name, ToolsGUI toolsGUI) {
         super(name, WIDTH, HEIGHT);
 
         this.toolsGUI = toolsGUI;
-        notePane = toolsGUI.getNoteGUI().getNotePane();
-        noteGUI = toolsGUI.getNoteGUI();
 
         loadCategoryContainer();
+    }
+
+    // EFFECTS: returns the selected category
+    public Category getCty() {
+        return cty;
     }
 
     // EFFECTS: returns the button panel
@@ -45,6 +45,26 @@ public abstract class ContainerGUI extends PopupGUI {
         return buttonPanel;
     }
 
+    // EFFECTS: initialises and adds the all the ui elements (buttons, text panels etc.) to the main window
+    protected void addUIElements() {
+        objPanel = new JList(getAllObjectNames());
+        objPanel.setBorder(BorderFactory.createTitledBorder("Notes"));
+        objPanelAddMouseListener();
+
+        JPanel buttonPanel = makeButtonPanel();
+
+        JSplitPane divider = new JSplitPane(JSplitPane.VERTICAL_SPLIT, objPanel, buttonPanel);
+        divider.setDividerLocation(HEIGHT - HEIGHT / 4);
+        divider.setDividerSize(DIVIDER_SIZE);
+        divider.setEnabled(false);
+        add(divider);
+    }
+
+    // EFFECTS: adds a mouse listener to objPanel
+    protected abstract void objPanelAddMouseListener();
+
+    // EFFECTS: returns the names of everything in the container in array form
+    protected abstract DefaultListModel<String> getAllObjectNames();
 
     // EFFECTS: makes and returns the first button
     abstract JButton createFirstButton();
@@ -54,7 +74,6 @@ public abstract class ContainerGUI extends PopupGUI {
 
     // EFFECTS: makes and returns the creation button
     abstract JButton createCreationButton();
-
 
     // MODIFIES: this
     // EFFECTS: saves the ctyc to file
@@ -89,7 +108,7 @@ public abstract class ContainerGUI extends PopupGUI {
         try {
             Category cty = new Category("Untitled");
             ctyc = new model.CategoryContainer();
-            cty.addNotes(notePane);
+            cty.addNotes(toolsGUI.getNoteGUI().getNotePane());
             ctyc.addCategory(cty);
             saveCategoryContainer();
         } catch (NoTitleException e) {
