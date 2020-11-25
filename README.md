@@ -33,5 +33,7 @@ and unneeded notes.
 
 ## Phase 4: Task 3
 - If I had more time to work on the project, I would have rebuilt the entire thing from the ground up using the design 
-  methods we learned to reduce code duplication. As of now, my code has severely bad duplication and no clear way of 
-  avoiding this. Had I done the proper planning beforehand, my code could have ended up much cleaner.
+  methods we learned, such as drawing a UML diagram beforehand, to reduce code duplication. As of now, my code has 
+  severely bad duplication and no clear way of avoiding this. Had I done the proper planning beforehand, my code could 
+  have ended up much cleaner. Coupling seems fair at the moment given the UML diagram, but it the structure of my code
+  means a lot of duplication is going on.
