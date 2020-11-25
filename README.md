@@ -27,6 +27,11 @@ and unneeded notes.
 - As a user, I want to be able to save my notes and categories to file
 - As a user, I want to be able to load my notes and categories from file
 
-Phase 4: Task 2
+## Phase 4: Task 2
 - A hashmap has been implemented in both CategoryContainer and Category.
-- Type Hierarchy: ContainerGUI abstracts away code from CategoryContainerGUI and CategoryGUI
+- Type Hierarchy: ContainerGUI abstracts away code from CategoryContainerGUI and CategoryGUI, etc.
+
+## Phase 4: Task 3
+- If I had more time to work on the project, I would have rebuilt the entire thing from the ground up using the design 
+  methods we learned to reduce code duplication. As of now, my code has severely bad duplication and no clear way of 
+  avoiding this. Had I done the proper planning beforehand, my code could have ended up much cleaner.
