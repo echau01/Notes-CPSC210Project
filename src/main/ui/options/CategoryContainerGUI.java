@@ -62,8 +62,7 @@ public class CategoryContainerGUI extends ContainerGUI {
 
     // EFFECTS: selects the category with the given key
     private void selectCategory(String key) {
-        Category c = ctyc.getCategories().get(key);
-        cty = c;
+        cty = ctyc.getCategories().get(key);
         new CategoryGUI(this);
         dispose();
     }

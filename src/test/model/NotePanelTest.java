@@ -138,7 +138,7 @@ class NotePanelTest {
 
     // EFFECTS: creates a generic MouseMotionListener
     private MouseMotionListener makeMouseListener() {
-        MouseMotionListener mml = new MouseMotionListener() {
+        return new MouseMotionListener() {
             @Override
             public void mouseDragged(MouseEvent e) {
             }
@@ -146,7 +146,6 @@ class NotePanelTest {
             public void mouseMoved(MouseEvent e) {
             }
         };
-        return mml;
     }
 
 

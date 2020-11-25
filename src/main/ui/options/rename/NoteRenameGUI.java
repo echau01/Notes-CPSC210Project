@@ -2,7 +2,6 @@ package ui.options.rename;
 
 import model.exceptions.NoTitleException;
 import ui.NoteGUI;
-import ui.ToolsGUI;
 
 import javax.swing.*;
 

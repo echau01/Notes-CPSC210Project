@@ -1,10 +1,8 @@
 package ui.options;
 
-import model.Category;
 import model.NotePanel;
 import ui.NoteGUI;
 import ui.options.creation.NoteCreationGUI;
-
 import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
