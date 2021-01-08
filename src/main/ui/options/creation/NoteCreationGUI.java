@@ -12,6 +12,7 @@ public class NoteCreationGUI extends CreationGUI {
     // EFFECTS: creates a new NoteCreationGUI
     public NoteCreationGUI() {
         super("Note Creation");
+        super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         addUIElements();
         validate();
     }

@@ -1,2 +1,4 @@
 *.class
-workspace.xml
+/.idea/workspace.xml
+/data/CategoryContainer.json
+/.idea/vcs.xml

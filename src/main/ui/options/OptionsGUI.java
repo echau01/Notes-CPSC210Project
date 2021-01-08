@@ -12,7 +12,6 @@ public abstract class OptionsGUI extends JFrame {
     // EFFECTS: creates a new PopupGUI
     public OptionsGUI(String name, int x, int y) {
         super(name);
-
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - x / 2, dim.height / 2 - y / 2);
 

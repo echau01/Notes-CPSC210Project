@@ -22,6 +22,7 @@ public class NoteGUI extends JFrame {
     // EFFECTS: creates a new NoteGUI with the given NotePanel
     public NoteGUI(NotePanel notePane) {
         super(notePane.getTitle());
+        super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.notePane = notePane;
 
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
