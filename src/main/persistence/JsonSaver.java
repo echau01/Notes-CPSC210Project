@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 public class JsonSaver {
     private PrintWriter printWriter;
     private final String filePath;
-    private static int TAB = 4;
+    private static final int TAB = 4;
 
     // CONSTRUCTOR
     // EFFECTS: constructs a new jsonSaver with the given filePath
@@ -28,7 +28,7 @@ public class JsonSaver {
 
     // MODIFIES: this
     // EFFECTS: initialises the printWriter object with the given file at filePath
-    //          throws FileNotFoundException if the file is not found at filePath
+    //          throws FileNotFoundException if the file could not be opened
     private void initWriter() throws FileNotFoundException {
         printWriter = new PrintWriter(new File(filePath));
     }

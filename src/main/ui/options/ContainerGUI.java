@@ -2,12 +2,15 @@ package ui.options;
 
 import model.Category;
 import model.CategoryContainer;
+import model.exceptions.NoTitleException;
 import persistence.JsonParser;
 import persistence.JsonSaver;
 import ui.ToolsGUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public abstract class ContainerGUI extends OptionsGUI {
 
@@ -81,8 +84,8 @@ public abstract class ContainerGUI extends OptionsGUI {
         JsonSaver jsonSaver = new JsonSaver(DESTINATION);
         try {
             jsonSaver.save(ctyc);
-        } catch (Exception e) {
-            new ErrorGUI("Error in saving files.", "Cannot save file.");
+        } catch (FileNotFoundException e) {
+            new ErrorGUI("Error: file " + DESTINATION + " could not be accessed!", "Cannot save file.");
             // e.printStackTrace();
         }
     }
@@ -94,7 +97,7 @@ public abstract class ContainerGUI extends OptionsGUI {
         JsonParser jsonParser = new JsonParser(DESTINATION);
         try {
             ctyc = jsonParser.parseFile();
-        } catch (Exception e) {
+        } catch (IOException | NoTitleException e) {
             new ErrorGUI("Error loading saved files. Creating default files.", "File load error");
             generateDefaultFiles();
             refresh();

@@ -3,6 +3,7 @@ package ui.options;
 import javax.sound.sampled.*;
 import javax.swing.*;
 import java.io.File;
+import java.io.IOException;
 
 // https://stackoverflow.com/questions/7080205/popup-message-boxes
 public class ErrorGUI {
@@ -24,7 +25,7 @@ public class ErrorGUI {
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.start();
-        } catch (Exception e) {
+        } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
             System.out.println("Error when playing audio stream.");
             e.printStackTrace();
         }
