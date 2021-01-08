@@ -1,4 +1,4 @@
 package model.exceptions;
 
-public class NoTitleException extends Exception {
+public class NoTitleException extends RuntimeException {
 }

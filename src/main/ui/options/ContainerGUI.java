@@ -1,7 +1,7 @@
 package ui.options;
 
 import model.Category;
-import model.exceptions.NoTitleException;
+import model.CategoryContainer;
 import persistence.JsonParser;
 import persistence.JsonSaver;
 import ui.ToolsGUI;
@@ -105,16 +105,11 @@ public abstract class ContainerGUI extends OptionsGUI {
     // MODIFIES: this
     // EFFECTS: generates default files to save
     private void generateDefaultFiles() {
-        try {
-            Category cty = new Category("Untitled");
-            ctyc = new model.CategoryContainer();
-            cty.addNotes(toolsGUI.getNoteGUI().getNotePane());
-            ctyc.addCategory(cty);
-            saveCategoryContainer();
-        } catch (NoTitleException e) {
-            new ErrorGUI("This should never be thrown. Something has gone horribly wrong.", "Error");
-            e.printStackTrace();
-        }
+        Category cty = new Category("Untitled");
+        ctyc = new CategoryContainer();
+        cty.addNotes(toolsGUI.getNoteGUI().getNotePane());
+        ctyc.addCategory(cty);
+        saveCategoryContainer();
     }
 
     abstract void refresh();
